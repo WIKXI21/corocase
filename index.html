@@ -1160,15 +1160,15 @@
     </div>
 
     <script>
-// Script completo CORREGIDO - Versión Funcional
+// Script para GitHub Pages - SOLO CORREO
 document.addEventListener('DOMContentLoaded', function() {
     const quoteForm = document.getElementById('repairQuoteForm');
     
-    // ========== FORMULARIO MEJORADO ==========
     if (quoteForm) {
         quoteForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            // Mostrar loading
             const submitBtn = quoteForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             submitBtn.innerHTML = '⏳ Enviando...';
@@ -1183,198 +1183,56 @@ document.addEventListener('DOMContentLoaded', function() {
                     deviceModel: document.getElementById('deviceModel').value,
                     repairType: document.getElementById('repairType').value,
                     description: document.getElementById('description').value || 'No especificado',
-                    customerEmail: document.getElementById('customerEmail')?.value || 'No proporcionado',
                     timestamp: new Date().toLocaleString('es-CO'),
-                    action: 'sendQuote' // Para identificar la acción en el script
+                    action: 'sendQuote'
                 };
                 
                 console.log('📤 Datos a enviar:', formData);
                 
-                // Validación mejorada
+                // Validación
                 if (!formData.deviceType || !formData.deviceModel || !formData.repairType) {
                     throw new Error('Por favor completa todos los campos obligatorios.');
                 }
                 
                 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbwOORLH_xgkBI9f3ItVtbOiaJkxGuHOXE3ohfw1ULwqSyNws8kXQV_siUiq_as4g0mf/exec';
                 
-                console.log('🌐 URL del backend:', BACKEND_URL);
+                console.log('🌐 Enviando a Google Apps Script...');
                 
-                // ENVÍO MEJORADO - Usar FormData para evitar CORS
-                const result = await sendToGoogleScriptImproved(BACKEND_URL, formData);
+                // Envío con fetch
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(formData).toString()
+                });
                 
-                if (result.success) {
-                    showSuccessMessage(formData);
+                console.log('📥 Respuesta recibida, status:', response.status);
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('✅ Éxito:', result);
+                    
+                    // Mostrar mensaje de éxito
+                    alert(`✅ ¡Cotización enviada exitosamente!\n\n📱 ${formData.deviceType} ${formData.deviceModel}\n🛠️ ${formData.repairType}\n📝 ${formData.description}\n\n📧 Email enviado a: serviciotecnico@rommiui.com\n📞 Te contactaremos en menos de 24 horas`);
                     quoteForm.reset();
+                    
                 } else {
-                    throw new Error(result.error || 'Error desconocido al enviar');
+                    throw new Error(`Error del servidor: ${response.status}`);
                 }
                 
             } catch (error) {
-                console.error('❌ Error en el formulario:', error);
-                handleFormError(error, formData);
+                console.error('❌ Error:', error);
+                alert('❌ Error al enviar la cotización. Por favor intenta nuevamente.');
+                
             } finally {
+                // Restaurar botón
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             }
         });
     }
-    
-    // Resto de tu código (tema, carrusel, etc.)
-    initializeTheme();
-    initializeCarousel();
 });
-
-// ========== FUNCIÓN DE ENVÍO MEJORADA ==========
-async function sendToGoogleScriptImproved(url, data) {
-    try {
-        console.log('🔗 Intentando método mejorado...');
-        
-        // Convertir datos a FormData (mejor compatibilidad)
-        const formData = new FormData();
-        Object.keys(data).forEach(key => {
-            formData.append(key, data[key]);
-        });
-        
-        // Usar fetch con mode 'no-cors' para evitar bloqueos
-        const response = await fetch(url, {
-            method: 'POST',
-            mode: 'no-cors', // ← Esto evita problemas CORS
-            body: formData
-        });
-        
-        // Con 'no-cors' no podemos leer la respuesta, pero asumimos éxito
-        console.log('✅ Petición enviada (no-cors mode)');
-        return { success: true, message: 'Cotización enviada correctamente' };
-        
-    } catch (error) {
-        console.log('⚠️ Método principal falló:', error.message);
-        
-        // Método de respaldo: Google Forms
-        return await backupMethod(data);
-    }
-}
-
-// ========== MÉTODO DE RESPALDO ==========
-async function backupMethod(data) {
-    try {
-        console.log('🔄 Usando método de respaldo...');
-        
-        // Crear formulario dinámico
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = 'https://script.google.com/macros/s/AKfycbwOORLH_xgkBI9f3ItVtbOiaJkxGuHOXE3ohfw1ULwqSyNws8kXQV_siUiq_as4g0mf/exec';
-        form.target = '_blank';
-        form.style.display = 'none';
-        
-        // Agregar campos
-        Object.keys(data).forEach(key => {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = key;
-            input.value = data[key];
-            form.appendChild(input);
-        });
-        
-        document.body.appendChild(form);
-        form.submit();
-        document.body.removeChild(form);
-        
-        console.log('✅ Formulario de respaldo enviado');
-        return { success: true, message: 'Cotización enviada (método respaldo)' };
-        
-    } catch (error) {
-        console.error('❌ Todos los métodos fallaron:', error);
-        return { 
-            success: false, 
-            error: 'No se pudo enviar la cotización automáticamente. Por favor usa WhatsApp.' 
-        };
-    }
-}
-
-// ========== FUNCIONES AUXILIARES ==========
-function showSuccessMessage(formData) {
-    // Mostrar mensaje de éxito mejorado
-    const successHTML = `
-        <div style="
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-            z-index: 10000;
-            max-width: 400px;
-            text-align: center;
-        " id="successModal">
-            <h3 style="color: #25D366; margin-bottom: 15px;">✅ ¡Cotización Enviada!</h3>
-            <div style="text-align: left; margin-bottom: 15px;">
-                <p><strong>📱 Dispositivo:</strong> ${formData.deviceType}</p>
-                <p><strong>🔧 Modelo:</strong> ${formData.deviceModel}</p>
-                <p><strong>🛠️ Reparación:</strong> ${formData.repairType}</p>
-                <p><strong>📝 Descripción:</strong> ${formData.description}</p>
-                <p><strong>⏰ Fecha:</strong> ${formData.timestamp}</p>
-            </div>
-            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
-                📧 Email enviado a: serviciotecnico@rommiui.com
-            </p>
-            <button onclick="closeSuccessModal()" style="
-                background: #25D366;
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-                cursor: pointer;
-            ">Cerrar</button>
-        </div>
-        <div style="
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 9999;
-        " id="successOverlay"></div>
-    `;
-    
-    document.body.insertAdjacentHTML('beforeend', successHTML);
-}
-
-function closeSuccessModal() {
-    const modal = document.getElementById('successModal');
-    const overlay = document.getElementById('successOverlay');
-    if (modal) modal.remove();
-    if (overlay) overlay.remove();
-}
-
-function handleFormError(error, formData) {
-    console.error('🔴 Error detallado:', error);
-    
-    const errorMessage = `
-        ❌ Error técnico al enviar\n\n
-        Pero no te preocupes, podemos contactarte por WhatsApp:\n\n
-        📱 ${formData.deviceType} ${formData.deviceModel}\n
-        🛠️ ${formData.repairType}\n
-        📝 ${formData.description}\n\n
-        ¿Quieres contactarnos por WhatsApp ahora?
-    `;
-    
-    if (confirm(errorMessage)) {
-        const whatsappMessage = `¡Hola! Necesito cotizar esta reparación:%0A%0A` +
-                               `📱 *Dispositivo:* ${formData.deviceType}%0A` +
-                               `🔧 *Modelo:* ${formData.deviceModel}%0A` +
-                               `🛠️ *Tipo de reparación:* ${formData.repairType}%0A` +
-                               `📝 *Problema:* ${formData.description}%0A%0A` +
-                               `⏰ *Fecha:* ${formData.timestamp}%0A%0A` +
-                               `💬 *Cotización solicitada desde la web*`;
-        
-        const whatsappURL = `https://wa.me/573014959147?text=${whatsappMessage}`;
-        window.open(whatsappURL, '_blank');
-    }
-}
-
 // ========== INICIALIZACIÓN ==========
 function initializeTheme() {
     const themeToggle = document.getElementById('themeToggle');
