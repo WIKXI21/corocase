@@ -1231,12 +1231,14 @@
             }
         });
 
-        // Carrusel de productos
+// ==================== CARRUSEL DE PRODUCTOS ====================
 let currentSlide = 0;
 
 function showSlide(n) {
     const slides = document.querySelectorAll('.carousel-slide');
     const dots = document.querySelectorAll('.dot');
+    
+    if (slides.length === 0) return; // Si no hay slides, salir
     
     // Si llega al final, vuelve al inicio
     if (n >= slides.length) {
@@ -1248,12 +1250,22 @@ function showSlide(n) {
     }
     
     // Oculta todas las slides
-    slides.forEach(slide => slide.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
+    slides.forEach(slide => {
+        slide.classList.remove('active');
+    });
+    
+    dots.forEach(dot => {
+        dot.classList.remove('active');
+    });
     
     // Muestra la slide actual
-    slides[currentSlide].classList.add('active');
-    dots[currentSlide].classList.add('active');
+    if (slides[currentSlide]) {
+        slides[currentSlide].classList.add('active');
+    }
+    
+    if (dots[currentSlide]) {
+        dots[currentSlide].classList.add('active');
+    }
 }
 
 function moveSlide(n) {
@@ -1264,15 +1276,23 @@ function currentSlide(n) {
     showSlide(n);
 }
 
-// Cambio automático cada 5 segundos
-setInterval(() => {
-    moveSlide(1);
-}, 5000);
-
-// Inicializar carrusel
+// Inicializar carrusel cuando la página cargue
 document.addEventListener('DOMContentLoaded', function() {
+    // Esperar un poco para asegurar que el DOM esté listo
+    setTimeout(() => {
+        showSlide(0);
+        
+        // Cambio automático cada 5 segundos
+        setInterval(() => {
+            moveSlide(1);
+        }, 5000);
+    }, 100);
+});
+
+// También inicializar cuando la página se cargue completamente
+window.addEventListener('load', function() {
     showSlide(0);
 });
-    </script>
+</script>
 </body>
 </html>
