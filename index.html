@@ -784,8 +784,8 @@
     <!-- Hero Section -->
     <section class="hero" id="inicio">
         <div class="container">
-            <h1>Protección con Estilo</h1>
-            <p>Descubre nuestra exclusiva colección de fundas y accesorios para celulares. Diseños únicos, máxima protección y materiales de primera calidad.</p>
+            <h1>Protección de la mejor calidad y con estilo</h1>
+            <p>Descubre nuestra exclusiva colección de fundas y accesorios para celulares. Diseños únicos, máxima protección y materiales de primera calidad y a precios tan bajos que dan gusto.</p>
             <a href="#productos" class="btn">Ver Productos</a>
         </div>
     </section>
@@ -798,6 +798,7 @@
                 <p>Encuentra la funda perfecta para tu dispositivo</p>
             </div>
             <div class="product-grid">
+            
                 <!-- Producto 1 -->
                 <div class="product-card">
                     <div class="product-img">
@@ -865,7 +866,7 @@
                 <img src="images/funda-tipo-cartera-piel.jpg" alt="Funda tipo cartera COROCASE - Color piel" loading="lazy">
             </div>
             <div class="carousel-slide">
-                <img src="images/funda-tipo-cartera-blanco.jpg" alt="Funda tipo cartera COROCASE - Color blanco" loading="lazy">
+                <img src="images/funda-tipo-cartera-blanca.jpg" alt="Funda tipo cartera COROCASE - Color blanco" loading="lazy">
             </div>
             <img src="images/funda-tipo-cartera-cafe.jpg" alt="Funda tipo cartera COROCASE - Color cafe" loading="lazy">
             </div>
@@ -1150,148 +1151,120 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const quoteForm = document.getElementById('repairQuoteForm');
-            
-            if (quoteForm) {
-                quoteForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const formData = new FormData(quoteForm);
-                    const deviceType = formData.get('deviceType');
-                    const deviceModel = formData.get('deviceModel');
-                    const repairType = formData.get('repairType');
-                    const description = formData.get('description');
-                    
-                    alert(`¡Cotización solicitada!\n\nDispositivo: ${deviceType}\nModelo: ${deviceModel}\nReparación: ${repairType}\n\nTe contactaremos en 24 horas.`);
-                    
-                    quoteForm.reset();
-                });
-            }
-            
-            const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = document.getElementById('themeIcon');
-
-            // Cargar tema guardado
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-theme');
-                themeIcon.textContent = '☀️';
-            }
-
-            // Evento para cambiar tema
-            themeToggle.addEventListener('click', function() {
-                document.body.classList.toggle('dark-theme');
-                
-                if (document.body.classList.contains('dark-theme')) {
-                    themeIcon.textContent = '☀️';
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    themeIcon.textContent = '🌙';
-                    localStorage.setItem('theme', 'light');
-                }
-            });
-        });
-
-        // WhatsApp Widget Functions
-        function toggleOptions() {
-            const options = document.getElementById('whatsappOptions');
-            options.classList.toggle('active');
-        }
-
-        function closeOptions() {
-            const options = document.getElementById('whatsappOptions');
-            options.classList.remove('active');
-        }
-
-        function sendWhatsApp(type) {
-            const phoneNumber = '+573014959147';
-            let message = '';
-            
-            if (type === 'repair') {
-                message = 'Hola, me interesa arreglar mi teléfono. ¿Podrían regalarme precios?';
-            } else if (type === 'case') {
-                message = 'Hola, quiero comprar una funda para mi celular. ¿Qué modelo manejas y a qué precio?';
-            }
-            
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-            
-            window.open(whatsappURL, '_blank');
-            closeOptions();
-        }
-
-        // Cerrar opciones al hacer clic fuera
-        document.addEventListener('click', function(event) {
-            const widget = document.querySelector('.whatsapp-widget');
-            const options = document.getElementById('whatsappOptions');
-            
-            if (!widget.contains(event.target) && options.classList.contains('active')) {
-                closeOptions();
-            }
-        });
-
-// ==================== CARRUSEL DE PRODUCTOS ====================
-let currentSlide = 0;
-
-function showSlide(n) {
-    const slides = document.querySelectorAll('.carousel-slide');
-    const dots = document.querySelectorAll('.dot');
-    
-    if (slides.length === 0) return; // Si no hay slides, salir
-    
-    // Si llega al final, vuelve al inicio
-    if (n >= slides.length) {
-        currentSlide = 0;
-    } else if (n < 0) {
-        currentSlide = slides.length - 1;
-    } else {
-        currentSlide = n;
-    }
-    
-    // Oculta todas las slides
-    slides.forEach(slide => {
-        slide.classList.remove('active');
-    });
-    
-    dots.forEach(dot => {
-        dot.classList.remove('active');
-    });
-    
-    // Muestra la slide actual
-    if (slides[currentSlide]) {
-        slides[currentSlide].classList.add('active');
-    }
-    
-    if (dots[currentSlide]) {
-        dots[currentSlide].classList.add('active');
-    }
-}
-
-function moveSlide(n) {
-    showSlide(currentSlide + n);
-}
-
-function currentSlide(n) {
-    showSlide(n);
-}
-
-// Inicializar carrusel cuando la página cargue
+// Script completo CORREGIDO
 document.addEventListener('DOMContentLoaded', function() {
-    // Esperar un poco para asegurar que el DOM esté listo
+    // Formulario de cotización
+    const quoteForm = document.getElementById('repairQuoteForm');
+    
+    if (quoteForm) {
+        quoteForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(quoteForm);
+            const deviceType = formData.get('deviceType');
+            const deviceModel = formData.get('deviceModel');
+            const repairType = formData.get('repairType');
+            const description = formData.get('description');
+            
+            alert(`¡Cotización solicitada!\n\nDispositivo: ${deviceType}\nModelo: ${deviceModel}\nReparación: ${repairType}\n\nTe contactaremos en 24 horas.`);
+            
+            quoteForm.reset();
+        });
+    }
+    
+    // Tema oscuro/claro
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        themeIcon.textContent = '☀️';
+    }
+
+    themeToggle.addEventListener('click', function() {
+        document.body.classList.toggle('dark-theme');
+        
+        if (document.body.classList.contains('dark-theme')) {
+            themeIcon.textContent = '☀️';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            themeIcon.textContent = '🌙';
+            localStorage.setItem('theme', 'light');
+        }
+    });
+    
+    // ========== CARRUSEL ==========
+    let currentSlide = 0;
+    
+    function showSlide(n) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.dot');
+        
+        if (slides.length === 0) return;
+        
+        if (n >= slides.length) currentSlide = 0;
+        else if (n < 0) currentSlide = slides.length - 1;
+        else currentSlide = n;
+        
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        if (slides[currentSlide]) slides[currentSlide].classList.add('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+    }
+    
+    window.moveSlide = function(n) {
+        showSlide(currentSlide + n);
+    };
+    
+    window.currentSlide = function(n) {
+        showSlide(n);
+    };
+    
+    // Inicializar carrusel
     setTimeout(() => {
         showSlide(0);
-        
-        // Cambio automático cada 5 segundos
-        setInterval(() => {
-            moveSlide(1);
-        }, 5000);
-    }, 100);
+        setInterval(() => moveSlide(1), 5000);
+    }, 500);
 });
 
-// También inicializar cuando la página se cargue completamente
-window.addEventListener('load', function() {
-    showSlide(0);
+// WhatsApp Functions
+function toggleOptions() {
+    const options = document.getElementById('whatsappOptions');
+    options.classList.toggle('active');
+}
+
+function closeOptions() {
+    const options = document.getElementById('whatsappOptions');
+    options.classList.remove('active');
+}
+
+function sendWhatsApp(type) {
+    const phoneNumber = '+573014959147';
+    let message = '';
+    
+    if (type === 'repair') {
+        message = 'Hola, me interesa arreglar mi teléfono. ¿Podrían regalarme precios?';
+    } else if (type === 'case') {
+        message = 'Hola, quiero comprar una funda para mi celular. ¿Qué modelo manejas y a qué precio?';
+    }
+    
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    window.open(whatsappURL, '_blank');
+    closeOptions();
+}
+
+// Cerrar opciones WhatsApp al hacer clic fuera
+document.addEventListener('click', function(event) {
+    const widget = document.querySelector('.whatsapp-widget');
+    const options = document.getElementById('whatsappOptions');
+    
+    if (!widget.contains(event.target) && options && options.classList.contains('active')) {
+        closeOptions();
+    }
 });
 </script>
 </body>
