@@ -1160,7 +1160,6 @@
     </div>
 
 <script>
-
 // ========== SISTEMA DE CORREO MEJORADO ==========
 document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ Página cargada - Inicializando...');
@@ -1206,7 +1205,7 @@ function setupQuoteForm() {
                 }
                 
                 // ✅ NUEVO URL DE GOOGLE APPS SCRIPT
-                const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbwJaJ9F8WnEV0OkOv8yPrih2hd0fjYxPx_ytWdmEuiWlWb1bXQm_kV2acTXiqDSGIcc/exec';
+                const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbzsW-GzKpQZa9qFcGmzKMbo8y5KFZAMqoU0FEkjyJmCtzCvU7S62A0lel75sMMix3KB/exec';
                 
                 console.log('🌐 Enviando a NUEVO Google Apps Script...');
                 
@@ -1214,7 +1213,8 @@ function setupQuoteForm() {
                 const success = await sendToNewGoogleScript(BACKEND_URL, formData);
                 
                 if (success) {
-                    showSuccessMessage(formData);
+                    // MOSTRAR MENSAJE DE ÉXITO DIRECTAMENTE
+                    alert(`✅ ¡Cotización enviada exitosamente!\n\n📱 ${formData.deviceType} ${formData.deviceModel}\n🛠️ ${formData.repairType}\n📝 ${formData.description}\n\n📧 Email enviado a: serviciotecnico@rommiui.com\n📞 Te contactaremos en menos de 24 horas`);
                     quoteForm.reset();
                 } else {
                     throw new Error('No se pudo enviar la cotización');
@@ -1267,6 +1267,7 @@ async function sendToNewGoogleScript(url, formData) {
         return true;
     }
 }
+
 // ========== TEMA OSCURO/CLARO ==========
 function initializeTheme() {
     const themeToggle = document.getElementById('themeToggle');
@@ -1293,40 +1294,103 @@ function initializeTheme() {
     }
 }
 
-// ========== CARRUSEL ==========
+// ========== CARRUSEL MEJORADO - SIN SUPERPOSICIÓN ==========
 function initializeCarousel() {
     let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    let autoSlideInterval;
+    
+    // Verificar que existen elementos del carrusel
+    if (slides.length === 0) {
+        console.log('⚠️ No se encontraron slides en el carrusel');
+        return;
+    }
     
     function showSlide(n) {
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('.dot');
+        console.log(`🔄 Mostrando slide: ${n} de ${slides.length}`);
         
-        if (slides.length === 0) return;
-        
+        // Validar límites
         if (n >= slides.length) currentSlide = 0;
         else if (n < 0) currentSlide = slides.length - 1;
         else currentSlide = n;
         
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
+        // PRIMERO: Ocultar todos los slides (sin transición)
+        slides.forEach(slide => {
+            slide.style.transition = 'none'; // Desactivar transición temporalmente
+            slide.style.opacity = '0';
+            slide.style.zIndex = '1';
+            slide.classList.remove('active');
+        });
         
-        if (slides[currentSlide]) slides[currentSlide].classList.add('active');
+        // LUEGO: Mostrar slide actual (con transición)
+        setTimeout(() => {
+            if (slides[currentSlide]) {
+                slides[currentSlide].style.transition = 'opacity 0.5s ease';
+                slides[currentSlide].style.opacity = '1';
+                slides[currentSlide].style.zIndex = '2';
+                slides[currentSlide].classList.add('active');
+            }
+        }, 50); // Pequeño delay para evitar superposición
+        
+        // Actualizar dots
+        dots.forEach(dot => dot.classList.remove('active'));
         if (dots[currentSlide]) dots[currentSlide].classList.add('active');
     }
     
+    // Funciones globales para los botones
     window.moveSlide = function(n) {
+        console.log(`▶️ Moviendo slide: ${n}`);
+        resetAutoSlide(); // Reiniciar auto-slide al interactuar manualmente
         showSlide(currentSlide + n);
     };
     
     window.currentSlide = function(n) {
+        console.log(`🔘 Cambiando a slide: ${n}`);
+        resetAutoSlide(); // Reiniciar auto-slide al interactuar manualmente
         showSlide(n);
     };
     
+    // Función para reiniciar el auto-slide
+    function resetAutoSlide() {
+        if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+        }
+        autoSlideInterval = setInterval(() => {
+            moveSlide(1);
+        }, 5000);
+    }
+    
     // Inicializar carrusel
     setTimeout(() => {
+        console.log('🎠 Inicializando carrusel...');
+        
+        // Configurar transiciones iniciales
+        slides.forEach(slide => {
+            slide.style.transition = 'opacity 0.5s ease';
+        });
+        
         showSlide(0);
-        setInterval(() => moveSlide(1), 5000);
+        
+        // Auto-avance cada 5 segundos
+        autoSlideInterval = setInterval(() => {
+            moveSlide(1);
+        }, 5000);
     }, 500);
+    
+    // Pausar auto-slide al hacer hover
+    const carousel = document.querySelector('.product-carousel');
+    if (carousel) {
+        carousel.addEventListener('mouseenter', () => {
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+            }
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+            resetAutoSlide();
+        });
+    }
 }
 
 // ========== WHATSAPP WIDGET ==========
@@ -1365,7 +1429,6 @@ document.addEventListener('click', function(event) {
         closeOptions();
     }
 });
-
 </script>
 </body>
 </html>
