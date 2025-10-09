@@ -1170,6 +1170,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ========== FORMULARIO DE COTIZACIÓN ==========
+// ========== FORMULARIO DE COTIZACIÓN CON NUEVO URL ==========
 function setupQuoteForm() {
     const quoteForm = document.getElementById('repairQuoteForm');
     
@@ -1204,48 +1205,74 @@ function setupQuoteForm() {
                     throw new Error('Por favor completa todos los campos obligatorios.');
                 }
                 
+                // ✅ NUEVO URL DE GOOGLE APPS SCRIPT
                 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbzsW-GzKpQZa9qFcGmzKMbo8y5KFZAMqoU0FEkjyJmCtzCvU7S62A0lel75sMMix3KB/exec';
                 
-                console.log('🌐 Enviando a Google Apps Script...');
+                console.log('🌐 Enviando a NUEVO Google Apps Script...');
                 
-                // ENVÍO MEJORADO CON MANEJO DE ERRORES
-                const response = await fetch(BACKEND_URL, {
-                    method: 'POST',
-                    mode: 'no-cors', // ← Esto evita problemas CORS
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams(formData).toString()
-                });
+                // MÉTODO DIRECTO CON EL NUEVO URL
+                const success = await sendToNewGoogleScript(BACKEND_URL, formData);
                 
-                console.log('✅ Petición enviada (no-cors mode)');
-                
-                // Con 'no-cors' no podemos leer la respuesta, pero asumimos éxito
-                showSuccessMessage(formData);
-                quoteForm.reset();
+                if (success) {
+                    showSuccessMessage(formData);
+                    quoteForm.reset();
+                } else {
+                    throw new Error('No se pudo enviar la cotización');
+                }
                 
             } catch (error) {
                 console.error('❌ Error:', error);
-                handleFormError(error);
+                alert('⚠️ Error al enviar: ' + error.message + '\n\nPor favor contáctanos directamente por WhatsApp.');
             } finally {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             }
         });
-    } else {
-        console.error('❌ Formulario no encontrado');
+    }
+}
+
+// ========== ENVÍO AL NUEVO GOOGLE APPS SCRIPT ==========
+async function sendToNewGoogleScript(url, formData) {
+    try {
+        console.log('🔗 Enviando datos al nuevo script...');
+        
+        // Crear formulario temporal para enviar datos
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = url;
+        form.target = '_blank'; // Abrir en nueva pestaña
+        form.style.display = 'none';
+        
+        // Agregar todos los campos al formulario
+        Object.keys(formData).forEach(key => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = formData[key];
+            form.appendChild(input);
+        });
+        
+        // Agregar formulario al DOM y enviar
+        document.body.appendChild(form);
+        form.submit();
+        
+        // Esperar un momento antes de remover el formulario
+        setTimeout(() => {
+            document.body.removeChild(form);
+        }, 1000);
+        
+        console.log('✅ Datos enviados al nuevo Google Apps Script');
+        return true;
+        
+    } catch (error) {
+        console.error('❌ Error enviando al nuevo script:', error);
+        return false;
     }
 }
 
 function showSuccessMessage(formData) {
     alert(`✅ ¡Cotización enviada exitosamente!\n\n📱 ${formData.deviceType} ${formData.deviceModel}\n🛠️ ${formData.repairType}\n📝 ${formData.description}\n\n📧 Email enviado a: serviciotecnico@rommiui.com\n📞 Te contactaremos en menos de 24 horas`);
 }
-
-function handleFormError(error) {
-    console.error('🔴 Error detallado:', error);
-    alert('⚠️ Se envió la cotización al servidor. Si no recibes confirmación por email en 5 minutos, por favor contáctanos por WhatsApp.');
-}
-
 // ========== TEMA OSCURO/CLARO ==========
 function initializeTheme() {
     const themeToggle = document.getElementById('themeToggle');
