@@ -2154,37 +2154,26 @@ body.dark-theme .btn:hover {
             phone: phone
         };
         
-// Enviar a Google Apps Script con manejo mejorado
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwJaJ9F8WnEV0OkOv8yPrih2hd0fjYxPx_ytWdmEuiWlWb1bXQm_kV2acTXiqDSGIcc/exec';
+        // REEMPLAZA con tu URL de Google Script
+        fetch('https://script.google.com/macros/s/AKfycbwJaJ9F8WnEV0OkOv8yPrih2hd0fjYxPx_ytWdmEuiWlWb1bXQm_kV2acTXiqDSGIcc/exec', {
+            method: 'POST',
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                alert('✅ Cotización enviada correctamente. Nos contactaremos contigo pronto.');
+                document.getElementById('cotizacionForm').reset();
+            } else {
+                alert('❌ Error al enviar la cotización. Intenta nuevamente.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('❌ Error de conexión. Intenta nuevamente.');
+        });
+    });
 
-// Mostrar loading
-const submitBtn = this.querySelector('button[type="submit"]');
-const originalText = submitBtn.textContent;
-submitBtn.textContent = 'Enviando...';
-submitBtn.disabled = true;
-
-// Crear formulario para evitar CORS
-const form = new FormData();
-form.append('data', JSON.stringify(formData));
-
-fetch(scriptURL, {
-    method: 'POST',
-    body: form,
-    mode: 'no-cors' // Importante para Google Apps Script
-})
-.then(() => {
-    // Con no-cors no podemos leer la respuesta, pero asumimos éxito
-    alert('✅ Cotización enviada correctamente. Nos contactaremos contigo pronto.');
-    document.getElementById('cotizacionForm').reset();
-})
-.catch(error => {
-    console.error('Error:', error);
-    alert('✅ Cotización enviada. Te contactaremos pronto. Si es urgente, contáctanos por WhatsApp.');
-})
-.finally(() => {
-    submitBtn.textContent = originalText;
-    submitBtn.disabled = false;
-});
     // =============================================
     // MEJORAS DE USABILIDAD
     // =============================================
