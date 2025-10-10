@@ -1270,6 +1270,11 @@ body.dark-theme .btn:hover {
 .carousel-item:nth-child(6) { border: 2px solid orange; }
 .carousel-item:nth-child(7) { border: 2px solid pink; }
 
+/* SOLUCIÓN DE EMERGENCIA - FORZAR TRANSFORM */
+.carousel-images {
+    transform: translateX(0%) !important;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .product-subtitle {
@@ -2452,6 +2457,9 @@ function initCarousel() {
             console.log(`❌ No hay elemento carousel-item para índice ${index}`);
         }
     });
+    
+    // FORZAR la posición inicial
+    updateCarousel();
 }
 
 // Cambiar slide
@@ -2467,10 +2475,13 @@ function prevSlide() {
 
 function updateCarousel() {
     const carouselImages = document.querySelector('.carousel-images');
-    carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
+    const translateX = -currentSlide * 100;
+    console.log(`🔄 Moviendo carrusel a slide ${currentSlide}, translateX(${translateX}%)`);
+    
+    carouselImages.style.transform = `translateX(${translateX}%)`;
+    carouselImages.style.transition = 'transform 0.4s ease';
     updateIndicators();
 }
-
 // =============================================
 // FUNCIONALIDAD PARA INDICADORES DE COLOR
 // =============================================
