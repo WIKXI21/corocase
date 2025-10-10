@@ -2479,7 +2479,6 @@ document.querySelectorAll('.indicator').forEach(indicator => {
         const slideIndex = parseInt(this.getAttribute('data-slide'));
         currentSlide = slideIndex;
         updateCarousel();
-        debugCarousel();
     });
 });
 
@@ -2499,18 +2498,6 @@ function updateCarousel() {
     carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
     updateIndicators();
 }
-
-// Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    initCarousel();
-    updateIndicators();
-    debugCarouselExtended();
-    
-    document.querySelector('.carousel-btn.next').addEventListener('click', nextSlide);debugCarouselExtended();
-
-    document.querySelector('.carousel-btn.prev').addEventListener('click', prevSlide);ddebugCarouselExtended();
-});
-
 // =============================================
 // DEBUG VISUAL DEL CARRUSEL
 // =============================================
@@ -2536,6 +2523,21 @@ function debugCarouselExtended() {
     });
     console.log('Slide actual:', currentSlide);
 }
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    initCarousel();
+    updateIndicators();
+    debugCarouselExtended();
+    
+    document.querySelector('.carousel-btn.next').addEventListener('click', nextSlide);
+    debugCarouselExtended();
+
+    document.querySelector('.carousel-btn.prev').addEventListener('click', prevSlide);
+    debugCarouselExtended();
+});
+
+
 
 </script>
 </body>
