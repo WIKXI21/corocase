@@ -1163,6 +1163,10 @@ body.dark-theme .btn:hover {
     background-position: center;
     background-repeat: no-repeat;
     transition: transform 0.4s ease;
+    /* Asegurar que las imágenes sean visibles */
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
 }
 
 .carousel-btn {
@@ -1256,6 +1260,15 @@ body.dark-theme .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
 }
+
+/* DEBUG TEMPORAL - REMOVER DESPUÉS */
+.carousel-item:nth-child(1) { border: 2px solid red; }
+.carousel-item:nth-child(2) { border: 2px solid blue; }
+.carousel-item:nth-child(3) { border: 2px solid green; }
+.carousel-item:nth-child(4) { border: 2px solid yellow; }
+.carousel-item:nth-child(5) { border: 2px solid purple; }
+.carousel-item:nth-child(6) { border: 2px solid orange; }
+.carousel-item:nth-child(7) { border: 2px solid pink; }
 
 /* Responsive */
 @media (max-width: 768px) {
