@@ -2423,21 +2423,19 @@ let currentSlide = 0;
 // Inicializar carrusel
 function initCarousel() {
     const carouselItems = document.querySelectorAll('.carousel-item');
-    console.log('Inicializando carrusel con imágenes:', images);
+    console.log('🔄 Inicializando carrusel...');
+    console.log('Encontrados', carouselItems.length, 'elementos del carrusel');
     
     images.forEach((img, index) => {
-        console.log(`Cargando imagen ${index}: ${img}`);
-        carouselItems[index].style.backgroundImage = `url(${img})`;
-        
-        // Verificar si la imagen se carga
-        const testImage = new Image();
-        testImage.onload = function() {
-            console.log(`✅ Imagen ${img} cargada correctamente`);
-        };
-        testImage.onerror = function() {
-            console.log(`❌ Error cargando imagen: ${img}`);
-        };
-        testImage.src = img;
+        if (carouselItems[index]) {
+            console.log(`📸 Asignando imagen ${index}: ${img}`);
+            carouselItems[index].style.backgroundImage = `url('${img}')`;
+            carouselItems[index].style.backgroundSize = 'cover';
+            carouselItems[index].style.backgroundPosition = 'center';
+            carouselItems[index].style.backgroundRepeat = 'no-repeat';
+        } else {
+            console.log(`❌ No hay elemento carousel-item para índice ${index}`);
+        }
     });
 }
 
