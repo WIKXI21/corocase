@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COROCASE - Fundas Premium y Reparaciones</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+1    <style>
         * {
-            margin: 0;
-            padding: 0;
+            margin: 0;          padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
@@ -1069,179 +1068,183 @@
         </div>
     </div>
 
-    <script>
-        // Elementos del DOM
-        const whatsappBtn = document.getElementById('whatsappBtn');
-        const whatsappModal = document.getElementById('whatsappModal');
-        const closeModal = document.getElementById('closeModal');
-        const optionBtns = document.querySelectorAll('.option-btn');
-        const backBtns = document.querySelectorAll('.btn-back');
-        const sendRepairQuote = document.getElementById('sendRepairQuote');
-        const sendCaseRequest = document.getElementById('sendCaseRequest');
-        const sendDoubt = document.getElementById('sendDoubt');
-        
-        // Variables para almacenar la selección
-        let selectedOption = '';
-        
-        // Abrir modal
-        whatsappBtn.addEventListener('click', () => {
-            whatsappModal.style.display = 'block';
-            resetForm();
-        });
-        
-        // Cerrar modal
-        closeModal.addEventListener('click', () => {
-            whatsappModal.style.display = 'none';
-        });
-        
-        // Seleccionar opción
-        optionBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                selectedOption = btn.getAttribute('data-option');
-                showStep(selectedOption);
-            });
-        });
-        
-        // Botones de retroceso
-        backBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const step = btn.getAttribute('data-step');
-                showStep(step);
-            });
-        });
-        
-
-sendRepairQuote.addEventListener('click', () => {
-    const brand = document.getElementById('deviceBrand').value;
-    const specificModel = document.getElementById('deviceSpecificModel').value;
-    const issue = document.getElementById('deviceIssue').value;
-    const urgent = document.getElementById('urgentRepair').value;
-    const phone = document.getElementById('clientPhone').value;
+<script>
+    // Elementos del DOM
+    const whatsappBtn = document.getElementById('whatsappBtn');
+    const whatsappModal = document.getElementById('whatsappModal');
+    const closeModal = document.getElementById('closeModal');
+    const optionBtns = document.querySelectorAll('.option-btn');
+    const backBtns = document.querySelectorAll('.btn-back');
+    const sendRepairQuote = document.getElementById('sendRepairQuote');
+    const sendCaseRequest = document.getElementById('sendCaseRequest');
+    const sendDoubt = document.getElementById('sendDoubt');
     
-    if (!brand || !specificModel || !issue || !phone) {
-        alert('Por favor, completa todos los campos obligatorios');
-        return;
+    // Variables para almacenar la selección
+    let selectedOption = '';
+    
+    // Abrir modal
+    whatsappBtn.addEventListener('click', () => {
+        whatsappModal.style.display = 'block';
+        resetForm();
+    });
+    
+    // Cerrar modal
+    closeModal.addEventListener('click', () => {
+        whatsappModal.style.display = 'none';
+    });
+    
+    // Seleccionar opción
+    optionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            selectedOption = btn.getAttribute('data-option');
+            showStep(selectedOption);
+        });
+    });
+    
+    // Botones de retroceso
+    backBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const step = btn.getAttribute('data-step');
+            showStep(step);
+        });
+    });
+    
+    // Enviar cotización de reparación
+    sendRepairQuote.addEventListener('click', () => {
+        const brand = document.getElementById('deviceBrand').value;
+        const specificModel = document.getElementById('deviceSpecificModel').value;
+        const issue = document.getElementById('deviceIssue').value;
+        const urgent = document.getElementById('urgentRepair').value;
+        const phone = document.getElementById('clientPhone').value;
+        
+        if (!brand || !specificModel || !issue || !phone) {
+            alert('Por favor, completa todos los campos obligatorios');
+            return;
+        }
+        
+        // Enviar a Google Apps Script
+        const formData = {
+            brand: brand,
+            model: specificModel,
+            specificModel: specificModel,
+            issue: issue,
+            urgent: urgent,
+            phone: phone
+        };
+        
+        // Primero enviar a WhatsApp (esto siempre funciona)
+        const message = `¡Hola! Solicito cotización para:%0A%0A*Marca:* ${brand}%0A*Modelo:* ${specificModel}%0A*Falla:* ${issue}%0A*Urgencia:* ${urgent}%0A*Mi teléfono:* ${phone}`;
+        sendWhatsApp(message);
+        
+        // Luego intentar enviar correo (en segundo plano)
+        fetch('https://script.google.com/macros/s/AKfycbwJaJ9F8WnEV0OkOv8yPrih2hd0fjYxPx_ytWdmEuiWlWb1bXQm_kV2acTXiqDSGIcc/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify(formData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(() => {
+            console.log('Correo enviado (modo no-cors)');
+        })
+        .catch(error => {
+            console.log('Error en correo:', error);
+        });
+    });
+    
+    // Enviar solicitud de fundas
+    sendCaseRequest.addEventListener('click', () => {
+        const brand = document.getElementById('caseBrand').value;
+        const model = document.getElementById('caseModel').value;
+        
+        if (!brand || !model) {
+            alert('Por favor, completa todos los campos');
+            return;
+        }
+        
+        const message = `¡Hola! Estoy interesado en fundas para:%0A%0A*Marca:* ${brand}%0A*Modelo:* ${model}`;
+        sendWhatsApp(message);
+    });
+    
+    // Enviar duda
+    sendDoubt.addEventListener('click', () => {
+        const type = document.getElementById('doubtType').value;
+        const description = document.getElementById('doubtDescription').value;
+        
+        if (!type || !description) {
+            alert('Por favor, completa todos los campos');
+            return;
+        }
+        
+        const doubtText = type === 'reparaciones' ? 'dudas sobre reparaciones' : 
+                        type === 'fundas' ? 'dudas sobre fundas' : 'otra consulta';
+        
+        const message = `¡Hola! Tengo ${doubtText}:%0A%0A${description}`;
+        sendWhatsApp(message);
+    });
+    
+    // Función para mostrar paso específico
+    function showStep(step) {
+        // Ocultar todos los pasos
+        document.querySelectorAll('.form-step').forEach(step => {
+            step.classList.remove('active');
+        });
+        
+        // Mostrar el paso correspondiente
+        if (step === '1') {
+            document.getElementById('step1').classList.add('active');
+        } else if (step === 'cotizar') {
+            document.getElementById('step2').classList.add('active');
+        } else if (step === 'fundas') {
+            document.getElementById('step3').classList.add('active');
+        } else if (step === 'dudas') {
+            document.getElementById('step4').classList.add('active');
+        }
     }
     
-    // Enviar a Google Apps Script
-    const formData = {
-        brand: brand,
-        model: specificModel,
-        specificModel: specificModel,
-        issue: issue,
-        urgent: urgent,
-        phone: phone
-    };
+    // Función para resetear el formulario
+    function resetForm() {
+        document.getElementById('step1').classList.add('active');
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.remove('active');
+        document.getElementById('step4').classList.remove('active');
+        
+        // Limpiar campos
+        document.getElementById('deviceBrand').value = '';
+        document.getElementById('deviceSpecificModel').value = '';
+        document.getElementById('deviceIssue').value = '';
+        document.getElementById('urgentRepair').value = 'No';
+        document.getElementById('clientPhone').value = '';
+        document.getElementById('caseBrand').value = '';
+        document.getElementById('caseModel').value = '';
+        document.getElementById('doubtType').value = '';
+        document.getElementById('doubtDescription').value = '';
+        
+        selectedOption = '';
+    }
     
-    fetch('https://script.google.com/macros/s/AKfycbwJaJ9F8WnEV0OkOv8yPrih2hd0fjYxPx_ytWdmEuiWlWb1bXQm_kV2acTXiqDSGIcc/exec', {
-        method: 'POST',
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            // También enviar a WhatsApp - MENSAJE CORREGIDO
-            const message = `¡Hola! Solicito cotización para:%0A%0A*Marca:* ${brand}%0A*Modelo:* ${specificModel}%0A*Falla:* ${issue}%0A*Urgencia:* ${urgent}%0A*Mi teléfono:* ${phone}`;
-            sendWhatsApp(message);
-        } else {
-            alert('Error al enviar la solicitud');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error al enviar la solicitud');
-    });
-});        // Enviar solicitud de fundas
-        sendCaseRequest.addEventListener('click', () => {
-            const brand = document.getElementById('caseBrand').value;
-            const model = document.getElementById('caseModel').value;
-            
-            if (!brand || !model) {
-                alert('Por favor, completa todos los campos');
-                return;
-            }
-            
-            const message = `¡Hola! Estoy interesado en fundas para:%0A%0A*Marca:* ${brand}%0A*Modelo:* ${model}`;
-            sendWhatsApp(message);
-        });
-        
-        // Enviar duda
-        sendDoubt.addEventListener('click', () => {
-            const type = document.getElementById('doubtType').value;
-            const description = document.getElementById('doubtDescription').value;
-            
-            if (!type || !description) {
-                alert('Por favor, completa todos los campos');
-                return;
-            }
-            
-            const doubtText = type === 'reparaciones' ? 'dudas sobre reparaciones' : 
-                            type === 'fundas' ? 'dudas sobre fundas' : 'otra consulta';
-            
-            const message = `¡Hola! Tengo ${doubtText}:%0A%0A${description}`;
-            sendWhatsApp(message);
-        });
-        
-        // Función para mostrar paso específico
-        function showStep(step) {
-            // Ocultar todos los pasos
-            document.querySelectorAll('.form-step').forEach(step => {
-                step.classList.remove('active');
-            });
-            
-            // Mostrar el paso correspondiente
-            if (step === '1') {
-                document.getElementById('step1').classList.add('active');
-            } else if (step === 'cotizar') {
-                document.getElementById('step2').classList.add('active');
-            } else if (step === 'fundas') {
-                document.getElementById('step3').classList.add('active');
-            } else if (step === 'dudas') {
-                document.getElementById('step4').classList.add('active');
-            }
-        }
-        
-function resetForm() {
-    document.getElementById('step1').classList.add('active');
-    document.getElementById('step2').classList.remove('active');
-    document.getElementById('step3').classList.remove('active');
-    document.getElementById('step4').classList.remove('active');
-    
-    // Limpiar campos - CORREGIDO
-    document.getElementById('deviceBrand').value = '';
-    document.getElementById('deviceSpecificModel').value = ''; // CAMBIADO
-    document.getElementById('deviceIssue').value = '';
-    document.getElementById('urgentRepair').value = 'No'; // AGREGADO
-    document.getElementById('clientPhone').value = ''; // AGREGADO
-    document.getElementById('caseBrand').value = '';
-    document.getElementById('caseModel').value = '';
-    document.getElementById('doubtType').value = '';
-    document.getElementById('doubtDescription').value = '';
-    
-    selectedOption = '';
-}        
-        // Función para enviar mensaje por WhatsApp
-        function sendWhatsApp(message) {
-            const phoneNumber = '573014959147';
-            const url = `https://wa.me/${phoneNumber}?text=${message}`;
-            window.open(url, '_blank');
-            whatsappModal.style.display = 'none';
-        }
-    
-    // Función para botones Consultar del listado
-document.querySelectorAll('.consult-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const service = this.getAttribute('data-service');
-        const price = this.getAttribute('data-price');
-        
-        const message = `¡Hola! Estoy interesado en el servicio de: %0A%0A*${service}* %0A*Precio:* ${price} %0A%0AMe gustaría más información o agendar una cita.`;
-        
+    // Función para enviar mensaje por WhatsApp
+    function sendWhatsApp(message) {
         const phoneNumber = '573014959147';
         const url = `https://wa.me/${phoneNumber}?text=${message}`;
         window.open(url, '_blank');
+        whatsappModal.style.display = 'none';
+    }
+    
+    // Función para botones Consultar del listado
+    document.querySelectorAll('.consult-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const service = this.getAttribute('data-service');
+            const price = this.getAttribute('data-price');
+            
+            const message = `¡Hola! Estoy interesado en el servicio de: %0A%0A*${service}* %0A*Precio:* ${price} %0A%0AMe gustaría más información o agendar una cita.`;
+            
+            const phoneNumber = '573014959147';
+            const url = `https://wa.me/${phoneNumber}?text=${message}`;
+            window.open(url, '_blank');
+        });
     });
-});
-
-    </script>
+</script>
 </body>
 </html>
