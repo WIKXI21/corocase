@@ -1147,17 +1147,19 @@ body.dark-theme .btn:hover {
 .carousel-images {
     display: flex;
     overflow: hidden;
-    width: 70%; /* Reducido 30% */
-    height: 245px; /* Reducido 30% de 350px */
+    width: 70%;
+    height: 245px;
     border-radius: 15px;
     background: rgba(0, 0, 0, 0.3);
-    margin: 0 auto; /* Centrado */
+    margin: 0 auto;
+    position: relative;
 }
 
 .carousel-item {
     min-width: 100%;
     height: 100%;
-    background-size: cover; /* Cambiado de contain a cover para mejor ajuste */
+    flex-shrink: 0;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     transition: transform 0.4s ease;
@@ -2502,24 +2504,35 @@ function updateCarousel() {
 document.addEventListener('DOMContentLoaded', function() {
     initCarousel();
     updateIndicators();
-    debugCarousel();
+    debugCarouselExtended();
     
-    document.querySelector('.carousel-btn.next').addEventListener('click', nextSlide);debugCarousel();
+    document.querySelector('.carousel-btn.next').addEventListener('click', nextSlide);debugCarouselExtended();
 
-    document.querySelector('.carousel-btn.prev').addEventListener('click', prevSlide);debugCarousel();
+    document.querySelector('.carousel-btn.prev').addEventListener('click', prevSlide);ddebugCarouselExtended();
 });
 
 // =============================================
 // DEBUG VISUAL DEL CARRUSEL
 // =============================================
 
-// Verificar estado actual del carrusel
-function debugCarousel() {
+// Debug extendido del carrusel
+function debugCarouselExtended() {
+    const carouselImages = document.querySelector('.carousel-images');
     const carouselItems = document.querySelectorAll('.carousel-item');
-    console.log('=== DEBUG CARRUSEL ===');
+    
+    console.log('=== DEBUG EXTENDIDO CARRUSEL ===');
+    console.log('Ancho del contenedor:', carouselImages.offsetWidth + 'px');
+    console.log('Transformación actual:', carouselImages.style.transform);
+    
     carouselItems.forEach((item, index) => {
         const bgImage = item.style.backgroundImage;
-        console.log(`Slide ${index}:`, bgImage || 'Sin imagen');
+        const isVisible = item.getBoundingClientRect().width > 0;
+        console.log(`Slide ${index}:`, {
+            'Imagen': bgImage,
+            'Visible': isVisible,
+            'Ancho': item.offsetWidth + 'px',
+            'Display': window.getComputedStyle(item).display
+        });
     });
     console.log('Slide actual:', currentSlide);
 }
