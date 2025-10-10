@@ -1418,19 +1418,19 @@ body.dark-theme .btn:hover {
                             <div class="carousel-item"></div>
                             <div class="carousel-item"></div>
                         </div>
-                        <button class="carousel-btn next">›</button>
                         </div>
+                    <button class="carousel-btn next">›</button>
+                </div>
 
                 <!-- Indicadores de color -->
-                    <div class="carousel-indicators">
-                            <button class="indicator roja active" data-slide="0">Roja</button>
-                            <button class="indicator azul" data-slide="1">Azul</button>
-                            <button class="indicator cafe" data-slide="2">Café</button>
-                            <button class="indicator negra" data-slide="3">Negra</button>
-                            <button class="indicator blanca" data-slide="4">Blanca</button>
-                            <button class="indicator piel" data-slide="5">Piel</button>
-                            <button class="indicator rosa" data-slide="6">Rosa</button>
-                    </div>
+                <div class="carousel-indicators">
+                    <button class="indicator roja active" data-slide="0">Roja</button>
+                    <button class="indicator azul" data-slide="1">Azul</button>
+                    <button class="indicator cafe" data-slide="2">Café</button>
+                    <button class="indicator negra" data-slide="3">Negra</button>
+                    <button class="indicator blanca" data-slide="4">Blanca</button>
+                    <button class="indicator piel" data-slide="5">Piel</button>
+                    <button class="indicator rosa" data-slide="6">Rosa</button>
                 </div>
             </div>
 
@@ -2410,22 +2410,34 @@ document.getElementById('phoneModel').addEventListener('change', function() {
 
 // Configuración de imágenes
 const images = [
-    'images/funda-tipo-cartera-roja.img',
-    'images/funda-tipo-cartera-azul.img',
-    'images/funda-tipo-cartera-cafe.img',
-    'images/funda-tipo-cartera-negra.img',
-    'images/funda-tipo-cartera-blanca.img',
-    'images/funda-tipo-cartera-piel.img',
-    'images/funda-tipo-cartera-rosa.img'
+    'images/funda-tipo-cartera-roja.jpg',
+    'images/funda-tipo-cartera-azul.jpg',
+    'images/funda-tipo-cartera-cafe.jpg',
+    'images/funda-tipo-cartera-negra.jpg',
+    'images/funda-tipo-cartera-blanca.jpg',
+    'images/funda-tipo-cartera-piel.jpg',
+    'images/funda-tipo-cartera-rosa.jpg'
 ];
-
 let currentSlide = 0;
 
 // Inicializar carrusel
 function initCarousel() {
     const carouselItems = document.querySelectorAll('.carousel-item');
+    console.log('Inicializando carrusel con imágenes:', images);
+    
     images.forEach((img, index) => {
+        console.log(`Cargando imagen ${index}: ${img}`);
         carouselItems[index].style.backgroundImage = `url(${img})`;
+        
+        // Verificar si la imagen se carga
+        const testImage = new Image();
+        testImage.onload = function() {
+            console.log(`✅ Imagen ${img} cargada correctamente`);
+        };
+        testImage.onerror = function() {
+            console.log(`❌ Error cargando imagen: ${img}`);
+        };
+        testImage.src = img;
     });
 }
 
@@ -2447,7 +2459,7 @@ function updateCarousel() {
 }
 
 // =============================================
-// INDICADORES DE COLOR
+// FUNCIONALIDAD PARA INDICADORES DE COLOR
 // =============================================
 
 function updateIndicators() {
@@ -2470,6 +2482,23 @@ document.querySelectorAll('.indicator').forEach(indicator => {
     });
 });
 
+// Actualizar también en nextSlide y prevSlide
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % images.length;
+    updateCarousel();
+}
+
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + images.length) % images.length;
+    updateCarousel();
+}
+
+function updateCarousel() {
+    const carouselImages = document.querySelector('.carousel-images');
+    carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
+    updateIndicators();
+}
+
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
     initCarousel();
@@ -2478,7 +2507,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.carousel-btn.next').addEventListener('click', nextSlide);
     document.querySelector('.carousel-btn.prev').addEventListener('click', prevSlide);
 });
-
 
 
 </script>
