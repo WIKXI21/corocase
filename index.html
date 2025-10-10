@@ -1145,28 +1145,21 @@ body.dark-theme .btn:hover {
 }
 
 .carousel-images {
-    display: flex;
-    overflow: hidden;
     width: 70%;
     height: 245px;
     border-radius: 15px;
     background: rgba(0, 0, 0, 0.3);
     margin: 0 auto;
     position: relative;
+    overflow: hidden;
 }
 
 .carousel-item {
-    min-width: 100%;
+    width: 100%;
     height: 100%;
-    flex-shrink: 0;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    transition: transform 0.4s ease;
-    /* Asegurar que las imágenes sean visibles */
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: block !important;
 }
 
 .carousel-btn {
@@ -1260,15 +1253,6 @@ body.dark-theme .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
 }
-
-/* DEBUG TEMPORAL - REMOVER DESPUÉS */
-.carousel-item:nth-child(1) { border: 2px solid red; }
-.carousel-item:nth-child(2) { border: 2px solid blue; }
-.carousel-item:nth-child(3) { border: 2px solid green; }
-.carousel-item:nth-child(4) { border: 2px solid yellow; }
-.carousel-item:nth-child(5) { border: 2px solid purple; }
-.carousel-item:nth-child(6) { border: 2px solid orange; }
-.carousel-item:nth-child(7) { border: 2px solid pink; }
 
 /* SOLUCIÓN DE EMERGENCIA - FORZAR TRANSFORM */
 .carousel-images {
@@ -2425,7 +2409,7 @@ document.getElementById('phoneModel').addEventListener('change', function() {
 });
 
 // =============================================
-// CARRUSEL DE IMÁGENES PARA FUNDA TIPO CARTERA
+// CARRUSEL DE IMÁGENES - VERSIÓN SIMPLIFICADA
 // =============================================
 
 // Configuración de imágenes
@@ -2438,52 +2422,59 @@ const images = [
     'images/funda-tipo-cartera-piel.jpg',
     'images/funda-tipo-cartera-rosa.jpg'
 ];
+
 let currentSlide = 0;
 
 // Inicializar carrusel
 function initCarousel() {
     const carouselItems = document.querySelectorAll('.carousel-item');
-    console.log('🔄 Inicializando carrusel...');
-    console.log('Encontrados', carouselItems.length, 'elementos del carrusel');
+    console.log('🔄 Inicializando carrusel con', carouselItems.length, 'elementos');
     
+    // Asignar imágenes
     images.forEach((img, index) => {
         if (carouselItems[index]) {
-            console.log(`📸 Asignando imagen ${index}: ${img}`);
             carouselItems[index].style.backgroundImage = `url('${img}')`;
             carouselItems[index].style.backgroundSize = 'cover';
             carouselItems[index].style.backgroundPosition = 'center';
             carouselItems[index].style.backgroundRepeat = 'no-repeat';
-        } else {
-            console.log(`❌ No hay elemento carousel-item para índice ${index}`);
         }
     });
     
-    // FORZAR la posición inicial
-    updateCarousel();
+    // Mostrar solo el slide actual
+    showCurrentSlide();
+}
+
+// Mostrar solo el slide actual
+function showCurrentSlide() {
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    
+    // Ocultar todos los slides
+    carouselItems.forEach(item => {
+        item.style.display = 'none';
+    });
+    
+    // Mostrar solo el slide actual
+    if (carouselItems[currentSlide]) {
+        carouselItems[currentSlide].style.display = 'block';
+    }
+    
+    updateIndicators();
+    console.log(`🎯 Mostrando slide ${currentSlide}`);
 }
 
 // Cambiar slide
 function nextSlide() {
     currentSlide = (currentSlide + 1) % images.length;
-    updateCarousel();
+    showCurrentSlide();
 }
 
 function prevSlide() {
     currentSlide = (currentSlide - 1 + images.length) % images.length;
-    updateCarousel();
+    showCurrentSlide();
 }
 
-function updateCarousel() {
-    const carouselImages = document.querySelector('.carousel-images');
-    const translateX = -currentSlide * 100;
-    console.log(`🔄 Moviendo carrusel a slide ${currentSlide}, translateX(${translateX}%)`);
-    
-    carouselImages.style.transform = `translateX(${translateX}%)`;
-    carouselImages.style.transition = 'transform 0.4s ease';
-    updateIndicators();
-}
 // =============================================
-// FUNCIONALIDAD PARA INDICADORES DE COLOR
+// INDICADORES DE COLOR
 // =============================================
 
 function updateIndicators() {
@@ -2502,65 +2493,17 @@ document.querySelectorAll('.indicator').forEach(indicator => {
     indicator.addEventListener('click', function() {
         const slideIndex = parseInt(this.getAttribute('data-slide'));
         currentSlide = slideIndex;
-        updateCarousel();
+        showCurrentSlide();
     });
 });
-
-// Actualizar también en nextSlide y prevSlide
-function nextSlide() {
-    currentSlide = (currentSlide + 1) % images.length;
-    updateCarousel();
-}
-
-function prevSlide() {
-    currentSlide = (currentSlide - 1 + images.length) % images.length;
-    updateCarousel();
-}
-
-function updateCarousel() {
-    const carouselImages = document.querySelector('.carousel-images');
-    carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
-    updateIndicators();
-}
-// =============================================
-// DEBUG VISUAL DEL CARRUSEL
-// =============================================
-
-// Debug extendido del carrusel
-function debugCarouselExtended() {
-    const carouselImages = document.querySelector('.carousel-images');
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    
-    console.log('=== DEBUG EXTENDIDO CARRUSEL ===');
-    console.log('Ancho del contenedor:', carouselImages.offsetWidth + 'px');
-    console.log('Transformación actual:', carouselImages.style.transform);
-    
-    carouselItems.forEach((item, index) => {
-        const bgImage = item.style.backgroundImage;
-        const isVisible = item.getBoundingClientRect().width > 0;
-        console.log(`Slide ${index}:`, {
-            'Imagen': bgImage,
-            'Visible': isVisible,
-            'Ancho': item.offsetWidth + 'px',
-            'Display': window.getComputedStyle(item).display
-        });
-    });
-    console.log('Slide actual:', currentSlide);
-}
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
     initCarousel();
-    updateIndicators();
-    debugCarouselExtended();
     
     document.querySelector('.carousel-btn.next').addEventListener('click', nextSlide);
-    debugCarouselExtended();
-
     document.querySelector('.carousel-btn.prev').addEventListener('click', prevSlide);
-    debugCarouselExtended();
 });
-
 
 
 </script>
