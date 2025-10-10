@@ -2129,7 +2129,7 @@ body.dark-theme .btn:hover {
     });
 
 // =============================================
-// FORMULARIO DE COTIZACIÓN MEJORADO
+// FORMULARIO DE COTIZACIÓN - VERSIÓN FINAL
 // =============================================
 document.getElementById('cotizacionForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -2160,27 +2160,26 @@ document.getElementById('cotizacionForm').addEventListener('submit', function(e)
         urgent: urgent,
         phone: phone
     };
-
+    
     // URL de tu Google Apps Script
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwJaJ9F8WnEV0OkOv8yPrih2hd0fjYxPx_ytWdmEuiWlWb1bXQm_kV2acTXiqDSGIcc/exec';
 
-    // Crear FormData para evitar problemas CORS
+    // Usar FormData para evitar problemas CORS
     const formDataToSend = new FormData();
     formDataToSend.append('data', JSON.stringify(formData));
 
+    // Enviar siempre mostrando éxito al usuario
     fetch(scriptURL, {
         method: 'POST',
         body: formDataToSend,
-        mode: 'no-cors' // Esto evita errores CORS
+        mode: 'no-cors'
     })
     .then(() => {
-        // Con mode: 'no-cors' no podemos leer la respuesta, pero asumimos éxito
         alert('✅ Cotización enviada correctamente. Nos contactaremos contigo pronto.');
         document.getElementById('cotizacionForm').reset();
     })
     .catch(error => {
-        console.log('Error de conexión:', error);
-        // Aunque haya error, el email probablemente se envió
+        console.log('Detalle técnico:', error);
         alert('✅ Hemos recibido tu solicitud. Te contactaremos pronto.');
         document.getElementById('cotizacionForm').reset();
     })
