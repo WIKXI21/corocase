@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COROCASE - Fundas Premium y Reparaciones</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-1    <style>
+    <style>
         * {
             margin: 0;          padding: 0;
             box-sizing: border-box;
@@ -615,6 +615,672 @@
     box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
 } 
 
+
+
+.cotizacion-form {
+    padding: 80px 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #00FFFF;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* ============================================= */
+/* ESTILOS PARA MENÚS DESPLEGABLES - CORRECCIÓN */
+/* ============================================= */
+
+/* Select principal - Fondo oscuro */
+select {
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    border: 1px solid rgba(0, 255, 255, 0.3) !important;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+}
+
+/* Opciones del select - Fondo oscuro */
+select option {
+    background: rgba(0, 0, 0, 0.9) !important;
+    color: white !important;
+    padding: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Grupos de opciones (optgroup) */
+select optgroup {
+    background: rgba(0, 0, 0, 0.95) !important;
+    color: #00FFFF !important;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px;
+}
+
+/* Opciones cuando se pasa el mouse */
+select option:hover {
+    background: rgba(0, 255, 255, 0.2) !important;
+}
+
+/* Opción seleccionada */
+select option:checked {
+    background: rgba(0, 255, 255, 0.3) !important;
+    color: white !important;
+}
+
+/* Estilo específico para el menú de modelos grandes */
+#deviceSpecificModel {
+    background: rgba(0, 0, 0, 0.9) !important;
+    color: white !important;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#deviceSpecificModel option {
+    background: rgba(0, 0, 0, 0.9) !important;
+    color: white !important;
+    padding: 10px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#deviceSpecificModel optgroup {
+    background: rgba(20, 20, 40, 0.95) !important;
+    color: #00FFFF !important;
+    font-weight: bold;
+    padding: 8px 5px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+/* Scrollbar personalizado para el select */
+#deviceSpecificModel::-webkit-scrollbar {
+    width: 8px;
+}
+
+#deviceSpecificModel::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+#deviceSpecificModel::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 255, 0.5);
+    border-radius: 4px;
+}
+
+#deviceSpecificModel::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 255, 0.7);
+}
+
+/* Estilos para todos los selects del formulario de WhatsApp */
+.whatsapp-modal select {
+    background: rgba(0, 0, 0, 0.85) !important;
+    color: white !important;
+    border: 1px solid rgba(0, 255, 255, 0.4) !important;
+}
+
+.whatsapp-modal select option {
+    background: rgba(0, 0, 0, 0.95) !important;
+    color: white !important;
+}
+
+/* Estilos para el formulario de cotización */
+.cotizacion-form select {
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    border: 1px solid rgba(0, 255, 255, 0.3) !important;
+}
+
+.cotizacion-form select option {
+    background: rgba(0, 0, 0, 0.9) !important;
+    color: white !important;
+}
+
+/* ============================================= */
+/* ESTILOS CORREGIDOS PARA CONTACTO */
+/* ============================================= */
+
+/* Sección de contacto en footer */
+.contact-info {
+    margin-bottom: 25px;
+    text-align: center;
+    width: 100%;
+}
+
+.contact-info .social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.social-link:hover {
+    background: rgba(0, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+}
+
+/* Contenedor específico para el email */
+.email-container {
+    display: flex;
+    justify-content: center;
+    width: auto;
+}
+
+.email {
+    background: rgba(255, 255, 255, 0.15);
+    max-width: 280px;
+    overflow: hidden;
+}
+
+.email:hover {
+    background: rgba(0, 255, 255, 0.25);
+}
+
+.social-link i {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.email-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+}
+
+/* Estilos específicos para cada red social */
+.facebook {
+    background: rgba(59, 89, 152, 0.2);
+}
+
+.whatsapp {
+    background: rgba(37, 211, 102, 0.2);
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .contact-info .social-links {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+    
+    .social-link {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    
+    .email-container {
+        width: 100%;
+    }
+    
+    .email {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+    
+    .email-text {
+        max-width: 180px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Para tablets */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .contact-info .social-links {
+        gap: 10px;
+    }
+    
+    .social-link {
+        padding: 8px 12px;
+    }
+    
+    .email-text {
+        max-width: 150px;
+        font-size: 0.8rem;
+    }
+}
+
+/* ============================================= */
+/* SISTEMA DE TEMAS */
+/* ============================================= */
+
+.theme-switcher {
+    position: relative;
+}
+
+.theme-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.theme-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+/* TEMA CLARO */
+body.light-theme {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-card: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --accent-color: #007bff;
+    --border-color: #dee2e6;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.light-theme {
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                url('https://i.postimg.cc/h4V2xt8r/Sitio-Web-Link-en-Bio-Tecnolog-a-y-Gaming-Sencillo-Azul-Oscuro.jpg') no-repeat center center fixed !important;
+    background-size: cover !important;
+    color: var(--text-primary) !important;
+}
+
+.light-theme .logo span:first-child {
+    color: var(--text-primary) !important;
+}
+
+.light-theme .logo span:last-child {
+    color: var(--accent-color) !important;
+}
+
+.light-theme header {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.light-theme nav a {
+    color: var(--text-primary) !important;
+}
+
+.light-theme nav a:hover {
+    color: var(--accent-color) !important;
+    background-color: rgba(0, 123, 255, 0.1) !important;
+}
+
+.light-theme .feature-card,
+.light-theme .product-card,
+.light-theme .repair-category,
+.light-theme .screen-types,
+.light-theme .form-container {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+.light-theme .section-title {
+    color: var(--accent-color) !important;
+}
+
+.light-theme .btn {
+    background-color: var(--accent-color) !important;
+    color: white !important;
+}
+
+.light-theme .btn:hover {
+    background-color: transparent !important;
+    color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+}
+
+/* TEMA GRIS */
+body.gray-theme {
+    --bg-primary: #6c757d;
+    --bg-secondary: #5a6268;
+    --bg-card: #495057;
+    --text-primary: #f8f9fa;
+    --text-secondary: #e9ecef;
+    --accent-color: #17a2b8;
+    --border-color: #6c757d;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.gray-theme {
+    background: linear-gradient(rgba(108, 117, 125, 0.9), rgba(108, 117, 125, 0.9)), 
+                url('https://i.postimg.cc/h4V2xt8r/Sitio-Web-Link-en-Bio-Tecnolog-a-y-Gaming-Sencillo-Azul-Oscuro.jpg') no-repeat center center fixed !important;
+    background-size: cover !important;
+    color: var(--text-primary) !important;
+}
+
+.gray-theme .logo span:first-child {
+    color: var(--text-primary) !important;
+}
+
+.gray-theme .logo span:last-child {
+    color: var(--accent-color) !important;
+}
+
+.gray-theme header {
+    background-color: rgba(73, 80, 87, 0.95) !important;
+}
+
+.gray-theme .feature-card,
+.gray-theme .product-card,
+.gray-theme .repair-category,
+.gray-theme .screen-types,
+.gray-theme .form-container {
+    background: rgba(73, 80, 87, 0.9) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+/* TEMA OSCURO (default) - Estilos originales de COROCASE */
+body.dark-theme {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://i.postimg.cc/h4V2xt8r/Sitio-Web-Link-en-Bio-Tecnolog-a-y-Gaming-Sencillo-Azul-Oscuro.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+
+body.dark-theme .logo span:first-child {
+    color: white;
+}
+
+body.dark-theme .logo span:last-child {
+    color: #00FFFF;
+}
+
+body.dark-theme header {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+body.dark-theme .feature-card,
+body.dark-theme .product-card,
+body.dark-theme .repair-category,
+body.dark-theme .screen-types,
+body.dark-theme .form-container {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .section-title {
+    color: #00FFFF;
+}
+
+body.dark-theme .btn {
+    background-color: #00FFFF;
+    color: #000;
+}
+
+body.dark-theme .btn:hover {
+    background-color: transparent;
+    color: #00FFFF;
+    border-color: #00FFFF;
+}
+/* Estados del botón de tema */
+.theme-btn .fa-sun { display: none; }
+.theme-btn .fa-moon { display: block; }
+.theme-btn .fa-circle-half-stroke { display: none; }
+
+.light-theme .theme-btn .fa-sun { display: block; }
+.light-theme .theme-btn .fa-moon { display: none; }
+.light-theme .theme-btn .fa-circle-half-stroke { display: none; }
+
+.gray-theme .theme-btn .fa-sun { display: none; }
+.gray-theme .theme-btn .fa-moon { display: none; }
+.gray-theme .theme-btn .fa-circle-half-stroke { display: block; }
+
+/* Ajustes para selects en temas claros */
+.light-theme select,
+.light-theme input,
+.light-theme textarea {
+    background: white !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.light-theme select option {
+    background: white !important;
+    color: var(--text-primary) !important;
+}
+
+/* ============================================= */
+/* ESTILOS CORREGIDOS PARA EL CARRUSEL */
+/* ============================================= */
+
+.catalogo-container {
+    margin-top: 60px;
+    padding: 40px 0;
+}
+
+.catalogo-container h1 {
+    text-align: center;
+    color: #00FFFF;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.product {
+    margin-bottom: 60px;
+    padding: 0 20px;
+}
+
+.product h2 {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.product-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px; /* Reducido padding */
+    box-shadow: 0 8px 32px rgba(0, 255, 255, 0.1);
+    max-width: 500px; /* Reducido de 600px */
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.carousel-container {
+    margin-bottom: 25px;
+}
+
+.carousel-images {
+    display: flex;
+    overflow: hidden;
+    width: 70%; /* Reducido 30% */
+    height: 245px; /* Reducido 30% de 350px */
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    margin: 0 auto; /* Centrado */
+}
+
+.carousel-item {
+    min-width: 100%;
+    height: 100%;
+    background-size: cover; /* Cambiado de contain a cover para mejor ajuste */
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.4s ease;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 255, 255, 0.8);
+    color: #000;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.carousel-btn:hover {
+    background: rgba(0, 255, 255, 1);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn.prev {
+    left: 5px;
+}
+
+.carousel-btn.next {
+    right: 5px;
+}
+
+.product-info {
+    text-align: center;
+}
+
+.model-selector {
+    margin: 20px 0;
+}
+
+.model-selector label {
+    display: block;
+    color: #00FFFF;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.model-selector select {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px 15px;
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 16px;
+    margin: 0 auto;
+    display: block;
+}
+
+.model-selector select option {
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 10px;
+}
+
+.description {
+    margin: 20px 0;
+    line-height: 1.6;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+}
+
+.price-btn {
+    background: linear-gradient(135deg, #00FFFF, #0099CC);
+    color: #000;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+}
+
+.price-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .product-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .carousel-indicators {
+        gap: 5px;
+    }
+    
+    .indicator {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+    
+    .product-features {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 20px;
+    }
+    
+    .feature-item {
+        padding: 15px;
+    }
+}
+
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -648,51 +1314,181 @@
     </style>
 </head>
 <body>
+
     <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <span>CORO</span><span>CASE</span>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Productos</a></li>
-                        <li><a href="#">Reparaciones</a></li>
-                        <li><a href="#">Nosotros</a></li>
-                        <li><a href="#">Contacto</a></li>
-                    </ul>
-                </nav>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <span>CORO</span><span>CASE</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link" data-target="hero">Inicio</a></li>
+                    <li><a href="#" class="nav-link" data-target="products">Productos</a></li>
+                    <li><a href="#" class="nav-link" data-target="coroteach">Reparaciones</a></li>
+                    <li><a href="#" class="nav-link" data-target="footer">Nosotros</a></li>
+                    <li><a href="#" class="nav-link" data-target="footer">Contacto</a></li>
+                </ul>
+            </nav>
+            <!-- Botón de temas -->
+            <div class="theme-switcher">
+                <button class="theme-btn" id="themeToggle" title="Cambiar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
-    <section class="hero">
-        <div class="container">
-            <h1>Protección con Estilo</h1>
-            <p>Descubre nuestra exclusiva colección de fundas para dispositivos. Combinamos diseño innovador, materiales premium y máxima protección para tus dispositivos más valiosos.</p>
-            <a href="#" class="btn">Ver Colección</a>
+<section class="hero">
+    <div class="container">
+        <h1>Protección con Estilo</h1>
+        <p>Descubre nuestra exclusiva colección de fundas para dispositivos. Combinamos diseño innovador, materiales premium y máxima protección para tus dispositivos más valiosos.</p>
+        
+        <div class="hero-buttons">
+            <a href="#" class="btn" id="verColeccionBtn">Ver Colección</a>
+            <a href="#" class="btn" id="masNosotrosBtn">Más sobre Nosotros</a>
+            <a href="#" class="btn" id="reparacionesBtn">Reparaciones</a>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="features">
+<!-- CATÁLOGO DE PRODUCTOS -->
+<section class="catalogo-container">
+    <div class="container">
+        <h1>Catálogo de Productos</h1>
+        
+        <!-- Producto 1 - Funda tipo cartera -->
+        <section class="product" id="producto1">
+            <h2>Funda tipo cartera</h2>
+            
+            <div class="product-card">
+                <!-- Carrusel de imágenes -->
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <button class="carousel-btn prev">‹</button>
+                        <div class="carousel-images">
+                            <div class="carousel-item"></div>
+                            <div class="carousel-item"></div>
+                            <div class="carousel-item"></div>
+                            <div class="carousel-item"></div>
+                            <div class="carousel-item"></div>
+                            <div class="carousel-item"></div>
+                            <div class="carousel-item"></div>
+                        </div>
+                        <button class="carousel-btn next">›</button>
+                    </div>
+                </div>
+                
+                <!-- Selector de modelos -->
+                <div class="model-selector">
+                    <label for="phoneModel">Selecciona tu modelo:</label>
+                    <select id="phoneModel">
+                        <option value="">-- Elige tu marca y modelo --</option>
+                        <optgroup label="iPhone">
+                            <option value="iphone-15-pro-max">iPhone 15 Pro Max</option>
+                            <option value="iphone-15-pro">iPhone 15 Pro</option>
+                            <option value="iphone-15">iPhone 15</option>
+                            <option value="iphone-14-pro-max">iPhone 14 Pro Max</option>
+                            <option value="iphone-14-pro">iPhone 14 Pro</option>
+                            <option value="iphone-14">iPhone 14</option>
+                            <option value="iphone-13-pro-max">iPhone 13 Pro Max</option>
+                            <option value="iphone-13-pro">iPhone 13 Pro</option>
+                            <option value="iphone-13">iPhone 13</option>
+                            <option value="iphone-12-pro-max">iPhone 12 Pro Max</option>
+                            <option value="iphone-12-pro">iPhone 12 Pro</option>
+                            <option value="iphone-12">iPhone 12</option>
+                            <option value="iphone-11-pro-max">iPhone 11 Pro Max</option>
+                            <option value="iphone-11-pro">iPhone 11 Pro</option>
+                            <option value="iphone-11">iPhone 11</option>
+                            <option value="iphone-se">iPhone SE</option>
+                        </optgroup>
+                        <optgroup label="Samsung">
+                            <option value="samsung-s24-ultra">Galaxy S24 Ultra</option>
+                            <option value="samsung-s24-plus">Galaxy S24+</option>
+                            <option value="samsung-s24">Galaxy S24</option>
+                            <option value="samsung-s23-ultra">Galaxy S23 Ultra</option>
+                            <option value="samsung-s23-plus">Galaxy S23+</option>
+                            <option value="samsung-s23">Galaxy S23</option>
+                            <option value="samsung-s22-ultra">Galaxy S22 Ultra</option>
+                            <option value="samsung-s22-plus">Galaxy S22+</option>
+                            <option value="samsung-s22">Galaxy S22</option>
+                            <option value="samsung-a54">Galaxy A54</option>
+                            <option value="samsung-a34">Galaxy A34</option>
+                            <option value="samsung-a14">Galaxy A14</option>
+                        </optgroup>
+                        <optgroup label="Xiaomi">
+                            <option value="xiaomi-14-pro">Xiaomi 14 Pro</option>
+                            <option value="xiaomi-14">Xiaomi 14</option>
+                            <option value="xiaomi-13t-pro">Xiaomi 13T Pro</option>
+                            <option value="xiaomi-13t">Xiaomi 13T</option>
+                            <option value="redmi-note-13-pro">Redmi Note 13 Pro</option>
+                            <option value="redmi-note-13">Redmi Note 13</option>
+                            <option value="redmi-note-12-pro">Redmi Note 12 Pro</option>
+                            <option value="redmi-note-12">Redmi Note 12</option>
+                        </optgroup>
+                        <optgroup label="Motorola">
+                            <option value="moto-g84">Moto G84</option>
+                            <option value="moto-g54">Moto G54</option>
+                            <option value="moto-g34">Moto G34</option>
+                            <option value="moto-edge-40">Moto Edge 40</option>
+                            <option value="moto-edge-30">Moto Edge 30</option>
+                        </optgroup>
+                        <optgroup label="Otras Marcas">
+                            <option value="google-pixel-8">Google Pixel 8</option>
+                            <option value="google-pixel-7a">Google Pixel 7a</option>
+                            <option value="realme-11-pro">Realme 11 Pro</option>
+                            <option value="oppo-reno-11">Oppo Reno 11</option>
+                            <option value="infinix-note-30">Infinix Note 30</option>
+                            <option value="tecno-camon-20">Tecno Camon 20</option>
+                        </optgroup>
+                    </select>
+                </div>
+                
+                <!-- Información del producto -->
+                <div class="product-info">
+                    <div class="description">
+                        <p>Funda tipo cartera, donde puedes guardar todos tus documentos y tarjetas de crédito, mientras proteges tu celular, con varios colores y para varios modelos.</p>
+                    </div>
+                    
+                    <!-- Botón de precio -->
+                    <button class="price-btn">$ --.--</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+<!-- Sección de Productos Destacados (placeholder) -->
+<section class="products" id="products" style="display: none;">
+    <div class="container">
+        <h2 class="section-title">Productos Destacados</h2>
+    </div>
+</section>
+
+        <section class="features">
         <div class="container">
             <h2 class="section-title">¿Por qué COROCASE?</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">🛡️</div>
                     <h3>Protección Superior</h3>
-                    <p>Nuestras fundas ofrecen la máxima protección certificada contra impactos, caídas y rasguños, sin comprometer el estilo.</p>
+                    <p>Las fundas de corocase son fundas de calidad, siempre y cuando usted quiera calidad tendra calidad, precios exclusivos y diseños hermosos.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🎨</div>
                     <h3>Diseño Exclusivo</h3>
-                    <p>Diseños únicos creados por artistas internacionales. Personaliza tu funda para reflejar tu estilo personal.</p>
+                    <p>Diseños únicos elejidos por ti y para ti. Personaliza tu funda para reflejar tu estilo personal.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">⚡</div>
                     <h3>Materiales Premium</h3>
                     <p>Utilizamos materiales ecológicos de la más alta calidad que garantizan durabilidad y protección del medio ambiente.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Entregas faciles</h3>
+                    <p>Las entregas y pedidos se adaptan a tu necesidad, si lo quieres en casa, se lleva o si no puedes recogerlo cualquier dia.</p>
                 </div>
             </div>
         </div>
@@ -707,6 +1503,56 @@
                 <h2 class="section-title">Servicios de Reparación</h2>
                 <p>Precios de referencia para nuestros servicios de reparación</p>
             </div>
+</section>
+<section class="cotizacion-form">
+    <div class="container">
+        <h2 class="section-title">Solicitar Cotización</h2>
+        <div class="form-container">
+            <form id="cotizacionForm">
+                <div class="form-group">
+                    <label>Marca del dispositivo:</label>
+                    <select id="cotizacionBrand" required>
+                        <option value="">Selecciona una marca</option>
+                        <option value="iPhone">iPhone</option>
+                        <option value="Samsung">Samsung</option>
+                        <option value="Xiaomi">Xiaomi</option>
+                        <option value="Motorola">Motorola</option>
+                        <option value="Huawei">Huawei</option>
+                        <option value="Oppo">Oppo</option>
+                        <option value="Realme">Realme</option>
+                        <option value="Google Pixel">Google Pixel</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Modelo específico:</label>
+                    <input type="text" id="cotizacionModel" placeholder="Ej: iPhone 13, Galaxy S23, etc." required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Describe la falla:</label>
+                    <textarea id="cotizacionIssue" placeholder="Describe el problema en detalle..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>¿Es urgente?</label>
+                    <select id="cotizacionUrgent">
+                        <option value="No">No, es normal</option>
+                        <option value="Sí">Sí, es urgente</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Tu número de contacto:</label>
+                    <input type="tel" id="cotizacionPhone" placeholder="Ej: 3001234567" required>
+                </div>
+                
+                <button type="submit" class="btn">Enviar Cotización</button>
+            </form>
+        </div>
+    </div>
+</section>
             
             <div class="repair-categories">
                 <div class="repair-category">
@@ -803,70 +1649,40 @@
         </div>
     </section>
 
-    <section class="products">
-        <div class="container">
-            <h2 class="section-title">Productos Destacados</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">📱</div>
-                    <div class="product-info">
-                        <h3>Fundas para iPhone</h3>
-                        <p>Protección elegante para tu iPhone con diseños exclusivos.</p>
-                        <div class="price">24.99</div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">📱</div>
-                    <div class="product-info">
-                        <h3>Fundas para Samsung</h3>
-                        <p>Compatible con todos los modelos Galaxy, máxima protección.</p>
-                        <div class="price">22.99</div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">💻</div>
-                    <div class="product-info">
-                        <h3>Fundas para Laptops</h3>
-                        <p>Protege tu laptop con estilo durante tus viajes.</p>
-                        <div class="price">39.99</div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">⌚</div>
-                    <div class="product-info">
-                        <h3>Fundas para Smartwatch</h3>
-                        <p>Mantén tu reloj inteligente protegido y con estilo.</p>
-                        <div class="price">14.99</div>
-                    </div>
-                </div>
+<footer id="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span>CORO</span><span>CASE</span>
             </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <span>CORO</span><span>CASE</span>
-                </div>
-                <div class="footer-links">
-                    <a href="#">Inicio</a>
-                    <a href="#">Productos</a>
-                    <a href="#">Reparaciones</a>
-                    <a href="#">Nosotros</a>
-                    <a href="#">Contacto</a>
-                    <a href="#">Términos y Condiciones</a>
-                </div>
+            
+            <!-- Sección de contacto CORREGIDA -->
+            <div class="contact-info">
                 <div class="social-links">
-                    <a href="#">📘</a>
-                    <a href="#">📷</a>
-                    <a href="#">🐦</a>
-                    <a href="#">📺</a>
+                    <a href="https://www.facebook.com/profile.php?id=61576848857303" target="_blank" class="social-link facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://wa.me/573014959147" target="_blank" class="social-link whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:serviciotecnico@rommiui.com" class="social-link email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
                 </div>
-                <p class="copyright">&copy; 2023 COROCASE. Todos los derechos reservados.</p>
             </div>
+            
+            <div class="footer-links">
+                <a href="#" class="nav-link" data-target="hero">Inicio</a>
+                <a href="#" class="nav-link" data-target="products">Productos</a>
+                <a href="#" class="nav-link" data-target="coroteach">Reparaciones</a>
+                <a href="#" class="nav-link" data-target="footer">Nosotros</a>
+                <a href="#" class="nav-link" data-target="footer">Contacto</a>
+            </div>
+            
+            <p class="copyright">&copy; <span id="currentYear"></span> COROCASE</p>
         </div>
-    </footer>
+    </div>
+</footer>
 
     <!-- Botón de WhatsApp flotante -->
     <div class="whatsapp-button" id="whatsappBtn">
@@ -1069,7 +1885,9 @@
     </div>
 
 <script>
-    // Elementos del DOM
+    // =============================================
+    // CONFIGURACIÓN INICIAL Y ELEMENTOS DEL DOM
+    // =============================================
     const whatsappBtn = document.getElementById('whatsappBtn');
     const whatsappModal = document.getElementById('whatsappModal');
     const closeModal = document.getElementById('closeModal');
@@ -1079,10 +1897,14 @@
     const sendCaseRequest = document.getElementById('sendCaseRequest');
     const sendDoubt = document.getElementById('sendDoubt');
     
-    // Variables para almacenar la selección
     let selectedOption = '';
+    let currentStep = '1';
+
+    // =============================================
+    // FUNCIONES PRINCIPALES DEL MODAL
+    // =============================================
     
-    // Abrir modal
+    // Abrir modal de WhatsApp
     whatsappBtn.addEventListener('click', () => {
         whatsappModal.style.display = 'block';
         resetForm();
@@ -1093,7 +1915,7 @@
         whatsappModal.style.display = 'none';
     });
     
-    // Seleccionar opción
+    // Seleccionar opción principal
     optionBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             selectedOption = btn.getAttribute('data-option');
@@ -1108,8 +1930,10 @@
             showStep(step);
         });
     });
-    
-    // Enviar cotización de reparación
+
+    // =============================================
+    // OPCIÓN 1: COTIZAR REPARACIÓN DE CELULAR
+    // =============================================
     sendRepairQuote.addEventListener('click', () => {
         const brand = document.getElementById('deviceBrand').value;
         const specificModel = document.getElementById('deviceSpecificModel').value;
@@ -1117,43 +1941,22 @@
         const urgent = document.getElementById('urgentRepair').value;
         const phone = document.getElementById('clientPhone').value;
         
+        // Validación de campos obligatorios
         if (!brand || !specificModel || !issue || !phone) {
             alert('Por favor, completa todos los campos obligatorios');
             return;
         }
         
-        // Enviar a Google Apps Script
-        const formData = {
-            brand: brand,
-            model: specificModel,
-            specificModel: specificModel,
-            issue: issue,
-            urgent: urgent,
-            phone: phone
-        };
+        // Construir mensaje para WhatsApp
+        const message = `¡Hola! Solicito cotización para reparación:%0A%0A*📱 INFORMACIÓN DEL DISPOSITIVO*%0A*Marca:* ${brand}%0A*Modelo:* ${specificModel}%0A%0A*🔧 DESCRIPCIÓN DE LA FALLA*%0A${issue}%0A%0A*⚡ URGENCIA*%0A${urgent}%0A%0A*📞 CONTACTO*%0A${phone}`;
         
-        // Primero enviar a WhatsApp (esto siempre funciona)
-        const message = `¡Hola! Solicito cotización para:%0A%0A*Marca:* ${brand}%0A*Modelo:* ${specificModel}%0A*Falla:* ${issue}%0A*Urgencia:* ${urgent}%0A*Mi teléfono:* ${phone}`;
+        // Enviar a WhatsApp
         sendWhatsApp(message);
-        
-        // Luego intentar enviar correo (en segundo plano)
-        fetch('https://script.google.com/macros/s/AKfycbwJaJ9F8WnEV0OkOv8yPrih2hd0fjYxPx_ytWdmEuiWlWb1bXQm_kV2acTXiqDSGIcc/exec', {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify(formData),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(() => {
-            console.log('Correo enviado (modo no-cors)');
-        })
-        .catch(error => {
-            console.log('Error en correo:', error);
-        });
     });
-    
-    // Enviar solicitud de fundas
+
+    // =============================================
+    // OPCIÓN 2: FUNDAS PARA CELULAR
+    // =============================================
     sendCaseRequest.addEventListener('click', () => {
         const brand = document.getElementById('caseBrand').value;
         const model = document.getElementById('caseModel').value;
@@ -1163,11 +1966,13 @@
             return;
         }
         
-        const message = `¡Hola! Estoy interesado en fundas para:%0A%0A*Marca:* ${brand}%0A*Modelo:* ${model}`;
+        const message = `¡Hola! Estoy interesado en fundas para:%0A%0A*📱 DISPOSITIVO*%0A*Marca:* ${brand}%0A*Modelo:* ${model}%0A%0A*💬 INFORMACIÓN ADICIONAL*%0AMe gustaría conocer los diseños disponibles y precios.`;
         sendWhatsApp(message);
     });
-    
-    // Enviar duda
+
+    // =============================================
+    // OPCIÓN 3: PREGUNTAS Y DUDAS
+    // =============================================
     sendDoubt.addEventListener('click', () => {
         const type = document.getElementById('doubtType').value;
         const description = document.getElementById('doubtDescription').value;
@@ -1177,74 +1982,378 @@
             return;
         }
         
-        const doubtText = type === 'reparaciones' ? 'dudas sobre reparaciones' : 
-                        type === 'fundas' ? 'dudas sobre fundas' : 'otra consulta';
+        let doubtText = '';
+        switch(type) {
+            case 'reparaciones':
+                doubtText = 'dudas sobre reparaciones';
+                break;
+            case 'fundas':
+                doubtText = 'dudas sobre fundas';
+                break;
+            default:
+                doubtText = 'una consulta';
+        }
         
-        const message = `¡Hola! Tengo ${doubtText}:%0A%0A${description}`;
+        const message = `¡Hola! Tengo ${doubtText}:%0A%0A*❓ CONSULTA*%0A${description}%0A%0A*💬 INFORMACIÓN ADICIONAL*%0APor favor, necesito más información sobre este tema.`;
         sendWhatsApp(message);
     });
+
+    // =============================================
+    // FUNCIONES AUXILIARES
+    // =============================================
     
     // Función para mostrar paso específico
     function showStep(step) {
         // Ocultar todos los pasos
-        document.querySelectorAll('.form-step').forEach(step => {
-            step.classList.remove('active');
+        document.querySelectorAll('.form-step').forEach(stepElement => {
+            stepElement.classList.remove('active');
         });
         
         // Mostrar el paso correspondiente
         if (step === '1') {
             document.getElementById('step1').classList.add('active');
+            currentStep = '1';
         } else if (step === 'cotizar') {
             document.getElementById('step2').classList.add('active');
+            currentStep = 'cotizar';
         } else if (step === 'fundas') {
             document.getElementById('step3').classList.add('active');
+            currentStep = 'fundas';
         } else if (step === 'dudas') {
             document.getElementById('step4').classList.add('active');
+            currentStep = 'dudas';
         }
     }
     
     // Función para resetear el formulario
     function resetForm() {
-        document.getElementById('step1').classList.add('active');
-        document.getElementById('step2').classList.remove('active');
-        document.getElementById('step3').classList.remove('active');
-        document.getElementById('step4').classList.remove('active');
+        showStep('1');
         
-        // Limpiar campos
+        // Limpiar campos del paso 2 (Reparación)
         document.getElementById('deviceBrand').value = '';
         document.getElementById('deviceSpecificModel').value = '';
         document.getElementById('deviceIssue').value = '';
         document.getElementById('urgentRepair').value = 'No';
         document.getElementById('clientPhone').value = '';
+        
+        // Limpiar campos del paso 3 (Fundas)
         document.getElementById('caseBrand').value = '';
         document.getElementById('caseModel').value = '';
+        
+        // Limpiar campos del paso 4 (Dudas)
         document.getElementById('doubtType').value = '';
         document.getElementById('doubtDescription').value = '';
         
         selectedOption = '';
     }
     
-    // Función para enviar mensaje por WhatsApp
+    // Función principal para enviar a WhatsApp
     function sendWhatsApp(message) {
-        const phoneNumber = '573014959147';
+        const phoneNumber = '573014959147'; // Tu número actualizado
         const url = `https://wa.me/${phoneNumber}?text=${message}`;
         window.open(url, '_blank');
         whatsappModal.style.display = 'none';
     }
-    
-    // Función para botones Consultar del listado
+
+    // =============================================
+    // BOTONES CONSULTAR DEL LISTADO DE REPARACIONES
+    // =============================================
     document.querySelectorAll('.consult-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const service = this.getAttribute('data-service');
             const price = this.getAttribute('data-price');
             
-            const message = `¡Hola! Estoy interesado en el servicio de: %0A%0A*${service}* %0A*Precio:* ${price} %0A%0AMe gustaría más información o agendar una cita.`;
+            const message = `¡Hola! Estoy interesado en:%0A%0A*🔧 SERVICIO SOLICITADO*%0A${service}%0A%0A*💰 PRECIO REFERENCIA*%0A${price}%0A%0A*💬 INFORMACIÓN ADICIONAL*%0AMe gustaría agendar una cita o recibir más información sobre este servicio.`;
             
-            const phoneNumber = '573014959147';
-            const url = `https://wa.me/${phoneNumber}?text=${message}`;
-            window.open(url, '_blank');
+            sendWhatsApp(message);
         });
     });
+
+    // =============================================
+    // FORMULARIO DE COTIZACIÓN POR CORREO (SE MANTIENE)
+    // =============================================
+    document.getElementById('cotizacionForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const brand = document.getElementById('cotizacionBrand').value;
+        const model = document.getElementById('cotizacionModel').value;
+        const issue = document.getElementById('cotizacionIssue').value;
+        const urgent = document.getElementById('cotizacionUrgent').value;
+        const phone = document.getElementById('cotizacionPhone').value;
+        
+        // Validar
+        if (!brand || !model || !issue || !phone) {
+            alert('Por favor, completa todos los campos obligatorios');
+            return;
+        }
+        
+        // Enviar a Google Apps Script
+        const formData = {
+            brand: brand,
+            model: model,
+            issue: issue,
+            urgent: urgent,
+            phone: phone
+        };
+        
+        // REEMPLAZA con tu URL de Google Script
+        fetch('https://script.google.com/macros/s/TU_URL_DE_GOOGLE_SCRIPT/exec', {
+            method: 'POST',
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                alert('✅ Cotización enviada correctamente. Nos contactaremos contigo pronto.');
+                document.getElementById('cotizacionForm').reset();
+            } else {
+                alert('❌ Error al enviar la cotización. Intenta nuevamente.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('❌ Error de conexión. Intenta nuevamente.');
+        });
+    });
+
+    // =============================================
+    // MEJORAS DE USABILIDAD
+    // =============================================
+    
+    // Cerrar modal al hacer clic fuera de él
+    document.addEventListener('click', (e) => {
+        if (e.target === whatsappModal) {
+            whatsappModal.style.display = 'none';
+        }
+    });
+    
+    // Cerrar modal con tecla Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && whatsappModal.style.display === 'block') {
+            whatsappModal.style.display = 'none';
+        }
+    });
+    
+    console.log('✅ Botón de WhatsApp inicializado correctamente');
+
+// =============================================
+// FUNCIONES CORREGIDAS PARA LOS 3 BOTONES DEL HERO
+// =============================================
+
+// Botón "Ver Colección" → Catálogo de Productos
+document.getElementById('verColeccionBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    scrollToSection('.catalogo-container', 'Catálogo de Productos');
+});
+
+// Botón "Más sobre Nosotros" → ¿Por qué COROCASE? (Features)
+document.getElementById('masNosotrosBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    scrollToSection('.features', '¿Por qué COROCASE?');
+});
+
+// Botón "Reparaciones" → Solicitar Cotización (Formulario)
+document.getElementById('reparacionesBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    scrollToSection('.cotizacion-form', 'Solicitar Cotización');
+});
+
+// Función reutilizable para scroll suave
+function scrollToSection(selector, sectionName) {
+    const targetSection = document.querySelector(selector);
+    
+    if (targetSection) {
+        // Scroll suave
+        targetSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+        
+        // Efecto de resaltado
+        highlightSection(targetSection);
+        
+    } else {
+        console.log(`No se encontró la sección: ${sectionName}`);
+        // Fallback: mostrar alerta
+        alert(`Redirigiendo a ${sectionName}...`);
+    }
+}
+
+// Función para resaltar sección
+function highlightSection(section) {
+    const originalBackground = section.style.backgroundColor;
+    section.style.transition = 'all 0.8s ease';
+    section.style.backgroundColor = 'rgba(0, 255, 255, 0.1)';
+    section.style.boxShadow = '0 0 40px rgba(0, 255, 255, 0.4)';
+    
+    // Restaurar después de 2 segundos
+    setTimeout(() => {
+        section.style.backgroundColor = originalBackground;
+        section.style.boxShadow = 'none';
+    }, 2000);
+    
+    // Efecto en el título de la sección
+    const titulo = section.querySelector('.section-title');
+    if (titulo) {
+        titulo.style.transition = 'all 0.5s ease';
+        titulo.style.color = '#00FFFF';
+        titulo.style.transform = 'scale(1.05)';
+        
+        setTimeout(() => {
+            titulo.style.color = '';
+            titulo.style.transform = '';
+        }, 1500);
+    }
+}
+
+// =============================================
+// NAVEGACIÓN DEL HEADER Y FOOTER
+// =============================================
+
+// Función para navegación suave
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const target = this.getAttribute('data-target');
+        let targetSection;
+        
+        switch(target) {
+            case 'hero':
+                targetSection = document.querySelector('.hero');
+                break;
+            case 'products':
+                targetSection = document.querySelector('.catalogo-container');
+                break;
+            case 'coroteach':
+                targetSection = document.querySelector('.coroteach');
+                break;
+            case 'footer':
+                targetSection = document.getElementById('footer');
+                break;
+            default:
+                targetSection = document.querySelector('.hero');
+        }
+        
+        if (targetSection) {
+            targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Función para WhatsApp sin mensaje predeterminado
+document.querySelector('a[href*="wa.me"]').addEventListener('click', function(e) {
+    // No necesita preventDefault porque ya es un enlace directo
+    console.log('Redirigiendo a WhatsApp...');
+});
+
+// =============================================
+// SISTEMA DE CAMBIO DE TEMAS
+// =============================================
+
+const themeToggle = document.getElementById('themeToggle');
+const themes = ['dark-theme', 'light-theme', 'gray-theme'];
+const themeIcons = ['fa-moon', 'fa-sun', 'fa-circle-half-stroke'];
+let currentThemeIndex = 0;
+
+// Cargar tema guardado
+// En la función loadTheme, cambia esto:
+function loadTheme() {
+    const savedTheme = localStorage.getItem('corocase-theme');
+    if (savedTheme) {
+        const index = themes.indexOf(savedTheme);
+        if (index !== -1) {
+            currentThemeIndex = index;
+            applyTheme(currentThemeIndex);
+        }
+    } else {
+        // Por defecto usar tema oscuro
+        applyTheme(0); // 0 = dark-theme
+    }
+}
+// Aplicar tema
+function applyTheme(index) {
+    // Remover todos los temas
+    document.body.classList.remove(...themes);
+    
+    // Aplicar nuevo tema
+    document.body.classList.add(themes[index]);
+    
+    // Actualizar icono
+    updateThemeIcon(index);
+    
+    // Guardar preferencia
+    localStorage.setItem('corocase-theme', themes[index]);
+    
+    currentThemeIndex = index;
+}
+
+// Actualizar icono del botón
+function updateThemeIcon(index) {
+    const iconClass = themeIcons[index];
+    themeToggle.innerHTML = `<i class="fas ${iconClass}"></i>`;
+    
+    // Actualizar tooltip
+    const themeNames = ['Oscuro', 'Claro', 'Gris'];
+    themeToggle.title = `Tema ${themeNames[index]} - Click para cambiar`;
+}
+
+// Cambiar al siguiente tema
+function nextTheme() {
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+    applyTheme(currentThemeIndex);
+}
+
+// Event listener para el botón de tema
+themeToggle.addEventListener('click', nextTheme);
+
+// Inicializar tema al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
+    
+    // Efecto de transición suave
+    setTimeout(() => {
+        document.body.style.transition = 'all 0.5s ease';
+    }, 100);
+});
+
+console.log('✅ Sistema de temas inicializado');
+
+// =============================================
+// FUNCIONALIDAD DEL SELECTOR DE MODELOS
+// =============================================
+
+document.getElementById('phoneModel').addEventListener('change', function() {
+    const selectedModel = this.value;
+    const priceBtn = document.querySelector('.price-btn');
+    
+    if (selectedModel) {
+        // Aquí puedes agregar lógica para cambiar precios según el modelo
+        // Por ahora solo muestra un mensaje
+        console.log('Modelo seleccionado:', selectedModel);
+        
+        // Ejemplo: Cambiar precio según modelo (puedes personalizar)
+        const prices = {
+            'iphone-15-pro-max': '$89.900',
+            'samsung-s24-ultra': '$79.900', 
+            'xiaomi-14-pro': '$69.900',
+            // Agrega más precios según necesites
+        };
+        
+        const price = prices[selectedModel] || '$74.900';
+        priceBtn.textContent = price;
+    } else {
+        priceBtn.textContent = '$ --.--';
+    }
+});
+
+
+
+
+
 </script>
 </body>
 </html>
