@@ -2477,6 +2477,7 @@ document.querySelectorAll('.indicator').forEach(indicator => {
         const slideIndex = parseInt(this.getAttribute('data-slide'));
         currentSlide = slideIndex;
         updateCarousel();
+        debugCarousel();
     });
 });
 
@@ -2501,11 +2502,27 @@ function updateCarousel() {
 document.addEventListener('DOMContentLoaded', function() {
     initCarousel();
     updateIndicators();
+    debugCarousel();
     
-    document.querySelector('.carousel-btn.next').addEventListener('click', nextSlide);
-    document.querySelector('.carousel-btn.prev').addEventListener('click', prevSlide);
+    document.querySelector('.carousel-btn.next').addEventListener('click', nextSlide);debugCarousel();
+
+    document.querySelector('.carousel-btn.prev').addEventListener('click', prevSlide);debugCarousel();
 });
 
+// =============================================
+// DEBUG VISUAL DEL CARRUSEL
+// =============================================
+
+// Verificar estado actual del carrusel
+function debugCarousel() {
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    console.log('=== DEBUG CARRUSEL ===');
+    carouselItems.forEach((item, index) => {
+        const bgImage = item.style.backgroundImage;
+        console.log(`Slide ${index}:`, bgImage || 'Sin imagen');
+    });
+    console.log('Slide actual:', currentSlide);
+}
 
 </script>
 </body>
