@@ -659,6 +659,8 @@
     resize: vertical;
 }
 
+
+
 /* ============================================= */
 /* ESTILOS PARA MENÚS DESPLEGABLES - CORRECCIÓN */
 /* ============================================= */
@@ -846,52 +848,6 @@ select option:checked {
 
 .whatsapp {
     background: rgba(37, 211, 102, 0.2);
-}
-
-/* Responsive para móviles */
-@media (max-width: 768px) {
-    .contact-info .social-links {
-        flex-direction: column;
-        gap: 12px;
-        align-items: stretch;
-    }
-    
-    .social-link {
-        width: 100%;
-        max-width: 250px;
-        justify-content: center;
-        margin: 0 auto;
-    }
-    
-    .email-container {
-        width: 100%;
-    }
-    
-    .email {
-        max-width: 250px;
-        margin: 0 auto;
-    }
-    
-    .email-text {
-        max-width: 180px;
-        font-size: 0.8rem;
-    }
-}
-
-/* Para tablets */
-@media (max-width: 1024px) and (min-width: 769px) {
-    .contact-info .social-links {
-        gap: 10px;
-    }
-    
-    .social-link {
-        padding: 8px 12px;
-    }
-    
-    .email-text {
-        max-width: 150px;
-        font-size: 0.8rem;
-    }
 }
 
 /* ============================================= */
@@ -1259,32 +1215,6 @@ body.dark-theme .btn:hover {
     transform: translateX(0%) !important;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .product-subtitle {
-        font-size: 1.2rem;
-    }
-    
-    .carousel-indicators {
-        gap: 5px;
-    }
-    
-    .indicator {
-        padding: 4px 8px;
-        font-size: 0.7rem;
-    }
-    
-    .product-features {
-        grid-template-columns: 1fr;
-        gap: 15px;
-        padding: 20px;
-    }
-    
-    .feature-item {
-        padding: 15px;
-    }
-}
-
 /* ============================================= */
 /* INDICADORES DE COLOR DEL CARRUSEL */
 /* ============================================= */
@@ -1327,37 +1257,833 @@ body.dark-theme .btn:hover {
     opacity: 0.9;
 }
 
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .logo {
-                font-size: 2.2rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 15px;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .whatsapp-modal {
-                width: 90%;
-                right: 5%;
-            }
-        }
-    </style>
+/* ============================================= */
+/* BOTÓN DE SEGUIMIENTO - VERSIÓN CORREGIDA */
+/* ============================================= */
+
+.tracking-button {
+    position: fixed;
+    bottom: 120px;
+    right: 30px;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #FF6B35, #FF8E53);
+    border-radius: 50%;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+    cursor: pointer;
+    z-index: 999;
+    transition: all 0.3s ease;
+    border: none;
+    color: white;
+    font-size: 32px;
+    text-decoration: none !important;
+}
+
+.tracking-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(255, 107, 53, 0.6);
+}
+
+.tracking-button i {
+    font-size: 32px;
+    display: block !important;
+}
+
+/* Asegurar que no haya estilos que interfieran */
+.tracking-button * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ============================================= */
+/* ESTILOS DEL BUSCADOR - AGREGAR ESTO NUEVO */
+/* ============================================= */
+
+.tracking-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: stretch;
+}
+
+.tracking-input input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    color: #333;
+    transition: all 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.tracking-input input:focus {
+    outline: none;
+    border-color: #FF6B35;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.tracking-input input::placeholder {
+    color: #999;
+}
+
+.tracking-input button {
+    background: linear-gradient(135deg, #FF6B35, #FF8E53);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-width: 80px;
+}
+
+.tracking-input button:hover {
+    background: linear-gradient(135deg, #E55A2B, #E57A43);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+/* Para móviles */
+@media (max-width: 480px) {
+    .tracking-input {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .tracking-input button {
+        width: 100%;
+        padding: 14px;
+    }
+}
+
+/* ============================================= */
+/* MODAL DE SEGUIMIENTO - POSICIÓN CORREGIDA */
+/* ============================================= */
+
+.tracking-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    display: none;
+    overflow: hidden;
+    color: #333;
+    border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.tracking-header {
+    background: linear-gradient(135deg, #FF6B35, #FF8E53);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.close-tracking {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-tracking:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.tracking-content {
+    padding: 25px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+/* Responsive corregido */
+@media (max-width: 768px) {
+    .tracking-modal {
+        width: 95%;
+        max-width: 95%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .tracking-modal {
+        width: 98%;
+        max-height: 85vh;
+    }
+    
+    .tracking-content {
+        padding: 15px;
+        max-height: 70vh;
+    }
+}
+
+/* ============================================= */
+/* PANEL DE ADMINISTRACIÓN */
+/* ============================================= */
+
+.admin-panel {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10000;
+}
+
+.admin-btn {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+    transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(106, 17, 203, 0.6);
+}
+
+.admin-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 10001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    padding: 20px 0;
+}
+
+.admin-content {
+    background: white;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    border-radius: 15px;
+    overflow: hidden;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-header {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-admin {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.close-admin:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+.admin-tabs {
+    display: flex;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.admin-tab {
+    padding: 15px 25px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+}
+
+.admin-tab.active {
+    border-bottom: 3px solid #6a11cb;
+    color: #6a11cb;
+    background: white;
+}
+
+.admin-tab-content {
+    display: none;
+    padding: 25px;
+    max-height: 60vh;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.admin-tab-content.active {
+    display: block;
+}
+
+/* Formularios del admin */
+.admin-form {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+.btn-primary {
+    background: #6a11cb;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background: #5a0db3;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
+/* Lista de pedidos - ESTILOS CORREGIDOS */
+.pedidos-list {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.pedido-item {
+    display: grid;
+    grid-template-columns: 120px 1fr 150px 120px 100px;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    min-width: 0;
+}
+
+.pedido-item:last-child {
+    border-bottom: none;
+}
+
+.pedido-item:hover {
+    background: #f8f9fa;
+}
+
+.pedido-header {
+    background: #e9ecef;
+    font-weight: bold;
+    color: #333;
+}
+
+.pedido-numero {
+    font-family: monospace;
+    font-weight: bold;
+    color: #6a11cb;
+}
+
+.pedido-cliente {
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pedido-producto {
+    color: #666;
+    font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pedido-estado {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.estado-solicitado { background: #fff3cd; color: #856404; }
+.estado-confirmado { background: #d1ecf1; color: #0c5460; }
+.estado-despachado { background: #d1e7ff; color: #004085; }
+.estado-transito { background: #e2e3e5; color: #383d41; }
+.estado-oficina { background: #d4edda; color: #155724; }
+.estado-entregado { background: #28a745; color: white; }
+
+/* ============================================= */
+/* NUEVOS ESTILOS PARA ESTADOS ACTUALIZADOS */
+/* ============================================= */
+
+.estado-enviado { background: #d1e7ff; color: #004085; }
+.estado-empacado { background: #cce7ff; color: #0066cc; }
+.estado-vuelo { background: #e0f7fa; color: #00695c; }
+.estado-aduana { background: #fff3cd; color: #856404; }
+.estado-bogota { background: #f8d7da; color: #721c24; }
+.estado-medellin { background: #f8d7da; color: #721c24; }
+.estado-bodega { background: #e2e3e5; color: #383d41; }
+.estado-proximo { background: #d4edda; color: #155724; }
+
+/* ============================================= */
+/* ESTILOS PARA LOS PASOS DE SEGUIMIENTO */
+/* ============================================= */
+
+.tracking-step {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.tracking-step:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.step-number {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: #FF6B35;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.step-active .step-number {
+    background: #25D366;
+    animation: pulse 2s infinite;
+}
+
+.step-completed .step-number {
+    background: #25D366;
+}
+
+.step-pending .step-number {
+    background: #ccc;
+}
+
+.step-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.step-date {
+    font-size: 0.85rem;
+    color: #666;
+    margin-left: 40px;
+}
+
+.step-description {
+    margin-left: 40px;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.no-tracking {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+}
+
+.tracking-status {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    border-left: 4px solid #FF6B35;
+}
+
+/* ============================================= */
+/* CORRECCIONES PARA INPUTS Y MODALES */
+/* ============================================= */
+
+/* Inputs visibles en todos los temas */
+.tracking-input input,
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+    background: white !important;
+    color: #333 !important;
+    border: 2px solid #e0e0e0 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+.tracking-input input:focus,
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
+    border-color: #FF6B35 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1) !important;
+}
+
+/* Placeholders visibles */
+.tracking-input input::placeholder {
+    color: #999 !important;
+    opacity: 1 !important;
+}
+
+/* Modal de seguimiento mejorado */
+.tracking-modal {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(20px) !important;
+}
+
+.tracking-content {
+    color: #333 !important;
+}
+
+/* Estados de pedido en panel admin */
+.pedido-estado {
+    padding: 6px 12px !important;
+    border-radius: 20px !important;
+    font-size: 0.8em !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    display: inline-block !important;
+    min-width: 120px !important;
+}
+
+/* Loading states */
+.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ============================================= */
+/* ESTILOS PARA EL SISTEMA MEJORADO */
+/* ============================================= */
+
+/* Formularios mejorados */
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white !important;
+    color: #333 !important;
+}
+
+.form-control:focus {
+    border-color: #1890ff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+/* Items de productos */
+.producto-item-edicion {
+    padding: 12px;
+    background: white;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border: 1px solid #e8e8e8;
+}
+
+.producto-item-edicion:hover {
+    border-color: #1890ff;
+}
+
+/* Estados adicionales */
+.estado-produccion { background: #fff7e6; color: #d46b08; }
+.estado-colombia { background: #f6ffed; color: #389e0d; }
+.estado-distribucion { background: #f0f5ff; color: #1d39c4; }
+
+/* Animaciones suaves */
+.admin-modal {
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Scrollbar personalizado */
+.admin-tab-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.admin-tab-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.admin-tab-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.admin-tab-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* ============================================= */
+/* MEDIA QUERIES RESPONSIVE */
+/* ============================================= */
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .logo {
+        font-size: 2.2rem;
+    }
+    
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .whatsapp-modal {
+        width: 90%;
+        right: 5%;
+    }
+
+    /* ESTILOS PARA PANEL ADMIN EN MÓVIL */
+    .pedido-item {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        text-align: left !important;
+    }
+    
+    .pedido-item > div {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+    }
+    
+    .pedido-item > div:last-child {
+        border-bottom: none;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    
+    .admin-content {
+        width: 95%;
+        margin: 10px;
+    }
+    
+    .admin-content {
+        width: 95% !important;
+        margin: 10px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .producto-item-edicion {
+        flex-direction: column;
+        align-items: start !important;
+    }
+    
+    .producto-item-edicion > div {
+        width: 100%;
+    }
+}
+
+/* Para tablets */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .contact-info .social-links {
+        gap: 10px;
+    }
+    
+    .social-link {
+        padding: 8px 12px;
+    }
+    
+    .email-text {
+        max-width: 150px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Para móviles pequeños */
+@media (max-width: 480px) {
+    .contact-info .social-links {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+    
+    .social-link {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    
+    .email-container {
+        width: 100%;
+    }
+    
+    .email {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+    
+    .email-text {
+        max-width: 180px;
+        font-size: 0.8rem;
+    }
+    
+    .tracking-input {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .tracking-input button {
+        width: 100%;
+        padding: 14px;
+    }
+    
+    .tracking-modal {
+        width: 98%;
+        max-height: 85vh;
+    }
+    
+    .tracking-content {
+        padding: 15px;
+        max-height: 70vh;
+    }
+}
+</style>
 </head>
 <body>
 
@@ -1943,193 +2669,388 @@ body.dark-theme .btn:hover {
         </div>
     </div>
 
+    <!-- Botón de seguimiento de pedidos -->
+<button class="tracking-button" id="trackingBtn" title="Seguimiento de Pedidos">
+    <i class="fas fa-shipping-fast"></i>
+</button>
+
+<!-- BOTÓN ADMIN FLOTANTE - AGREGA ESTO -->
+<button class="admin-floating-btn" id="adminFloatingBtn" title="Panel de Administración">
+    <i class="fas fa-cog"></i>
+</button>
+
+<!-- Modal de seguimiento CORREGIDO -->
+<div class="tracking-modal" id="trackingModal">
+    <div class="tracking-header">
+        <h3><i class="fas fa-map-marker-alt"></i> Seguimiento de Pedidos</h3>
+        <p>Consulta el estado de tu pedido en tiempo real</p>
+        <button class="close-tracking" id="closeTracking">&times;</button>
+    </div>
+    
+    <div class="tracking-content">
+        <!-- El resto del contenido se mantiene igual -->
+        <div class="tracking-input">
+            <input type="text" id="trackingNumber" placeholder="Ingresa tu número de guía (MH... o PA...)" maxlength="20">
+            <button id="searchTracking">Buscar</button>
+        </div>
+        
+        <div id="trackingResults">
+            <div class="no-tracking">
+                <i class="fas fa-box-open" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
+                <p>Ingresa tu número de guía para ver el estado de tu pedido</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Panel de Administración -->
+<div class="admin-panel">
+    <button class="admin-btn" id="adminBtn">
+        <i class="fas fa-cog"></i> Panel Admin
+    </button>
+</div>
+
+<div class="admin-modal" id="adminModal">
+    <div class="admin-content">
+        <div class="admin-header">
+            <h3 style="margin: 0;"><i class="fas fa-tools"></i> Panel de Administración - COROCASE</h3>
+            <button class="close-admin" id="closeAdmin">&times;</button>
+        </div>
+        
+        <div class="admin-tabs">
+            <button class="admin-tab active" data-tab="gestion">Gestión de Pedidos</button>
+            <button class="admin-tab" data-tab="nuevo">Nuevo Pedido</button>
+            <button class="admin-tab" data-tab="historial">Historial Completo</button>
+        </div>
+        
+        <!-- Pestaña: Gestión de Pedidos -->
+        <div class="admin-tab-content active" id="tab-gestion">
+            <h4>Pedidos Activos</h4>
+            <div class="pedidos-list">
+                <div class="pedido-item pedido-header">
+                    <div>Guía</div>
+                    <div>Cliente / Producto</div>
+                    <div>Transportadora</div>
+                    <div>Estado</div>
+                    <div>Acciones</div>
+                </div>
+                <div id="listaPedidos">
+                    <!-- Los pedidos se cargan aquí dinámicamente -->
+                </div>
+            </div>
+        </div>
+        
+<!-- Pestaña: Nuevo Pedido -->
+<div class="admin-tab-content" id="tab-nuevo">
+    <h4>Registrar Nuevo Pedido</h4>
+    
+    <!-- Formulario Principal -->
+    <div class="admin-form" id="nuevoPedidoForm">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Número de Guía *</label>
+                <input type="text" id="nuevaGuia" placeholder="MH123456789CO" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label>Transportadora *</label>
+                <select id="nuevaTransportadora">
+                    <option value="Mail Americas">Mail Americas</option>
+                    <option value="Pasarex">Pasarex</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label>Cliente *</label>
+                <input type="text" id="nuevoCliente" placeholder="Nombre del cliente">
+            </div>
+            <div class="form-group">
+                <label>Estado Inicial *</label>
+                <select id="nuevoEstado">
+                    <option value="solicitado_corocase">Solicitado desde COROCASE</option>
+                    <option value="confirmado_fabrica">Confirmado por la Fábrica</option>
+                    <option value="en_produccion">En Producción</option>
+                    <option value="enviado_fabrica">Enviado por la Fábrica</option>
+                    <option value="empacado">Empacado para envío</option>
+                    <option value="en_transito">En Tránsito Internacional</option>
+                    <option value="en_aduana">En Aduanas</option>
+                    <option value="llegada_colombia">Llegada a Colombia</option>
+                    <option value="distribucion_local">En Distribución Local</option>
+                    <option value="en_oficina_corocase">En Oficina COROCASE</option>
+                    <option value="listo_entrega">Listo para Entrega</option>
+                    <option value="entregado">Entregado</option>
+                </select>
+            </div>
+        </div>
+        
+        <div style="background: #e9f7fe; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #1890ff;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <strong>Productos del Pedido</strong>
+                    <br>
+                    <span id="contadorProductos">0</span> producto(s) agregado(s)
+                </div>
+                <button type="button" id="btnAgregarProducto" class="btn-primary" onclick="toggleFormularioProductos()">
+                    + Agregar Productos
+                </button>
+            </div>
+            <div id="listaProductosTemporales" style="margin-top: 10px;">
+                <div style="color: #666; text-align: center; padding: 20px;">No hay productos agregados</div>
+            </div>
+        </div>
+        
+        <button class="btn-primary" id="btnRegistrarPedido">
+            <i class="fas fa-plus"></i> Registrar Pedido
+        </button>
+    </div>
+    
+    <!-- Formulario de Productos (oculto inicialmente) -->
+    <div class="admin-form" id="formularioProductos" style="display: none;">
+        <h5>Agregar Producto</h5>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Nombre del Producto *</label>
+                <input type="text" id="productoNombre" placeholder="Ej: Funda Tipo Cartera - iPhone 15">
+            </div>
+            <div class="form-group">
+                <label>Cantidad</label>
+                <input type="number" id="productoCantidad" value="1" min="1">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label>Precio Unitario</label>
+                <input type="number" id="productoPrecio" placeholder="Ej: 45000">
+            </div>
+            <div class="form-group">
+                <label>Color (opcional)</label>
+                <input type="text" id="productoColor" placeholder="Ej: Roja, Azul, etc.">
+            </div>
+        </div>
+        
+        <div style="display: flex; gap: 10px;">
+            <button type="button" class="btn-secondary" onclick="toggleFormularioProductos()" style="flex: 1;">
+                <i class="fas fa-arrow-left"></i> Volver
+            </button>
+            <button type="button" class="btn-primary" onclick="agregarProductoTemporal()" style="flex: 1;">
+                <i class="fas fa-plus"></i> Agregar Producto
+            </button>
+        </div>
+    </div>
+</div>
+
+        <!-- Pestaña: Historial Completo -->
+        <div class="admin-tab-content" id="tab-historial">
+            <h4>Base de Datos de Pedidos</h4>
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <p style="margin: 0; color: #856404;">
+                    <i class="fas fa-database"></i> 
+                    <strong>Base de datos actual:</strong> <span id="totalPedidos">0</span> pedidos registrados
+                </p>
+            </div>
+            <div id="databaseView">
+                <!-- Vista de la base de datos completa -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    // =============================================
-    // CONFIGURACIÓN INICIAL Y ELEMENTOS DEL DOM
-    // =============================================
-    const whatsappBtn = document.getElementById('whatsappBtn');
-    const whatsappModal = document.getElementById('whatsappModal');
-    const closeModal = document.getElementById('closeModal');
-    const optionBtns = document.querySelectorAll('.option-btn');
-    const backBtns = document.querySelectorAll('.btn-back');
-    const sendRepairQuote = document.getElementById('sendRepairQuote');
-    const sendCaseRequest = document.getElementById('sendCaseRequest');
-    const sendDoubt = document.getElementById('sendDoubt');
-    
-    let selectedOption = '';
-    let currentStep = '1';
+// =============================================
+// CONFIGURACIÓN INICIAL Y ELEMENTOS DEL DOM
+// =============================================
+const whatsappBtn = document.getElementById('whatsappBtn');
+const whatsappModal = document.getElementById('whatsappModal');
+const closeModal = document.getElementById('closeModal');
+const optionBtns = document.querySelectorAll('.option-btn');
+const backBtns = document.querySelectorAll('.btn-back');
+const sendRepairQuote = document.getElementById('sendRepairQuote');
+const sendCaseRequest = document.getElementById('sendCaseRequest');
+const sendDoubt = document.getElementById('sendDoubt');
 
-    // =============================================
-    // FUNCIONES PRINCIPALES DEL MODAL
-    // =============================================
-    
-    // Abrir modal de WhatsApp
-    whatsappBtn.addEventListener('click', () => {
-        whatsappModal.style.display = 'block';
-        resetForm();
-    });
-    
-    // Cerrar modal
-    closeModal.addEventListener('click', () => {
-        whatsappModal.style.display = 'none';
-    });
-    
-    // Seleccionar opción principal
-    optionBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            selectedOption = btn.getAttribute('data-option');
-            showStep(selectedOption);
-        });
-    });
-    
-    // Botones de retroceso
-    backBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const step = btn.getAttribute('data-step');
-            showStep(step);
-        });
-    });
-
-    // =============================================
-    // OPCIÓN 1: COTIZAR REPARACIÓN DE CELULAR
-    // =============================================
-    sendRepairQuote.addEventListener('click', () => {
-        const brand = document.getElementById('deviceBrand').value;
-        const specificModel = document.getElementById('deviceSpecificModel').value;
-        const issue = document.getElementById('deviceIssue').value;
-        const urgent = document.getElementById('urgentRepair').value;
-        const phone = document.getElementById('clientPhone').value;
-        
-        // Validación de campos obligatorios
-        if (!brand || !specificModel || !issue || !phone) {
-            alert('Por favor, completa todos los campos obligatorios');
-            return;
-        }
-        
-        // Construir mensaje para WhatsApp
-        const message = `¡Hola! Solicito cotización para reparación:%0A%0A*📱 INFORMACIÓN DEL DISPOSITIVO*%0A*Marca:* ${brand}%0A*Modelo:* ${specificModel}%0A%0A*🔧 DESCRIPCIÓN DE LA FALLA*%0A${issue}%0A%0A*⚡ URGENCIA*%0A${urgent}%0A%0A*📞 CONTACTO*%0A${phone}`;
-        
-        // Enviar a WhatsApp
-        sendWhatsApp(message);
-    });
-
-    // =============================================
-    // OPCIÓN 2: FUNDAS PARA CELULAR
-    // =============================================
-    sendCaseRequest.addEventListener('click', () => {
-        const brand = document.getElementById('caseBrand').value;
-        const model = document.getElementById('caseModel').value;
-        
-        if (!brand || !model) {
-            alert('Por favor, completa todos los campos');
-            return;
-        }
-        
-        const message = `¡Hola! Estoy interesado en fundas para:%0A%0A*📱 DISPOSITIVO*%0A*Marca:* ${brand}%0A*Modelo:* ${model}%0A%0A*💬 INFORMACIÓN ADICIONAL*%0AMe gustaría conocer los diseños disponibles y precios.`;
-        sendWhatsApp(message);
-    });
-
-    // =============================================
-    // OPCIÓN 3: PREGUNTAS Y DUDAS
-    // =============================================
-    sendDoubt.addEventListener('click', () => {
-        const type = document.getElementById('doubtType').value;
-        const description = document.getElementById('doubtDescription').value;
-        
-        if (!type || !description) {
-            alert('Por favor, completa todos los campos');
-            return;
-        }
-        
-        let doubtText = '';
-        switch(type) {
-            case 'reparaciones':
-                doubtText = 'dudas sobre reparaciones';
-                break;
-            case 'fundas':
-                doubtText = 'dudas sobre fundas';
-                break;
-            default:
-                doubtText = 'una consulta';
-        }
-        
-        const message = `¡Hola! Tengo ${doubtText}:%0A%0A*❓ CONSULTA*%0A${description}%0A%0A*💬 INFORMACIÓN ADICIONAL*%0APor favor, necesito más información sobre este tema.`;
-        sendWhatsApp(message);
-    });
-
-    // =============================================
-    // FUNCIONES AUXILIARES
-    // =============================================
-    
-    // Función para mostrar paso específico
-    function showStep(step) {
-        // Ocultar todos los pasos
-        document.querySelectorAll('.form-step').forEach(stepElement => {
-            stepElement.classList.remove('active');
-        });
-        
-        // Mostrar el paso correspondiente
-        if (step === '1') {
-            document.getElementById('step1').classList.add('active');
-            currentStep = '1';
-        } else if (step === 'cotizar') {
-            document.getElementById('step2').classList.add('active');
-            currentStep = 'cotizar';
-        } else if (step === 'fundas') {
-            document.getElementById('step3').classList.add('active');
-            currentStep = 'fundas';
-        } else if (step === 'dudas') {
-            document.getElementById('step4').classList.add('active');
-            currentStep = 'dudas';
-        }
-    }
-    
-    // Función para resetear el formulario
-    function resetForm() {
-        showStep('1');
-        
-        // Limpiar campos del paso 2 (Reparación)
-        document.getElementById('deviceBrand').value = '';
-        document.getElementById('deviceSpecificModel').value = '';
-        document.getElementById('deviceIssue').value = '';
-        document.getElementById('urgentRepair').value = 'No';
-        document.getElementById('clientPhone').value = '';
-        
-        // Limpiar campos del paso 3 (Fundas)
-        document.getElementById('caseBrand').value = '';
-        document.getElementById('caseModel').value = '';
-        
-        // Limpiar campos del paso 4 (Dudas)
-        document.getElementById('doubtType').value = '';
-        document.getElementById('doubtDescription').value = '';
-        
-        selectedOption = '';
-    }
-    
-    // Función principal para enviar a WhatsApp
-    function sendWhatsApp(message) {
-        const phoneNumber = '573014959147'; // Tu número actualizado
-        const url = `https://wa.me/${phoneNumber}?text=${message}`;
-        window.open(url, '_blank');
-        whatsappModal.style.display = 'none';
-    }
-
-    // =============================================
-    // BOTONES CONSULTAR DEL LISTADO DE REPARACIONES
-    // =============================================
-    document.querySelectorAll('.consult-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const service = this.getAttribute('data-service');
-            const price = this.getAttribute('data-price');
-            
-            const message = `¡Hola! Estoy interesado en:%0A%0A*🔧 SERVICIO SOLICITADO*%0A${service}%0A%0A*💰 PRECIO REFERENCIA*%0A${price}%0A%0A*💬 INFORMACIÓN ADICIONAL*%0AMe gustaría agendar una cita o recibir más información sobre este servicio.`;
-            
-            sendWhatsApp(message);
-        });
-    });
+let selectedOption = '';
+let currentStep = '1';
 
 // =============================================
-// FORMULARIO DE COTIZACIÓN - VERSIÓN FINAL
+// SISTEMA DE PEDIDOS - VERSIÓN ESTABLE
+// =============================================
+let pedidosDatabase = {};
+let productosTemporales = [];
+
+// Función SIMPLIFICADA para cargar datos
+function cargarDatos() {
+    try {
+        const datosGuardados = localStorage.getItem('corocase_pedidos');
+        if (datosGuardados && datosGuardados !== '{}') {
+            pedidosDatabase = JSON.parse(datosGuardados);
+            console.log('✅ Datos cargados:', Object.keys(pedidosDatabase).length, 'pedidos');
+        } else {
+            pedidosDatabase = {};
+            console.log('📭 Base de datos vacía');
+        }
+    } catch (error) {
+        console.error('❌ Error cargando datos:', error);
+        pedidosDatabase = {};
+    }
+}
+
+// Función para guardar datos
+function guardarDatos() {
+    try {
+        localStorage.setItem('corocase_pedidos', JSON.stringify(pedidosDatabase));
+        console.log('💾 Datos guardados');
+    } catch (error) {
+        console.error('❌ Error guardando:', error);
+    }
+}
+
+// Estados del pedido
+const estadosPedido = {
+    'solicitado_corocase': { texto: 'Solicitado desde COROCASE', icono: '🏪', clase: 'estado-solicitado' },
+    'confirmado_fabrica': { texto: 'Confirmado por la Fábrica', icono: '🏭', clase: 'estado-confirmado' },
+    'en_produccion': { texto: 'En Producción', icono: '⚙️', clase: 'estado-produccion' },
+    'enviado_fabrica': { texto: 'Enviado por la Fábrica', icono: '🚚', clase: 'estado-enviado' },
+    'empacado': { texto: 'Empacado para envío', icono: '📦', clase: 'estado-empacado' },
+    'en_transito': { texto: 'En Tránsito Internacional', icono: '✈️', clase: 'estado-vuelo' },
+    'en_aduana': { texto: 'En Aduanas', icono: '🏛️', clase: 'estado-aduana' },
+    'llegada_colombia': { texto: 'Llegada a Colombia', icono: '🇨🇴', clase: 'estado-colombia' },
+    'distribucion_local': { texto: 'En Distribución Local', icono: '🚛', clase: 'estado-distribucion' },
+    'en_oficina_corocase': { texto: 'En Oficina COROCASE', icono: '🏪', clase: 'estado-oficina' },
+    'listo_entrega': { texto: 'Listo para Entrega', icono: '📬', clase: 'estado-proximo' },
+    'entregado': { texto: 'Entregado', icono: '✅', clase: 'estado-entregado' }
+};
+
+// =============================================
+// WHATSAPP FUNCTIONALITY
+// =============================================
+whatsappBtn.addEventListener('click', () => {
+    whatsappModal.style.display = whatsappModal.style.display === 'block' ? 'none' : 'block';
+});
+
+closeModal.addEventListener('click', () => {
+    whatsappModal.style.display = 'none';
+});
+
+optionBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        selectedOption = btn.getAttribute('data-option');
+        showStep(selectedOption);
+    });
+});
+
+backBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const step = btn.getAttribute('data-step');
+        showStep(step);
+    });
+});
+
+sendRepairQuote.addEventListener('click', () => {
+    const brand = document.getElementById('deviceBrand').value;
+    const specificModel = document.getElementById('deviceSpecificModel').value;
+    const issue = document.getElementById('deviceIssue').value;
+    const urgent = document.getElementById('urgentRepair').value;
+    const phone = document.getElementById('clientPhone').value;
+    
+    if (!brand || !specificModel || !issue || !phone) {
+        alert('Por favor, completa todos los campos obligatorios');
+        return;
+    }
+    
+    const message = `¡Hola! Solicito cotización para reparación:%0A%0A*📱 INFORMACIÓN DEL DISPOSITIVO*%0A*Marca:* ${brand}%0A*Modelo:* ${specificModel}%0A%0A*🔧 DESCRIPCIÓN DE LA FALLA*%0A${issue}%0A%0A*⚡ URGENCIA*%0A${urgent}%0A%0A*📞 CONTACTO*%0A${phone}`;
+    sendWhatsApp(message);
+});
+
+sendCaseRequest.addEventListener('click', () => {
+    const brand = document.getElementById('caseBrand').value;
+    const model = document.getElementById('caseModel').value;
+    
+    if (!brand || !model) {
+        alert('Por favor, completa todos los campos');
+        return;
+    }
+    
+    const message = `¡Hola! Estoy interesado en fundas para:%0A%0A*📱 DISPOSITIVO*%0A*Marca:* ${brand}%0A*Modelo:* ${model}%0A%0A*💬 INFORMACIÓN ADICIONAL*%0AMe gustaría conocer los diseños disponibles y precios.`;
+    sendWhatsApp(message);
+});
+
+sendDoubt.addEventListener('click', () => {
+    const type = document.getElementById('doubtType').value;
+    const description = document.getElementById('doubtDescription').value;
+    
+    if (!type || !description) {
+        alert('Por favor, completa todos los campos');
+        return;
+    }
+    
+    let doubtText = '';
+    switch(type) {
+        case 'reparaciones': doubtText = 'dudas sobre reparaciones'; break;
+        case 'fundas': doubtText = 'dudas sobre fundas'; break;
+        default: doubtText = 'una consulta';
+    }
+    
+    const message = `¡Hola! Tengo ${doubtText}:%0A%0A*❓ CONSULTA*%0A${description}%0A%0A*💬 INFORMACIÓN ADICIONAL*%0APor favor, necesito más información sobre este tema.`;
+    sendWhatsApp(message);
+});
+
+function showStep(step) {
+    document.querySelectorAll('.form-step').forEach(stepElement => {
+        stepElement.classList.remove('active');
+    });
+    
+    if (step === '1') {
+        document.getElementById('step1').classList.add('active');
+        currentStep = '1';
+    } else if (step === 'cotizar') {
+        document.getElementById('step2').classList.add('active');
+        currentStep = 'cotizar';
+    } else if (step === 'fundas') {
+        document.getElementById('step3').classList.add('active');
+        currentStep = 'fundas';
+    } else if (step === 'dudas') {
+        document.getElementById('step4').classList.add('active');
+        currentStep = 'dudas';
+    }
+}
+
+function resetForm() {
+    showStep('1');
+    document.getElementById('deviceBrand').value = '';
+    document.getElementById('deviceSpecificModel').value = '';
+    document.getElementById('deviceIssue').value = '';
+    document.getElementById('urgentRepair').value = 'No';
+    document.getElementById('clientPhone').value = '';
+    document.getElementById('caseBrand').value = '';
+    document.getElementById('caseModel').value = '';
+    document.getElementById('doubtType').value = '';
+    document.getElementById('doubtDescription').value = '';
+    selectedOption = '';
+}
+
+function sendWhatsApp(message) {
+    const phoneNumber = '573014959147';
+    const url = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(url, '_blank');
+    whatsappModal.style.display = 'none';
+}
+
+// =============================================
+// BOTONES CONSULTAR REPARACIONES
+// =============================================
+document.querySelectorAll('.consult-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const service = this.getAttribute('data-service');
+        const price = this.getAttribute('data-price');
+        const message = `¡Hola! Estoy interesado en:%0A%0A*🔧 SERVICIO SOLICITADO*%0A${service}%0A%0A*💰 PRECIO REFERENCIA*%0A${price}%0A%0A*💬 INFORMACIÓN ADICIONAL*%0AMe gustaría agendar una cita o recibir más información sobre este servicio.`;
+        sendWhatsApp(message);
+    });
+});
+
+// =============================================
+// FORMULARIO DE COTIZACIÓN
 // =============================================
 document.getElementById('cotizacionForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -2140,19 +3061,16 @@ document.getElementById('cotizacionForm').addEventListener('submit', function(e)
     const urgent = document.getElementById('cotizacionUrgent').value;
     const phone = document.getElementById('cotizacionPhone').value;
     
-    // Validar
     if (!brand || !model || !issue || !phone) {
         alert('Por favor, completa todos los campos obligatorios');
         return;
     }
     
-    // Mostrar loading
     const submitBtn = this.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
     submitBtn.textContent = 'Enviando...';
     submitBtn.disabled = true;
 
-    // Datos del formulario
     const formData = {
         brand: brand,
         model: model,
@@ -2161,14 +3079,10 @@ document.getElementById('cotizacionForm').addEventListener('submit', function(e)
         phone: phone
     };
     
-    // URL de tu Google Apps Script
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwJaJ9F8WnEV0OkOv8yPrih2hd0fjYxPx_ytWdmEuiWlWb1bXQm_kV2acTXiqDSGIcc/exec';
-
-    // Usar FormData para evitar problemas CORS
     const formDataToSend = new FormData();
     formDataToSend.append('data', JSON.stringify(formData));
 
-    // Enviar siempre mostrando éxito al usuario
     fetch(scriptURL, {
         method: 'POST',
         body: formDataToSend,
@@ -2179,7 +3093,6 @@ document.getElementById('cotizacionForm').addEventListener('submit', function(e)
         document.getElementById('cotizacionForm').reset();
     })
     .catch(error => {
-        console.log('Detalle técnico:', error);
         alert('✅ Hemos recibido tu solicitud. Te contactaremos pronto.');
         document.getElementById('cotizacionForm').reset();
     })
@@ -2189,151 +3102,74 @@ document.getElementById('cotizacionForm').addEventListener('submit', function(e)
     });
 });
 
-    // =============================================
-    // MEJORAS DE USABILIDAD
-    // =============================================
-    
-    // Cerrar modal al hacer clic fuera de él
-    document.addEventListener('click', (e) => {
-        if (e.target === whatsappModal) {
-            whatsappModal.style.display = 'none';
-        }
-    });
-    
-    // Cerrar modal con tecla Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && whatsappModal.style.display === 'block') {
-            whatsappModal.style.display = 'none';
-        }
-    });
-    
-    console.log('✅ Botón de WhatsApp inicializado correctamente');
-
 // =============================================
-// FUNCIONES CORREGIDAS PARA LOS 3 BOTONES DEL HERO
+// NAVEGACIÓN
 // =============================================
-
-// Botón "Ver Colección" → Catálogo de Productos
 document.getElementById('verColeccionBtn').addEventListener('click', function(e) {
     e.preventDefault();
     scrollToSection('.catalogo-container', 'Catálogo de Productos');
 });
 
-// Botón "Más sobre Nosotros" → ¿Por qué COROCASE? (Features)
 document.getElementById('masNosotrosBtn').addEventListener('click', function(e) {
     e.preventDefault();
     scrollToSection('.features', '¿Por qué COROCASE?');
 });
 
-// Botón "Reparaciones" → Solicitar Cotización (Formulario)
 document.getElementById('reparacionesBtn').addEventListener('click', function(e) {
     e.preventDefault();
     scrollToSection('.cotizacion-form', 'Solicitar Cotización');
 });
 
-// Función reutilizable para scroll suave
 function scrollToSection(selector, sectionName) {
     const targetSection = document.querySelector(selector);
-    
     if (targetSection) {
-        // Scroll suave
-        targetSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-        
-        // Efecto de resaltado
+        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         highlightSection(targetSection);
-        
     } else {
-        console.log(`No se encontró la sección: ${sectionName}`);
-        // Fallback: mostrar alerta
         alert(`Redirigiendo a ${sectionName}...`);
     }
 }
 
-// Función para resaltar sección
 function highlightSection(section) {
     const originalBackground = section.style.backgroundColor;
     section.style.transition = 'all 0.8s ease';
     section.style.backgroundColor = 'rgba(0, 255, 255, 0.1)';
     section.style.boxShadow = '0 0 40px rgba(0, 255, 255, 0.4)';
     
-    // Restaurar después de 2 segundos
     setTimeout(() => {
         section.style.backgroundColor = originalBackground;
         section.style.boxShadow = 'none';
     }, 2000);
-    
-    // Efecto en el título de la sección
-    const titulo = section.querySelector('.section-title');
-    if (titulo) {
-        titulo.style.transition = 'all 0.5s ease';
-        titulo.style.color = '#00FFFF';
-        titulo.style.transform = 'scale(1.05)';
-        
-        setTimeout(() => {
-            titulo.style.color = '';
-            titulo.style.transform = '';
-        }, 1500);
-    }
 }
 
-// =============================================
-// NAVEGACIÓN DEL HEADER Y FOOTER
-// =============================================
-
-// Función para navegación suave
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
         e.preventDefault();
-        
         const target = this.getAttribute('data-target');
         let targetSection;
         
         switch(target) {
-            case 'hero':
-                targetSection = document.querySelector('.hero');
-                break;
-            case 'products':
-                targetSection = document.querySelector('.catalogo-container');
-                break;
-            case 'coroteach':
-                targetSection = document.querySelector('.coroteach');
-                break;
-            case 'footer':
-                targetSection = document.getElementById('footer');
-                break;
-            default:
-                targetSection = document.querySelector('.hero');
+            case 'hero': targetSection = document.querySelector('.hero'); break;
+            case 'products': targetSection = document.querySelector('.catalogo-container'); break;
+            case 'coroteach': targetSection = document.querySelector('.coroteach'); break;
+            case 'footer': targetSection = document.getElementById('footer'); break;
+            default: targetSection = document.querySelector('.hero');
         }
         
         if (targetSection) {
-            targetSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
 });
 
-// Función para WhatsApp sin mensaje predeterminado
-document.querySelector('a[href*="wa.me"]').addEventListener('click', function(e) {
-    // No necesita preventDefault porque ya es un enlace directo
-    console.log('Redirigiendo a WhatsApp...');
-});
-
 // =============================================
-// SISTEMA DE CAMBIO DE TEMAS
+// SISTEMA DE TEMAS
 // =============================================
-
 const themeToggle = document.getElementById('themeToggle');
 const themes = ['dark-theme', 'light-theme', 'gray-theme'];
 const themeIcons = ['fa-moon', 'fa-sun', 'fa-circle-half-stroke'];
 let currentThemeIndex = 0;
 
-// Cargar tema guardado
-// En la función loadTheme, cambia esto:
 function loadTheme() {
     const savedTheme = localStorage.getItem('corocase-theme');
     if (savedTheme) {
@@ -2343,91 +3179,35 @@ function loadTheme() {
             applyTheme(currentThemeIndex);
         }
     } else {
-        // Por defecto usar tema oscuro
-        applyTheme(0); // 0 = dark-theme
+        applyTheme(0);
     }
 }
-// Aplicar tema
+
 function applyTheme(index) {
-    // Remover todos los temas
     document.body.classList.remove(...themes);
-    
-    // Aplicar nuevo tema
     document.body.classList.add(themes[index]);
-    
-    // Actualizar icono
     updateThemeIcon(index);
-    
-    // Guardar preferencia
     localStorage.setItem('corocase-theme', themes[index]);
-    
     currentThemeIndex = index;
 }
 
-// Actualizar icono del botón
 function updateThemeIcon(index) {
     const iconClass = themeIcons[index];
     themeToggle.innerHTML = `<i class="fas ${iconClass}"></i>`;
-    
-    // Actualizar tooltip
     const themeNames = ['Oscuro', 'Claro', 'Gris'];
     themeToggle.title = `Tema ${themeNames[index]} - Click para cambiar`;
 }
 
-// Cambiar al siguiente tema
 function nextTheme() {
     currentThemeIndex = (currentThemeIndex + 1) % themes.length;
     applyTheme(currentThemeIndex);
 }
 
-// Event listener para el botón de tema
 themeToggle.addEventListener('click', nextTheme);
 
-// Inicializar tema al cargar la página
-document.addEventListener('DOMContentLoaded', function() {
-    loadTheme();
-    
-    // Efecto de transición suave
-    setTimeout(() => {
-        document.body.style.transition = 'all 0.5s ease';
-    }, 100);
-});
-
-console.log('✅ Sistema de temas inicializado');
-
 // =============================================
-// FUNCIONALIDAD DEL SELECTOR DE MODELOS
+// CARRUSEL DE PRODUCTOS
 // =============================================
-
-document.getElementById('phoneModel').addEventListener('change', function() {
-    const selectedModel = this.value;
-    const priceBtn = document.querySelector('.price-btn');
-    
-    if (selectedModel) {
-        // Aquí puedes agregar lógica para cambiar precios según el modelo
-        // Por ahora solo muestra un mensaje
-        console.log('Modelo seleccionado:', selectedModel);
-        
-        // Ejemplo: Cambiar precio según modelo (puedes personalizar)
-        const prices = {
-            'iphone-15-pro-max': '$89.900',
-            'samsung-s24-ultra': '$79.900', 
-            'xiaomi-14-pro': '$69.900',
-            // Agrega más precios según necesites
-        };
-        
-        const price = prices[selectedModel] || '$74.900';
-        priceBtn.textContent = price;
-    } else {
-        priceBtn.textContent = '$ --.--';
-    }
-});
-
-// =============================================
-// CARRUSEL DE IMÁGENES - VERSIÓN SIMPLIFICADA
-// =============================================
-
-// Configuración de imágenes
 const images = [
     'images/funda-tipo-cartera-roja.jpg',
     'images/funda-tipo-cartera-azul.jpg',
@@ -2440,12 +3220,9 @@ const images = [
 
 let currentSlide = 0;
 
-// Inicializar carrusel
 function initCarousel() {
     const carouselItems = document.querySelectorAll('.carousel-item');
-    console.log('🔄 Inicializando carrusel con', carouselItems.length, 'elementos');
     
-    // Asignar imágenes
     images.forEach((img, index) => {
         if (carouselItems[index]) {
             carouselItems[index].style.backgroundImage = `url('${img}')`;
@@ -2455,42 +3232,18 @@ function initCarousel() {
         }
     });
     
-    // Mostrar solo el slide actual
     showCurrentSlide();
 }
 
-// Mostrar solo el slide actual
 function showCurrentSlide() {
     const carouselItems = document.querySelectorAll('.carousel-item');
-    
-    // Ocultar todos los slides
-    carouselItems.forEach(item => {
-        item.style.display = 'none';
-    });
-    
-    // Mostrar solo el slide actual
+    carouselItems.forEach(item => { item.style.display = 'none'; });
     if (carouselItems[currentSlide]) {
         carouselItems[currentSlide].style.display = 'block';
     }
-    
     updateIndicators();
-    debugCarousel(); // ← AGREGAR ESTA LÍNEA TEMPORALMENTE
 }
 
-// Debug del carrusel (temporal)
-function debugCarousel() {
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    console.log('=== DEBUG CARRUSEL ===');
-    console.log('Elementos encontrados:', carouselItems.length);
-    console.log('Slide actual:', currentSlide);
-    
-    carouselItems.forEach((item, index) => {
-        const isVisible = item.style.display !== 'none';
-        console.log(`Slide ${index}: ${isVisible ? 'VISIBLE' : 'OCULTO'}`);
-    });
-}
-
-// Cambiar slide
 function nextSlide() {
     currentSlide = (currentSlide + 1) % images.length;
     showCurrentSlide();
@@ -2500,10 +3253,6 @@ function prevSlide() {
     currentSlide = (currentSlide - 1 + images.length) % images.length;
     showCurrentSlide();
 }
-
-// =============================================
-// INDICADORES DE COLOR
-// =============================================
 
 function updateIndicators() {
     const indicators = document.querySelectorAll('.indicator');
@@ -2516,7 +3265,6 @@ function updateIndicators() {
     });
 }
 
-// Event listeners para los indicadores de color
 document.querySelectorAll('.indicator').forEach(indicator => {
     indicator.addEventListener('click', function() {
         const slideIndex = parseInt(this.getAttribute('data-slide'));
@@ -2525,14 +3273,594 @@ document.querySelectorAll('.indicator').forEach(indicator => {
     });
 });
 
-// Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-    initCarousel();
-    
-    document.querySelector('.carousel-btn.next').addEventListener('click', nextSlide);
-    document.querySelector('.carousel-btn.prev').addEventListener('click', prevSlide);
+// =============================================
+// SEGUIMIENTO DE PEDIDOS
+// =============================================
+const trackingBtn = document.getElementById('trackingBtn');
+const trackingModal = document.getElementById('trackingModal');
+const searchTracking = document.getElementById('searchTracking');
+const trackingNumber = document.getElementById('trackingNumber');
+const trackingResults = document.getElementById('trackingResults');
+const closeTracking = document.getElementById('closeTracking');
+
+trackingBtn.addEventListener('click', () => {
+    trackingModal.style.display = 'block';
+    whatsappModal.style.display = 'none';
+    adminModal.style.display = 'none';
+    setTimeout(() => trackingNumber.focus(), 100);
+    resetTrackingForm();
 });
 
+closeTracking.addEventListener('click', () => {
+    trackingModal.style.display = 'none';
+});
+
+searchTracking.addEventListener('click', buscarSeguimiento);
+trackingNumber.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') buscarSeguimiento();
+});
+
+function buscarSeguimiento() {
+    const numeroGuia = trackingNumber.value.trim().toUpperCase();
+    
+    if (!numeroGuia) {
+        mostrarError('❌ Por favor ingresa un número de guía');
+        return;
+    }
+    
+    trackingResults.innerHTML = `
+        <div class="no-tracking">
+            <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #FF6B35;"></i>
+            <p>Buscando pedido...</p>
+        </div>
+    `;
+    
+    const pedido = pedidosDatabase[numeroGuia];
+    
+    if (pedido) {
+        mostrarResultado(pedido);
+    } else {
+        mostrarError(`No se encontró el pedido "${numeroGuia}"`);
+    }
+}
+
+function mostrarResultado(pedido) {
+    const estadoActual = estadosPedido[pedido.estado];
+    
+    let html = `
+        <div class="tracking-status">
+            <h4><i class="fas fa-box"></i> Información del Pedido</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+                <div><strong>Guía:</strong><br>${pedido.numero}</div>
+                <div><strong>Transportadora:</strong><br>${pedido.transportadora}</div>
+                <div><strong>Cliente:</strong><br>${pedido.cliente}</div>
+                <div><strong>Total:</strong><br>$${pedido.total ? pedido.total.toLocaleString() : '0'}</div>
+            </div>
+            
+            <div style="margin-top: 15px;">
+                <strong>Productos:</strong>
+                <div style="background: #f8f9fa; padding: 10px; border-radius: 8px; margin-top: 8px;">
+    `;
+    
+    if (pedido.productos) {
+        pedido.productos.forEach((producto, index) => {
+            html += `
+                <div style="padding: 5px 0; border-bottom: ${index < pedido.productos.length - 1 ? '1px solid #ddd' : 'none'};">
+                    ${producto.cantidad}x ${producto.nombre}
+                    ${producto.color ? `<br><small>Color: ${producto.color}</small>` : ''}
+                </div>
+            `;
+        });
+    }
+    
+    html += `
+                </div>
+            </div>
+            
+            <div style="margin-top: 15px; padding: 10px; background: white; border-radius: 8px; border-left: 4px solid #FF6B35;">
+                <strong>Estado Actual:</strong><br>
+                <span style="color: #FF6B35; font-weight: bold; font-size: 1.1em;">
+                    ${estadoActual.icono} ${estadoActual.texto}
+                </span>
+            </div>
+        </div>
+        
+        <h4 style="margin: 25px 0 15px 0; border-bottom: 2px solid #eee; padding-bottom: 8px;">
+            <i class="fas fa-history"></i> Historial del Pedido
+        </h4>
+    `;
+    
+    if (pedido.historial && pedido.historial.length > 0) {
+        const historialOrdenado = [...pedido.historial].reverse();
+        
+        historialOrdenado.forEach((paso, index) => {
+            const estadoPaso = estadosPedido[paso.estado];
+            const esPasoActual = index === 0;
+            
+            if (estadoPaso) {
+                html += `
+                    <div class="tracking-step ${esPasoActual ? 'step-active' : 'step-completed'}">
+                        <span class="step-number">${historialOrdenado.length - index}</span>
+                        <div class="step-title">${estadoPaso.icono} ${estadoPaso.texto}</div>
+                        <div class="step-date"><i class="far fa-clock"></i> ${paso.fecha}</div>
+                        <div class="step-description">${paso.descripcion}</div>
+                    </div>
+                `;
+            }
+        });
+    } else {
+        html += `<div class="no-tracking"><p>No hay historial disponible</p></div>`;
+    }
+    
+    trackingResults.innerHTML = html;
+}
+
+function mostrarError(mensaje) {
+    trackingResults.innerHTML = `
+        <div class="no-tracking">
+            <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ff6b35; margin-bottom: 15px;"></i>
+            <p style="color: #d32f2f; font-weight: 500;">${mensaje}</p>
+            <button class="btn" onclick="resetTrackingForm()" style="margin-top: 15px; padding: 8px 16px; font-size: 0.9em;">
+                <i class="fas fa-redo"></i> Intentar de nuevo
+            </button>
+        </div>
+    `;
+}
+
+function resetTrackingForm() {
+    trackingNumber.value = '';
+    trackingNumber.focus();
+    trackingResults.innerHTML = `
+        <div class="no-tracking">
+            <i class="fas fa-search" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
+            <p>Ingresa tu número de guía para consultar el estado de tu pedido</p>
+        </div>
+    `;
+}
+
+// =============================================
+// PANEL DE ADMINISTRACIÓN
+// =============================================
+const adminBtn = document.getElementById('adminBtn');
+const adminModal = document.getElementById('adminModal');
+const closeAdmin = document.getElementById('closeAdmin');
+const adminTabs = document.querySelectorAll('.admin-tab');
+const tabContents = document.querySelectorAll('.admin-tab-content');
+
+adminBtn.addEventListener('click', () => {
+    adminModal.style.display = 'flex';
+    trackingModal.style.display = 'none';
+    whatsappModal.style.display = 'none';
+    cargarListaPedidos();
+    actualizarVistaBaseDatos();
+});
+
+closeAdmin.addEventListener('click', () => {
+    adminModal.style.display = 'none';
+});
+
+adminTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const tabId = tab.getAttribute('data-tab');
+        
+        adminTabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        
+        tab.classList.add('active');
+        document.getElementById(`tab-${tabId}`).classList.add('active');
+        
+        if (tabId === 'gestion') {
+            cargarListaPedidos();
+        } else if (tabId === 'historial') {
+            actualizarVistaBaseDatos();
+        }
+    });
+});
+
+// Cargar lista de pedidos
+function cargarListaPedidos() {
+    const lista = document.getElementById('listaPedidos');
+    
+    if (Object.keys(pedidosDatabase).length === 0) {
+        lista.innerHTML = `
+            <div class="pedido-item" style="grid-template-columns: 1fr; text-align: center; padding: 30px;">
+                <div style="color: #666;">
+                    <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <p>No hay pedidos registrados</p>
+                </div>
+            </div>
+        `;
+        return;
+    }
+    
+    let html = '';
+    const pedidosArray = Object.values(pedidosDatabase).sort((a, b) => {
+        return new Date(b.fechaPedido) - new Date(a.fechaPedido);
+    });
+    
+    pedidosArray.forEach(pedido => {
+        const estado = estadosPedido[pedido.estado];
+        
+        html += `
+            <div class="pedido-item">
+                <div class="pedido-numero">
+                    <strong>${pedido.numero}</strong>
+                    <br>
+                    <small style="color: #666;">${pedido.fechaPedido}</small>
+                </div>
+                <div>
+                    <div class="pedido-cliente">${pedido.cliente}</div>
+                    <div class="pedido-producto">
+                        ${pedido.productos ? pedido.productos.length + ' producto(s)' : '1 producto'} - 
+                        $${pedido.total ? pedido.total.toLocaleString() : '0'}
+                    </div>
+                </div>
+                <div>${pedido.transportadora}</div>
+                <div>
+                    <span class="pedido-estado ${estado.clase}">
+                        ${estado.icono} ${estado.texto}
+                    </span>
+                </div>
+                <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                    <button class="btn-secondary" onclick="editarPedido('${pedido.numero}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-danger" onclick="eliminarPedido('${pedido.numero}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+    
+    lista.innerHTML = html;
+}
+
+function actualizarVistaBaseDatos() {
+    const totalPedidos = Object.keys(pedidosDatabase).length;
+    document.getElementById('totalPedidos').textContent = totalPedidos;
+    
+    const databaseView = document.getElementById('databaseView');
+    
+    if (totalPedidos === 0) {
+        databaseView.innerHTML = `<div style="text-align: center; padding: 40px; color: #666;">Base de datos vacía</div>`;
+    } else {
+        databaseView.innerHTML = `
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                <strong>Resumen:</strong> ${totalPedidos} pedidos registrados
+            </div>
+            <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; max-height: 400px; overflow-y: auto; font-size: 12px;">${JSON.stringify(pedidosDatabase, null, 2)}</pre>
+        `;
+    }
+}
+
+// Registrar nuevo pedido
+document.getElementById('btnRegistrarPedido').addEventListener('click', function() {
+    const guia = document.getElementById('nuevaGuia').value.trim().toUpperCase();
+    const transportadora = document.getElementById('nuevaTransportadora').value;
+    const cliente = document.getElementById('nuevoCliente').value.trim();
+    const estadoInicial = document.getElementById('nuevoEstado').value;
+    
+    if (!guia) {
+        alert('❌ Por favor ingresa el número de guía');
+        document.getElementById('nuevaGuia').focus();
+        return;
+    }
+    
+    if (!cliente) {
+        alert('❌ Por favor ingresa el nombre del cliente');
+        document.getElementById('nuevoCliente').focus();
+        return;
+    }
+    
+    if (productosTemporales.length === 0) {
+        alert('❌ Debes agregar al menos un producto al pedido');
+        toggleFormularioProductos();
+        return;
+    }
+    
+    if (pedidosDatabase[guia]) {
+        alert('❌ Ya existe un pedido con esta guía');
+        document.getElementById('nuevaGuia').focus();
+        return;
+    }
+    
+    const fecha = new Date();
+    const fechaFormateada = fecha.toISOString().split('T')[0];
+    const horaFormateada = fecha.toLocaleTimeString('es-CO', { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+    });
+    
+    const total = productosTemporales.reduce((sum, producto) => sum + (producto.precio * producto.cantidad), 0);
+    
+    pedidosDatabase[guia] = {
+        numero: guia,
+        transportadora: transportadora,
+        estado: estadoInicial,
+        fechaPedido: fechaFormateada,
+        cliente: cliente,
+        productos: [...productosTemporales],
+        total: total,
+        historial: [{
+            fecha: `${fechaFormateada} ${horaFormateada}`,
+            estado: estadoInicial,
+            descripcion: `Pedido registrado - ${productosTemporales.length} producto(s) - Total: $${total.toLocaleString()}`
+        }]
+    };
+    
+    guardarDatos();
+    cargarListaPedidos();
+    actualizarVistaBaseDatos();
+    
+    document.getElementById('nuevaGuia').value = '';
+    document.getElementById('nuevoCliente').value = '';
+    productosTemporales = [];
+    actualizarListaProductosTemporales();
+    
+    if (document.getElementById('formularioProductos').style.display === 'block') {
+        toggleFormularioProductos();
+    }
+    
+    alert(`✅ Pedido registrado correctamente`);
+});
+
+function toggleFormularioProductos() {
+    const formulario = document.getElementById('formularioProductos');
+    const btnAgregarProducto = document.getElementById('btnAgregarProducto');
+    
+    if (formulario.style.display === 'none') {
+        formulario.style.display = 'block';
+        btnAgregarProducto.textContent = '← Volver';
+        document.getElementById('nuevoPedidoForm').style.display = 'none';
+    } else {
+        formulario.style.display = 'none';
+        btnAgregarProducto.textContent = '+ Agregar Productos';
+        document.getElementById('nuevoPedidoForm').style.display = 'block';
+    }
+}
+
+function agregarProductoTemporal() {
+    const nombre = document.getElementById('productoNombre').value.trim();
+    const cantidad = parseInt(document.getElementById('productoCantidad').value) || 1;
+    const precio = parseInt(document.getElementById('productoPrecio').value) || 0;
+    const color = document.getElementById('productoColor').value.trim();
+    
+    if (!nombre) {
+        alert('❌ Por favor ingresa el nombre del producto');
+        return;
+    }
+    
+    const producto = {
+        nombre: nombre,
+        cantidad: cantidad,
+        precio: precio,
+        color: color
+    };
+    
+    productosTemporales.push(producto);
+    actualizarListaProductosTemporales();
+    
+    document.getElementById('productoNombre').value = '';
+    document.getElementById('productoCantidad').value = '1';
+    document.getElementById('productoPrecio').value = '';
+    document.getElementById('productoColor').value = '';
+    
+    document.getElementById('productoNombre').focus();
+}
+
+function actualizarListaProductosTemporales() {
+    const lista = document.getElementById('listaProductosTemporales');
+    const contador = document.getElementById('contadorProductos');
+    
+    contador.textContent = productosTemporales.length;
+    
+    if (productosTemporales.length === 0) {
+        lista.innerHTML = '<div style="color: #666; text-align: center; padding: 20px;">No hay productos agregados</div>';
+        return;
+    }
+    
+    let html = '';
+    let total = 0;
+    
+    productosTemporales.forEach((producto, index) => {
+        const subtotal = producto.precio * producto.cantidad;
+        total += subtotal;
+        
+        html += `
+            <div class="producto-item" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee;">
+                <div style="flex: 1;">
+                    <strong>${producto.cantidad}x ${producto.nombre}</strong>
+                    ${producto.color ? `<br><small>Color: ${producto.color}</small>` : ''}
+                    ${producto.precio ? `<br><small>$${producto.precio.toLocaleString()} c/u` : '<br><small>Precio pendiente'}</small>
+                </div>
+                <div style="text-align: right;">
+                    <strong>$${subtotal.toLocaleString()}</strong>
+                    <br>
+                    <button onclick="eliminarProductoTemporal(${index})" class="btn-danger" style="padding: 2px 8px; font-size: 0.8em; margin-top: 5px;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += `
+        <div style="padding: 15px; background: #f8f9fa; border-radius: 0 0 8px 8px; text-align: right;">
+            <strong>Total: $${total.toLocaleString()}</strong>
+        </div>
+    `;
+    
+    lista.innerHTML = html;
+}
+
+function eliminarProductoTemporal(index) {
+    productosTemporales.splice(index, 1);
+    actualizarListaProductosTemporales();
+}
+
+// Editar pedido
+function editarPedido(numeroGuia) {
+    const pedido = pedidosDatabase[numeroGuia];
+    
+    const modalEdicion = document.createElement('div');
+    modalEdicion.className = 'admin-modal';
+    modalEdicion.style.display = 'flex';
+    modalEdicion.style.zIndex = '10002';
+    
+    modalEdicion.innerHTML = `
+        <div class="admin-content" style="max-width: 500px;">
+            <div class="admin-header">
+                <h3 style="margin: 0;"><i class="fas fa-edit"></i> Editar Pedido ${numeroGuia}</h3>
+                <button class="close-admin" onclick="this.closest('.admin-modal').remove()">&times;</button>
+            </div>
+            
+            <div style="padding: 20px;">
+                <div class="form-group">
+                    <label><strong>Cliente:</strong></label>
+                    <input type="text" id="editarCliente" value="${pedido.cliente}" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label><strong>Transportadora:</strong></label>
+                    <select id="editarTransportadora" class="form-control">
+                        <option value="Mail Americas" ${pedido.transportadora === 'Mail Americas' ? 'selected' : ''}>Mail Americas</option>
+                        <option value="Pasarex" ${pedido.transportadora === 'Pasarex' ? 'selected' : ''}>Pasarex</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label><strong>Cambiar Estado:</strong></label>
+                    <select id="editarEstado" class="form-control">
+                        ${Object.entries(estadosPedido).map(([key, estado]) => 
+                            `<option value="${key}" ${pedido.estado === key ? 'selected' : ''}>${estado.icono} ${estado.texto}</option>`
+                        ).join('')}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label><strong>Descripción del Cambio:</strong></label>
+                    <textarea id="editarDescripcion" class="form-control" rows="3" placeholder="Describe el motivo del cambio de estado..."></textarea>
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="margin: 0 0 10px 0;">Productos del Pedido</h4>
+                    <div id="listaProductosEdicion">
+                        ${pedido.productos ? pedido.productos.map((producto, index) => `
+                            <div class="producto-item-edicion">
+                                <div style="display: flex; justify-content: space-between; align-items: start;">
+                                    <div>
+                                        <strong>${producto.cantidad}x ${producto.nombre}</strong>
+                                        ${producto.color ? `<br><small>Color: ${producto.color}</small>` : ''}
+                                        ${producto.precio ? `<br><small>Precio: $${producto.precio.toLocaleString()}</small>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('') : `<div>No hay productos</div>`}
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button onclick="this.closest('.admin-modal').remove()" class="btn-secondary" style="flex: 1;">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button onclick="guardarCambiosPedido('${numeroGuia}')" class="btn-primary" style="flex: 1;">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modalEdicion);
+}
+
+function guardarCambiosPedido(numeroGuia) {
+    const pedido = pedidosDatabase[numeroGuia];
+    
+    const nuevoEstado = document.getElementById('editarEstado').value;
+    const descripcion = document.getElementById('editarDescripcion').value.trim();
+    const nuevoCliente = document.getElementById('editarCliente').value.trim();
+    const nuevaTransportadora = document.getElementById('editarTransportadora').value;
+    
+    if (!nuevoCliente) {
+        alert('❌ El nombre del cliente es obligatorio');
+        return;
+    }
+    
+    pedido.cliente = nuevoCliente;
+    pedido.transportadora = nuevaTransportadora;
+    
+    if (nuevoEstado !== pedido.estado || descripcion) {
+        const fecha = new Date();
+        const fechaFormateada = fecha.toISOString().split('T')[0];
+        const horaFormateada = fecha.toLocaleTimeString('es-CO', { 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+        
+        const descripcionCompleta = descripcion || `Estado actualizado a: ${estadosPedido[nuevoEstado].texto}`;
+        
+        pedido.historial.push({
+            fecha: `${fechaFormateada} ${horaFormateada}`,
+            estado: nuevoEstado,
+            descripcion: descripcionCompleta
+        });
+        
+        pedido.estado = nuevoEstado;
+    }
+    
+    guardarDatos();
+    cargarListaPedidos();
+    
+    const modal = document.querySelector('.admin-modal[style*="z-index: 10002"]');
+    if (modal) {
+        modal.remove();
+    }
+    
+    alert('✅ Cambios guardados correctamente');
+}
+
+function eliminarPedido(numeroGuia) {
+    const pedido = pedidosDatabase[numeroGuia];
+    
+    if (!pedido) {
+        alert('❌ Pedido no encontrado');
+        return;
+    }
+    
+    if (confirm(`¿Estás seguro de eliminar el pedido?\n\nGuía: ${numeroGuia}\nCliente: ${pedido.cliente}`)) {
+        delete pedidosDatabase[numeroGuia];
+        guardarDatos();
+        cargarListaPedidos();
+        actualizarVistaBaseDatos();
+        alert('✅ Pedido eliminado correctamente');
+    }
+}
+
+// =============================================
+// INICIALIZACIÓN FINAL
+// =============================================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔄 Inicializando sistema COROCASE...');
+    
+    // Cargar temas y carrusel
+    loadTheme();
+    initCarousel();
+    
+    // CARGAR DATOS DEL SISTEMA DE PEDIDOS
+    cargarDatos();
+    
+    // Inicializar controles del carrusel
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    
+    console.log('✅ Sistema COROCASE inicializado correctamente');
+    console.log('📦 Pedidos en sistema:', Object.keys(pedidosDatabase).length);
+});
 
 </script>
 </body>
