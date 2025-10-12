@@ -1096,28 +1096,43 @@ body.dark-theme .btn:hover {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* ============================================= */
+/* CORRECCIONES DEFINITIVAS PARA EL CARRUSEL */
+/* ============================================= */
+
 .carousel-container {
+    position: relative;
     margin-bottom: 25px;
 }
 
-.carousel-images {
-    width: 70%;
-    height: 245px;
-    border-radius: 15px;
-    background: rgba(0, 0, 0, 0.3);
-    margin: 0 auto;
+.carousel {
     position: relative;
+    width: 100%;
     overflow: hidden;
 }
 
-.carousel-item {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.carousel-images {
+    display: flex !important;
+    transition: transform 0.5s ease-in-out !important;
+    width: 700% !important; /* 7 imágenes × 100% */
+    height: 245px !important;
 }
 
+.carousel-item {
+    width: 14.2857% !important; /* 100% ÷ 7 imágenes */
+    flex-shrink: 0 !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Forzar eliminación de transforms problemáticos */
+.carousel-images {
+    transform: translateX(0) !important;
+}
+
+/* Botones del carrusel */
 .carousel-btn {
     position: absolute;
     top: 50%;
@@ -1143,11 +1158,11 @@ body.dark-theme .btn:hover {
 }
 
 .carousel-btn.prev {
-    left: 5px;
+    left: 10px;
 }
 
 .carousel-btn.next {
-    right: 5px;
+    right: 10px;
 }
 
 .product-info {
@@ -3468,11 +3483,11 @@ function agregarBotonCerrarSesion() {
 }
 
 // =============================================
-// CARRUSEL DE PRODUCTOS - VERSIÓN CORREGIDA
+// CARRUSEL DE PRODUCTOS - CON TUS IMÁGENES LOCALES
 // =============================================
 const images = [
     'images/funda-tipo-cartera-roja.jpg',
-    'images/funda-tipo-cartera-azul.jpg',
+    'images/funda-tipo-cartera-azul.jpg', 
     'images/funda-tipo-cartera-cafe.jpg',
     'images/funda-tipo-cartera-negra.jpg',
     'images/funda-tipo-cartera-blanca.jpg',
@@ -3484,37 +3499,58 @@ let currentSlide = 0;
 let carouselInterval;
 
 function initCarousel() {
-    console.log('🔄 Inicializando carrusel...');
+    console.log('🔄 Inicializando carrusel con imágenes locales...');
     
-    const carouselItems = document.querySelectorAll('.carousel-item');
     const carouselImages = document.querySelector('.carousel-images');
+    const carouselItems = document.querySelectorAll('.carousel-item');
     
     // Limpiar intervalo existente
     if (carouselInterval) {
         clearInterval(carouselInterval);
     }
     
-    // Aplicar imágenes a cada slide
-    images.forEach((img, index) => {
-        if (carouselItems[index]) {
-            carouselItems[index].style.backgroundImage = `url('${img}')`;
-            carouselItems[index].style.display = 'block';
-        }
+    // Verificar si las imágenes existen
+    images.forEach((imgSrc, index) => {
+        const img = new Image();
+        img.onload = function() {
+            console.log(`✅ Imagen cargada: ${imgSrc}`);
+        };
+        img.onerror = function() {
+            console.log(`❌ No se pudo cargar: ${imgSrc}`);
+            // Usar placeholder si la imagen no existe
+            images[index] = `https://via.placeholder.com/400x300/666666/FFFFFF?text=Imagen+${index+1}`;
+        };
+        img.src = imgSrc;
     });
     
-    // Configurar el contenedor del carrusel
+    // Configurar el contenedor principal
     if (carouselImages) {
         carouselImages.style.display = 'flex';
         carouselImages.style.transition = 'transform 0.5s ease-in-out';
         carouselImages.style.width = `${images.length * 100}%`;
+        carouselImages.style.height = '100%';
     }
+    
+    // Configurar cada slide individual
+    carouselItems.forEach((item, index) => {
+        item.style.width = `${100 / images.length}%`;
+        item.style.flexShrink = '0';
+        item.style.backgroundSize = 'cover';
+        item.style.backgroundRepeat = 'no-repeat';
+        item.style.backgroundPosition = 'center';
+        item.style.backgroundColor = '#f0f0f0'; // Color de fondo temporal
+        
+        if (images[index]) {
+            item.style.backgroundImage = `url('${images[index]}')`;
+        }
+    });
     
     showCurrentSlide();
     
     // Iniciar cambio automático cada 5 segundos
     carouselInterval = setInterval(nextSlide, 5000);
     
-    console.log('✅ Carrusel inicializado correctamente');
+    console.log('✅ Carrusel inicializado con', images.length, 'imágenes');
 }
 
 function showCurrentSlide() {
@@ -3528,11 +3564,7 @@ function showCurrentSlide() {
     
     // Actualizar indicadores
     indicators.forEach((indicator, index) => {
-        if (index === currentSlide) {
-            indicator.classList.add('active');
-        } else {
-            indicator.classList.remove('active');
-        }
+        indicator.classList.toggle('active', index === currentSlide);
     });
 }
 
@@ -3546,14 +3578,12 @@ function prevSlide() {
     showCurrentSlide();
 }
 
-// Reiniciar intervalo cuando el usuario interactúa manualmente
 function resetCarouselInterval() {
     if (carouselInterval) {
         clearInterval(carouselInterval);
         carouselInterval = setInterval(nextSlide, 5000);
     }
 }
-
 
 // =============================================
 // WHATSAPP FUNCTIONALITY
