@@ -1864,6 +1864,12 @@ body.dark-theme .btn:hover {
     min-width: 120px !important;
 }
 
+/* Agrega al CSS de estados de pedido */
+.estado-cainao { 
+    background: #ff9800; 
+    color: white; 
+}
+
 /* Loading states */
 .fa-spinner {
     animation: spin 1s linear infinite;
@@ -2790,6 +2796,7 @@ body.dark-theme .logo span:last-child {
                 <select id="nuevaTransportadora">
                     <option value="Mail Americas">Mail Americas</option>
                     <option value="Pasarex">Pasarex</option>
+                    <option value="Cainao">Cainao</option>
                 </select>
             </div>
         </div>
@@ -2968,6 +2975,45 @@ async function cargarDatos() {
     }
 }
 
+// =============================================
+// FUNCIÓN DE VALIDACIÓN DE FORMATOS DE GUÍAS - OPCIÓN 2
+// =============================================
+function validarFormatoGuia(guia, transportadora) {
+    const guiaLimpia = guia.toUpperCase().trim();
+    
+    switch(transportadora) {
+        case 'Mail Americas':
+            // Formato: MH123456789CO (12 caracteres)
+            return /^MH[A-Z0-9]{9}CO$/.test(guiaLimpia) && guiaLimpia.length === 12;
+            
+        case 'Pasarex':
+            // Formato: PA123456789CO (12 caracteres)  
+            return /^PA[A-Z0-9]{9}CO$/.test(guiaLimpia) && guiaLimpia.length === 12;
+            
+        case 'Cainao':
+            // Formato: CO123456789CO (13 caracteres)
+            return /^CO[A-Z0-9]{10}CO$/.test(guiaLimpia) && guiaLimpia.length === 13;
+            
+        default:
+            return false;
+    }
+}
+
+// Función para generar ejemplo de guía según transportadora
+function generarEjemploGuia(transportadora) {
+    switch(transportadora) {
+        case 'Mail Americas':
+            return 'MH123456789CO';
+        case 'Pasarex':
+            return 'PA123456789CO';
+        case 'Cainao':
+            return 'CO123456789CO';
+        default:
+            return 'EJEMPLO123';
+    }
+}
+
+
 // Función para guardar pedido
 async function guardarDatos() {
     // Esta función ahora no hace nada en el frontend
@@ -2975,22 +3021,26 @@ async function guardarDatos() {
     console.log('💾 Guardado manejado individualmente por cada pedido');
 }
 
-// Función específica para guardar un pedido nuevo
+// Función específica para guardar un pedido nuevo - VERSIÓN MEJORADA
 async function guardarPedido(pedido) {
     try {
-        console.log('🔄 Guardando pedido:', pedido.numero);
+        console.log('🔄 Guardando pedido:', pedido.numero, '- Cliente:', pedido.cliente);
+        
+        // Crear un ID único que combine guía + cliente
+        const pedidoId = `${pedido.numero}_${pedido.cliente.replace(/\s+/g, '_')}`;
         
         const response = await fetch(SCRIPT_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `action=guardarPedido&data=${encodeURIComponent(JSON.stringify(pedido))}`
+            body: `action=guardarPedido&data=${encodeURIComponent(JSON.stringify(pedido))}&pedidoId=${encodeURIComponent(pedidoId)}`
         });
         
         // También guardar en localStorage como respaldo
         try {
-            pedidosDatabase[pedido.numero] = pedido;
+            // Usar el ID único como clave
+            pedidosDatabase[pedidoId] = pedido;
             localStorage.setItem('corocase_pedidos', JSON.stringify(pedidosDatabase));
         } catch (e) {
             console.log('⚠️ No se pudo guardar en localStorage');
@@ -3003,7 +3053,8 @@ async function guardarPedido(pedido) {
         
         // Respaldo: guardar en localStorage
         try {
-            pedidosDatabase[pedido.numero] = pedido;
+            const pedidoId = `${pedido.numero}_${pedido.cliente.replace(/\s+/g, '_')}`;
+            pedidosDatabase[pedidoId] = pedido;
             localStorage.setItem('corocase_pedidos', JSON.stringify(pedidosDatabase));
             console.log('✅ Pedido guardado en respaldo local');
             return { success: true };
@@ -3699,11 +3750,18 @@ trackingNumber.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') buscarSeguimiento();
 });
 
+
 function buscarSeguimiento() {
     const numeroGuia = trackingNumber.value.trim().toUpperCase();
     
     if (!numeroGuia) {
         mostrarError('❌ Por favor ingresa un número de guía');
+        return;
+    }
+    
+    // Validar formato básico de guía
+    if (!/^(MH|PA|CO)[A-Z0-9]+CO$/.test(numeroGuia)) {
+        mostrarError('❌ Formato de guía no reconocido\n\nFormatos válidos:\n• Mail Americas: MH123456789CO\n• Pasarex: PA123456789CO\n• Cainao: CO123456789CO');
         return;
     }
     
@@ -3714,13 +3772,65 @@ function buscarSeguimiento() {
         </div>
     `;
     
-    const pedido = pedidosDatabase[numeroGuia];
+    // Buscar todos los pedidos con esa guía
+    const pedidosEncontrados = Object.values(pedidosDatabase).filter(pedido => 
+        pedido.numero === numeroGuia
+    );
     
-    if (pedido) {
-        mostrarResultado(pedido);
+    if (pedidosEncontrados.length > 0) {
+        mostrarResultadosMultiples(pedidosEncontrados, numeroGuia);
     } else {
         mostrarError(`No se encontró el pedido "${numeroGuia}"`);
     }
+}
+
+
+// Función para mostrar múltiples pedidos con la misma guía
+function mostrarResultadosMultiples(pedidos, numeroGuia) {
+    let html = `
+        <div class="tracking-status">
+            <h4><i class="fas fa-boxes"></i> Pedidos Encontrados</h4>
+            <p>Se encontraron <strong>${pedidos.length}</strong> pedidos con la guía <strong>${numeroGuia}</strong>:</p>
+    `;
+    
+    pedidos.forEach((pedido, index) => {
+        const estadoActual = estadosPedido[pedido.estado];
+        
+        html += `
+            <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #FF6B35;">
+                <h5>Pedido ${index + 1} - ${pedido.cliente}</h5>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                    <div><strong>Cliente:</strong><br>${pedido.cliente}</div>
+                    <div><strong>Transportadora:</strong><br>${pedido.transportadora}</div>
+                    <div><strong>Total:</strong><br>$${pedido.total ? pedido.total.toLocaleString() : '0'}</div>
+                    <div><strong>Estado:</strong><br>${estadoActual.icono} ${estadoActual.texto}</div>
+                </div>
+                
+                <div style="margin-top: 10px;">
+                    <strong>Productos:</strong>
+                    <div style="background: #f8f9fa; padding: 8px; border-radius: 5px; margin-top: 5px;">
+        `;
+        
+        if (pedido.productos) {
+            pedido.productos.forEach((producto, prodIndex) => {
+                html += `
+                    <div style="padding: 3px 0; border-bottom: ${prodIndex < pedido.productos.length - 1 ? '1px solid #ddd' : 'none'};">
+                        ${producto.cantidad}x ${producto.nombre}
+                        ${producto.color ? `<br><small>Color: ${producto.color}</small>` : ''}
+                    </div>
+                `;
+            });
+        }
+        
+        html += `
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += `</div>`;
+    trackingResults.innerHTML = html;
 }
 
 function mostrarResultado(pedido) {
@@ -3856,7 +3966,7 @@ adminTabs.forEach(tab => {
     });
 });
 
-// Cargar lista de pedidos
+// Cargar lista de pedidos - VERSIÓN MEJORADA
 function cargarListaPedidos() {
     const lista = document.getElementById('listaPedidos');
     
@@ -3873,12 +3983,15 @@ function cargarListaPedidos() {
     }
     
     let html = '';
+    
+    // Convertir a array y ordenar por fecha
     const pedidosArray = Object.values(pedidosDatabase).sort((a, b) => {
         return new Date(b.fechaPedido) - new Date(a.fechaPedido);
     });
     
     pedidosArray.forEach(pedido => {
         const estado = estadosPedido[pedido.estado];
+        const pedidoId = `${pedido.numero}_${pedido.cliente.replace(/\s+/g, '_')}`;
         
         html += `
             <div class="pedido-item">
@@ -3886,6 +3999,8 @@ function cargarListaPedidos() {
                     <strong>${pedido.numero}</strong>
                     <br>
                     <small style="color: #666;">${pedido.fechaPedido}</small>
+                    ${Object.values(pedidosDatabase).filter(p => p.numero === pedido.numero).length > 1 ? 
+                        '<br><small style="color: #ff6b35;">⚠️ Guía repetida</small>' : ''}
                 </div>
                 <div>
                     <div class="pedido-cliente">${pedido.cliente}</div>
@@ -3901,10 +4016,10 @@ function cargarListaPedidos() {
                     </span>
                 </div>
                 <div style="display: flex; gap: 5px; flex-wrap: wrap;">
-                    <button class="btn-secondary" onclick="editarPedido('${pedido.numero}')">
+                    <button class="btn-secondary" onclick="editarPedido('${pedidoId}')">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button class="btn-danger" onclick="eliminarPedido('${pedido.numero}')">
+                    <button class="btn-danger" onclick="eliminarPedido('${pedidoId}')">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
@@ -3914,6 +4029,7 @@ function cargarListaPedidos() {
     
     lista.innerHTML = html;
 }
+
 
 function actualizarVistaBaseDatos() {
     const totalPedidos = Object.keys(pedidosDatabase).length;
@@ -3958,12 +4074,27 @@ document.getElementById('btnRegistrarPedido').addEventListener('click', async fu
         return;
     }
     
-    if (pedidosDatabase[guia]) {
-        alert('❌ Ya existe un pedido con esta guía');
+// Verificar si ya existe un pedido con la misma guía Y mismo cliente
+const pedidoExistente = Object.values(pedidosDatabase).find(pedido => 
+    pedido.numero === guia && pedido.cliente === cliente
+);
+
+if (pedidoExistente) {
+    alert('❌ Ya existe un pedido con esta guía para el mismo cliente. Por favor, verifica los datos.');
+    document.getElementById('nuevaGuia').focus();
+    return;
+}
+
+// Si existe la guía pero con cliente diferente, permitirlo pero mostrar advertencia
+const guiaExistente = pedidosDatabase[guia];
+if (guiaExistente) {
+    const confirmar = confirm(`⚠️ ATENCIÓN: Ya existe un pedido con la guía ${guia} pero para otro cliente.\n\n• Pedido existente: ${guiaExistente.cliente}\n• Nuevo pedido: ${cliente}\n\n¿Deseas continuar?`);
+    if (!confirmar) {
         document.getElementById('nuevaGuia').focus();
         return;
     }
-    
+}
+
     const fecha = new Date();
     const fechaFormateada = fecha.toISOString().split('T')[0];
     const horaFormateada = fecha.toLocaleTimeString('es-CO', { 
@@ -4116,9 +4247,8 @@ function eliminarProductoTemporal(index) {
 }
 
 // Editar pedido
-function editarPedido(numeroGuia) {
-    const pedido = pedidosDatabase[numeroGuia];
-    
+function editarPedido(pedidoId) {
+    const pedido = pedidosDatabase[pedidoId];    
     const modalEdicion = document.createElement('div');
     modalEdicion.className = 'admin-modal';
     modalEdicion.style.display = 'flex';
@@ -4237,19 +4367,20 @@ function guardarCambiosPedido(numeroGuia) {
     alert('✅ Cambios guardados correctamente');
 }
 
-async function eliminarPedido(numeroGuia) {
-    const pedido = pedidosDatabase[numeroGuia];
+// Función para eliminar pedido - MODIFICADA
+async function eliminarPedido(pedidoId) {
+    const pedido = pedidosDatabase[pedidoId];
     
     if (!pedido) {
         alert('❌ Pedido no encontrado');
         return;
     }
     
-    if (confirm(`¿Estás seguro de eliminar el pedido?\n\nGuía: ${numeroGuia}\nCliente: ${pedido.cliente}`)) {
-        const resultado = await eliminarPedidoDB(numeroGuia);
+    if (confirm(`¿Estás seguro de eliminar el pedido?\n\nGuía: ${pedido.numero}\nCliente: ${pedido.cliente}`)) {
+        const resultado = await eliminarPedidoDB(pedidoId);
         
         if (resultado.success) {
-            delete pedidosDatabase[numeroGuia];
+            delete pedidosDatabase[pedidoId];
             cargarListaPedidos();
             actualizarVistaBaseDatos();
             alert('✅ Pedido eliminado correctamente');
@@ -4258,6 +4389,7 @@ async function eliminarPedido(numeroGuia) {
         }
     }
 }
+
 
 // =============================================
 // INICIALIZACIÓN FINAL - VERSIÓN MEJORADA
