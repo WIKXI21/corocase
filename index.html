@@ -1210,11 +1210,6 @@ body.dark-theme .btn:hover {
     box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
 }
 
-/* SOLUCIÓN DE EMERGENCIA - FORZAR TRANSFORM */
-.carousel-images {
-    transform: translateX(0%) !important;
-}
-
 /* ============================================= */
 /* INDICADORES DE COLOR DEL CARRUSEL */
 /* ============================================= */
@@ -3135,7 +3130,7 @@ if (!validarFormatoGuia(guia, transportadora)) {
     document.getElementById('nuevaGuia').focus();
     return;
 }   
- 
+
     if (productosTemporales.length === 0) {
         alert('❌ Debes agregar al menos un producto al pedido');
         toggleFormularioProductos();
@@ -3264,25 +3259,31 @@ document.addEventListener('DOMContentLoaded', async function() {
     const nextBtn = document.querySelector('.carousel-btn.next');
     const prevBtn = document.querySelector('.carousel-btn.prev');
     
-    if (nextBtn) {
-        nextBtn.addEventListener('click', nextSlide);
-        console.log('➡️ Botón siguiente del carrusel configurado');
-    }
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', prevSlide);
-        console.log('⬅️ Botón anterior del carrusel configurado');
-    }
-    
-    // 7. Inicializar indicadores de color del carrusel
-    document.querySelectorAll('.indicator').forEach(indicator => {
-        indicator.addEventListener('click', function() {
-            const slideIndex = parseInt(this.getAttribute('data-slide'));
-            currentSlide = slideIndex;
-            showCurrentSlide();
-        });
+if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+        nextSlide();
+        resetCarouselInterval();
     });
-    console.log('🎨 Indicadores de color del carrusel configurados');
+}
+
+if (prevBtn) {
+    prevBtn.addEventListener('click', function() {
+        prevSlide();
+        resetCarouselInterval();
+    });
+}
+
+    // 7. Inicializar indicadores de color del carrusel
+document.querySelectorAll('.indicator').forEach(indicator => {
+    indicator.addEventListener('click', function() {
+        const slideIndex = parseInt(this.getAttribute('data-slide'));
+        currentSlide = slideIndex;
+        showCurrentSlide();
+        resetCarouselInterval();
+    });
+});
+
+console.log('🎨 Indicadores de color del carrusel configurados');
     
     // 8. Inicializar sistema de seguimiento
     if (typeof resetTrackingForm === 'function') {
@@ -3467,7 +3468,7 @@ function agregarBotonCerrarSesion() {
 }
 
 // =============================================
-// CARRUSEL DE PRODUCTOS
+// CARRUSEL DE PRODUCTOS - VERSIÓN CORREGIDA
 // =============================================
 const images = [
     'images/funda-tipo-cartera-roja.jpg',
@@ -3480,28 +3481,59 @@ const images = [
 ];
 
 let currentSlide = 0;
+let carouselInterval;
 
 function initCarousel() {
-    const carouselItems = document.querySelectorAll('.carousel-item');
+    console.log('🔄 Inicializando carrusel...');
     
-    images.forEach((img, index) => {
-        if (carouselItems[index]) {
-            carouselItems[index].style.backgroundImage = `url('${img}')`;
-        }
-    });
-    
-    showCurrentSlide();
-}
-
-function showCurrentSlide() {
     const carouselItems = document.querySelectorAll('.carousel-item');
     const carouselImages = document.querySelector('.carousel-images');
     
-    if (carouselImages && carouselItems.length > 0) {
-        const translateX = -currentSlide * 100;
-        carouselImages.style.transform = `translateX(${translateX}%)`;
-        updateIndicators();
+    // Limpiar intervalo existente
+    if (carouselInterval) {
+        clearInterval(carouselInterval);
     }
+    
+    // Aplicar imágenes a cada slide
+    images.forEach((img, index) => {
+        if (carouselItems[index]) {
+            carouselItems[index].style.backgroundImage = `url('${img}')`;
+            carouselItems[index].style.display = 'block';
+        }
+    });
+    
+    // Configurar el contenedor del carrusel
+    if (carouselImages) {
+        carouselImages.style.display = 'flex';
+        carouselImages.style.transition = 'transform 0.5s ease-in-out';
+        carouselImages.style.width = `${images.length * 100}%`;
+    }
+    
+    showCurrentSlide();
+    
+    // Iniciar cambio automático cada 5 segundos
+    carouselInterval = setInterval(nextSlide, 5000);
+    
+    console.log('✅ Carrusel inicializado correctamente');
+}
+
+function showCurrentSlide() {
+    const carouselImages = document.querySelector('.carousel-images');
+    const indicators = document.querySelectorAll('.indicator');
+    
+    if (carouselImages) {
+        const translateX = -currentSlide * (100 / images.length);
+        carouselImages.style.transform = `translateX(${translateX}%)`;
+    }
+    
+    // Actualizar indicadores
+    indicators.forEach((indicator, index) => {
+        if (index === currentSlide) {
+            indicator.classList.add('active');
+        } else {
+            indicator.classList.remove('active');
+        }
+    });
 }
 
 function nextSlide() {
@@ -3514,15 +3546,12 @@ function prevSlide() {
     showCurrentSlide();
 }
 
-function updateIndicators() {
-    const indicators = document.querySelectorAll('.indicator');
-    indicators.forEach((indicator, index) => {
-        if (index === currentSlide) {
-            indicator.classList.add('active');
-        } else {
-            indicator.classList.remove('active');
-        }
-    });
+// Reiniciar intervalo cuando el usuario interactúa manualmente
+function resetCarouselInterval() {
+    if (carouselInterval) {
+        clearInterval(carouselInterval);
+        carouselInterval = setInterval(nextSlide, 5000);
+    }
 }
 
 
@@ -4306,82 +4335,6 @@ async function eliminarPedido(pedidoId) {
         }
     }
 }
-
-
-// =============================================
-// INICIALIZACIÓN FINAL - VERSIÓN MEJORADA
-// =============================================
-document.addEventListener('DOMContentLoaded', async function() {
-    console.log('🔄 Inicializando sistema COROCASE...');
-    
-    // 1. Cargar tema primero
-    loadTheme();
-    console.log('🎨 Tema cargado');
-    
-    // 2. Inicializar carrusel
-    initCarousel();
-    console.log('🖼️ Carrusel inicializado');
-    
-    // 3. CARGAR DATOS DESDE GOOGLE SHEETS (ESPERAR A QUE TERMINE)
-    console.log('📦 Cargando base de datos de pedidos...');
-    await cargarDatos();
-    console.log('✅ Base de datos cargada:', Object.keys(pedidosDatabase).length, 'pedidos');
-    
-    // 4. Cargar lista de pedidos en el panel admin
-    if (typeof cargarListaPedidos === 'function') {
-        cargarListaPedidos();
-        console.log('📋 Lista de pedidos cargada en panel admin');
-    }
-    
-    // 5. Actualizar vista de base de datos
-    if (typeof actualizarVistaBaseDatos === 'function') {
-        actualizarVistaBaseDatos();
-        console.log('🗃️ Vista de base de datos actualizada');
-    }
-    
-    // 6. Inicializar controles del carrusel
-    const nextBtn = document.querySelector('.carousel-btn.next');
-    const prevBtn = document.querySelector('.carousel-btn.prev');
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', nextSlide);
-        console.log('➡️ Botón siguiente del carrusel configurado');
-    }
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', prevSlide);
-        console.log('⬅️ Botón anterior del carrusel configurado');
-    }
-    
-    // 7. Inicializar indicadores de color del carrusel
-    document.querySelectorAll('.indicator').forEach(indicator => {
-        indicator.addEventListener('click', function() {
-            const slideIndex = parseInt(this.getAttribute('data-slide'));
-            currentSlide = slideIndex;
-            showCurrentSlide();
-        });
-    });
-    console.log('🎨 Indicadores de color del carrusel configurados');
-    
-    // 8. Inicializar sistema de seguimiento
-    if (typeof resetTrackingForm === 'function') {
-        resetTrackingForm();
-        console.log('📮 Sistema de seguimiento inicializado');
-    }
-    
-    // 9. Verificar autenticación de admin (si existe la función)
-    if (typeof verificarAdmin === 'function') {
-        verificarAdmin();
-        console.log('🔐 Sistema de autenticación verificado');
-    }
-    
-    console.log('✅ Sistema COROCASE inicializado completamente');
-    console.log('📊 Resumen:');
-    console.log('  - Pedidos cargados:', Object.keys(pedidosDatabase).length);
-    console.log('  - Tema aplicado');
-    console.log('  - Carrusel funcionando');
-    console.log('  - Sistema de pedidos listo');
-});
 
 
 </script>
