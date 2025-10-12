@@ -2988,11 +2988,11 @@ function validarFormatoGuia(guia, transportadora) {
             
         case 'Pasarex':
             // Formato: PA123456789CO (12 caracteres)  
-            return /^PA[A-Z0-9]{9}CO$/.test(guiaLimpia) && guiaLimpia.length === 12;
+            return /^PA[A-Z0-9]{9}CO$/.test(guiaLimpia) && guiaLimpia.length === 13;
             
         case 'Cainao':
             // Formato: CO123456789CO (13 caracteres)
-            return /^CO[A-Z0-9]{10}CO$/.test(guiaLimpia) && guiaLimpia.length === 13;
+            return /^CO[A-Z0-9]{10}CO$/.test(guiaLimpia) && guiaLimpia.length === 12;
             
         default:
             return false;
