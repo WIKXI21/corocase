@@ -2003,28 +2003,27 @@ body.dark-theme .logo span:last-child {
 /* ============================================= */
 .admin-floating-btn {
     position: fixed;
-    bottom: 200px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
+    top: 100px; /* Cambiamos de bottom a top */
+    left: 20px; /* Cambiamos de right a left */
+    width: 45px; /* Más pequeño */
+    height: 45px; /* Más pequeño */
     background: linear-gradient(135deg, #6a11cb, #2575fc);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+    box-shadow: 0 3px 10px rgba(106, 17, 203, 0.4);
     cursor: pointer;
-    z-index: 1000;
+    z-index: 999; /* Un z-index menor que el de WhatsApp */
     transition: all 0.3s ease;
-    border: none;
+    border: 2px solid white;
     color: white;
-    font-size: 24px;
+    font-size: 18px; /* Tamaño de icono más pequeño */
     animation: pulse-admin 2s infinite;
-}
-
+} 
 .admin-floating-btn:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(106, 17, 203, 0.6);
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.6);
     animation: none;
 }
 
@@ -2034,16 +2033,7 @@ body.dark-theme .logo span:last-child {
     100% { transform: scale(1); }
 }
 
-/* Para móviles */
-@media (max-width: 768px) {
-    .admin-floating-btn {
-        bottom: 120px;
-        right: 20px;
-        width: 55px;
-        height: 55px;
-        font-size: 22px;
-    }
-}
+
 /* ============================================= */
 /* MEDIA QUERIES RESPONSIVE */
 /* ============================================= */
@@ -2749,7 +2739,7 @@ body.dark-theme .logo span:last-child {
 </div>
 
 <div class="admin-panel" style="display: none;">
-    <button class="admin-btn" id="adminBtn" onclick="if(!isAdminAuthenticated) mostrarLoginAdmin()">
+    <button class="admin-btn" id="adminBtn">
         <i class="fas fa-cog"></i> Panel Admin
     </button>
 </div>
@@ -2903,7 +2893,6 @@ body.dark-theme .logo span:last-child {
 
 <script>
 // =============================================
-// =============================================
 // CONFIGURACIÓN INICIAL Y ELEMENTOS DEL DOM
 // =============================================
 const whatsappBtn = document.getElementById('whatsappBtn');
@@ -2919,14 +2908,7 @@ let selectedOption = '';
 let currentStep = '1';
 
 // =============================================
-// SISTEMA DE PEDIDOS - CON BASE DE DATOS COMPARTIDA
-// =============================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzM1i_UtMzyz67cExfodbl6YAmM-7MPKmrKK-QW99u7Lu4zQagJpVMTtMcn8aZfavA/exec';
-let pedidosDatabase = {};
-let productosTemporales = [];
-
-// =============================================
-// ESTADOS DEL PEDIDO
+// ESTADOS DEL PEDIDO - AGREGA ESTO AQUÍ
 // =============================================
 const estadosPedido = {
     'solicitado_corocase': { texto: 'Solicitado desde COROCASE', icono: '🏪', clase: 'estado-solicitado' },
@@ -2942,6 +2924,13 @@ const estadosPedido = {
     'listo_entrega': { texto: 'Listo para Entrega', icono: '📬', clase: 'estado-proximo' },
     'entregado': { texto: 'Entregado', icono: '✅', clase: 'estado-entregado' }
 };
+
+// =============================================
+// SISTEMA DE PEDIDOS - CON BASE DE DATOS COMPARTIDA
+// =============================================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzM1i_UtMzyz67cExfodbl6YAmM-7MPKmrKK-QW99u7Lu4zQagJpVMTtMcn8aZfavA/exec';
+let pedidosDatabase = {};
+let productosTemporales = [];
 
 // Función para cargar pedidos desde Google Sheets
 async function cargarDatos() {
@@ -3253,7 +3242,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 // =============================================
-// SISTEMA DE AUTENTICACIÓN PARA ADMIN
+// SISTEMA DE AUTENTICACIÓN PARA ADMIN - VERSIÓN COMPLETA
 // =============================================
 const ADMIN_PASSWORD = "Kindred162005.";
 let isAdminAuthenticated = false;
@@ -3263,74 +3252,132 @@ function verificarAdmin() {
     const adminPanel = document.querySelector('.admin-panel');
     const adminFloatingBtn = document.getElementById('adminFloatingBtn');
     
+    console.log('🔐 Estado autenticación:', isAdminAuthenticated);
+    
+    // Ocultar/mostrar panel principal
     if (adminPanel) {
-        if (isAdminAuthenticated) {
-            adminPanel.style.display = 'block';
-        } else {
-            adminPanel.style.display = 'none';
-        }
+        adminPanel.style.display = isAdminAuthenticated ? 'block' : 'none';
+        console.log('📋 Panel admin:', adminPanel.style.display);
     }
     
-    // Crear botón flotante si no existe
-    if (!adminFloatingBtn && !document.getElementById('adminFloatingBtn')) {
+    // Crear o actualizar botón flotante
+    if (!adminFloatingBtn) {
         crearBotonFlotanteAdmin();
+    } else {
+        // Actualizar el botón existente
+        adminFloatingBtn.innerHTML = isAdminAuthenticated ? 
+            '<i class="fas fa-user-shield"></i>' : 
+            '<i class="fas fa-user-lock"></i>';
+        adminFloatingBtn.title = isAdminAuthenticated ? 
+            'Admin: Sesión Activa - Clic para cerrar' : 
+            'Panel Administrativo';
     }
 }
 
-// Función para crear el botón flotante del admin
+// Función para crear el botón flotante
 function crearBotonFlotanteAdmin() {
+    if (document.getElementById('adminFloatingBtn')) return;
+    
     const botonFlotante = document.createElement('button');
     botonFlotante.id = 'adminFloatingBtn';
     botonFlotante.className = 'admin-floating-btn';
-    botonFlotante.innerHTML = '<i class="fas fa-user-lock"></i>';
-    botonFlotante.title = 'Panel Administrativo';
+    botonFlotante.innerHTML = isAdminAuthenticated ? 
+        '<i class="fas fa-user-shield"></i>' : 
+        '<i class="fas fa-user-lock"></i>';
+    botonFlotante.title = isAdminAuthenticated ? 
+        'Admin: Sesión Activa - Clic para cerrar' : 
+        'Panel Administrativo';
     
     botonFlotante.addEventListener('click', function(e) {
         e.preventDefault();
+        e.stopPropagation();
+        
         if (!isAdminAuthenticated) {
             mostrarLoginAdmin();
         } else {
-            // Si ya está autenticado, mostrar el panel directamente
-            document.querySelector('.admin-panel').style.display = 'block';
-            document.getElementById('adminBtn').click();
+            // Si ya está autenticado, mostrar opciones
+            mostrarMenuAdmin();
         }
     });
     
     document.body.appendChild(botonFlotante);
+    console.log('✅ Botón flotante creado');
 }
 
-// Función para mostrar el login
+// Función para mostrar login
 function mostrarLoginAdmin() {
-    if (isAdminAuthenticated) return;
-    
     const password = prompt('🔐 ACCESO RESTRINGIDO\n\nIngresa la contraseña de administrador:');
     
     if (password === ADMIN_PASSWORD) {
         isAdminAuthenticated = true;
         localStorage.setItem('admin_authenticated', 'true');
         localStorage.setItem('admin_auth_timestamp', Date.now().toString());
+        
         verificarAdmin();
         
-        // Mostrar el panel admin
-        document.querySelector('.admin-panel').style.display = 'block';
-        document.getElementById('adminBtn').click();
+        // Abrir panel admin automáticamente
+        setTimeout(() => {
+            const adminModal = document.getElementById('adminModal');
+            if (adminModal) {
+                adminModal.style.display = 'flex';
+                if (typeof cargarListaPedidos === 'function') {
+                    cargarListaPedidos();
+                }
+            }
+            alert('✅ Acceso concedido. Bienvenido al Panel de Administración.');
+        }, 500);
         
-        alert('✅ Acceso concedido. Bienvenido al Panel de Administración.');
     } else if (password !== null) {
         alert('❌ Contraseña incorrecta. Acceso denegado.');
     }
 }
 
-// Verificar autenticación al cargar la página
+// Función para mostrar menú de admin (cuando ya está autenticado)
+function mostrarMenuAdmin() {
+    const opcion = confirm('👤 SESIÓN ADMIN ACTIVA\n\n¿Qué deseas hacer?\n\n• Aceptar: Abrir Panel de Administración\n• Cancelar: Cerrar Sesión');
+    
+    if (opcion) {
+        // Abrir panel admin
+        const adminModal = document.getElementById('adminModal');
+        if (adminModal) {
+            adminModal.style.display = 'flex';
+            if (typeof cargarListaPedidos === 'function') {
+                cargarListaPedidos();
+            }
+        }
+    } else {
+        // Cerrar sesión
+        cerrarSesionAdmin();
+    }
+}
+
+// FUNCIÓN PARA CERRAR SESIÓN
+function cerrarSesionAdmin() {
+    if (confirm('🚪 ¿Estás seguro de que deseas cerrar la sesión de administrador?')) {
+        isAdminAuthenticated = false;
+        localStorage.removeItem('admin_authenticated');
+        localStorage.removeItem('admin_auth_timestamp');
+        
+        // Cerrar modal si está abierto
+        const adminModal = document.getElementById('adminModal');
+        if (adminModal) {
+            adminModal.style.display = 'none';
+        }
+        
+        verificarAdmin();
+        alert('👋 Sesión cerrada correctamente.');
+    }
+}
+
+// Verificar autenticación al cargar
 function verificarAutenticacionAlCargar() {
     const authSaved = localStorage.getItem('admin_authenticated');
     const authTimestamp = localStorage.getItem('admin_auth_timestamp');
     
     if (authSaved === 'true' && authTimestamp) {
-        // Verificar si la sesión tiene menos de 24 horas
         const ahora = Date.now();
         const tiempoSesion = ahora - parseInt(authTimestamp);
-        const veinticuatroHoras = 24 * 60 * 60 * 1000; // 24 horas en milisegundos
+        const veinticuatroHoras = 24 * 60 * 60 * 1000;
         
         if (tiempoSesion < veinticuatroHoras) {
             isAdminAuthenticated = true;
@@ -3345,13 +3392,22 @@ function verificarAutenticacionAlCargar() {
     verificarAdmin();
 }
 
-// Atajo de teclado para desarrollo (Ctrl+Alt+A)
-document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && e.altKey && e.key === 'a') {
-        e.preventDefault();
-        mostrarLoginAdmin();
+// Añadir botón de cerrar sesión en el modal admin (opcional)
+function agregarBotonCerrarSesion() {
+    const adminHeader = document.querySelector('.admin-header');
+    if (adminHeader && !document.getElementById('btnCerrarSesion')) {
+        const btnCerrar = document.createElement('button');
+        btnCerrar.id = 'btnCerrarSesion';
+        btnCerrar.innerHTML = '<i class="fas fa-sign-out-alt"></i> Cerrar Sesión';
+        btnCerrar.className = 'btn-danger';
+        btnCerrar.style.marginLeft = '10px';
+        btnCerrar.style.padding = '5px 10px';
+        btnCerrar.style.fontSize = '12px';
+        
+        btnCerrar.addEventListener('click', cerrarSesionAdmin);
+        adminHeader.appendChild(btnCerrar);
     }
-});
+}
 
 // =============================================
 // CARRUSEL DE PRODUCTOS
@@ -4278,7 +4334,16 @@ document.addEventListener('DOMContentLoaded', async function() {
     console.log('  - Sistema de pedidos listo');
 });
 
+// Función de diagnóstico - añade esto temporalmente
+function diagnosticarPanel() {
+    console.log('🔍 DIAGNÓSTICO DEL PANEL:');
+    console.log('- isAdminAuthenticated:', isAdminAuthenticated);
+    console.log('- pedidosDatabase:', Object.keys(pedidosDatabase));
+    console.log('- cargarListaPedidos existe:', typeof cargarListaPedidos);
+    console.log('- Panel visible:', document.querySelector('.admin-panel')?.style.display);
+}
 
+// Llama a esta función después de autenticarte para ver qué pasa
 
 </script>
 </body>
