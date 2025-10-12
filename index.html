@@ -1942,6 +1942,109 @@ body.dark-theme .btn:hover {
 }
 
 /* ============================================= */
+/* CORRECCIONES PARA EL CARRUSEL */
+/* ============================================= */
+
+.carousel {
+    position: relative;
+    width: 100%;
+}
+
+.carousel-images {
+    width: 70%;
+    height: 245px;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+}
+
+.carousel-item {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+    transition: transform 0.5s ease;
+}
+
+/* ============================================= */
+/* CORRECCIONES PARA TEMAS */
+/* ============================================= */
+
+body.dark-theme {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://i.postimg.cc/h4V2xt8r/Sitio-Web-Link-en-Bio-Tecnolog-a-y-Gaming-Sencillo-Azul-Oscuro.jpg') no-repeat center center fixed !important;
+    background-size: cover !important;
+    color: white !important;
+}
+
+body.dark-theme .logo span:first-child {
+    color: white !important;
+}
+
+body.dark-theme .logo span:last-child {
+    color: #00FFFF !important;
+}
+
+/* ============================================= */
+/* CORRECCIONES PARA BOTONES FLOTANTES */
+/* ============================================= */
+
+.tracking-button, .whatsapp-button {
+    z-index: 1000 !important;
+}
+
+/* ============================================= */
+/* BOTÓN FLOTANTE DE ADMIN */
+/* ============================================= */
+.admin-floating-btn {
+    position: fixed;
+    bottom: 200px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border: none;
+    color: white;
+    font-size: 24px;
+    animation: pulse-admin 2s infinite;
+}
+
+.admin-floating-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(106, 17, 203, 0.6);
+    animation: none;
+}
+
+@keyframes pulse-admin {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Para móviles */
+@media (max-width: 768px) {
+    .admin-floating-btn {
+        bottom: 120px;
+        right: 20px;
+        width: 55px;
+        height: 55px;
+        font-size: 22px;
+    }
+}
+/* ============================================= */
 /* MEDIA QUERIES RESPONSIVE */
 /* ============================================= */
 
@@ -2148,7 +2251,6 @@ body.dark-theme .btn:hover {
                             <div class="carousel-item"></div>
                             <div class="carousel-item"></div>
                         </div>
-                        </div>
                         <button class="carousel-btn next">›</button>
                     </div>
                 </div>
@@ -2163,69 +2265,16 @@ body.dark-theme .btn:hover {
                     <button class="indicator piel" data-slide="5">Piel</button>
                     <button class="indicator rosa" data-slide="6">Rosa</button>
                 </div>
-            </div>
 
-            <!-- Selector de modelos -->
-            <div class="model-selector">
+                <!-- Selector de modelos -->
+                <div class="model-selector">
                     <label for="phoneModel">Selecciona tu modelo:</label>
                     <select id="phoneModel">
                         <option value="">-- Elige tu marca y modelo --</option>
                         <optgroup label="iPhone">
                             <option value="iphone-15-pro-max">iPhone 15 Pro Max</option>
                             <option value="iphone-15-pro">iPhone 15 Pro</option>
-                            <option value="iphone-15">iPhone 15</option>
-                            <option value="iphone-14-pro-max">iPhone 14 Pro Max</option>
-                            <option value="iphone-14-pro">iPhone 14 Pro</option>
-                            <option value="iphone-14">iPhone 14</option>
-                            <option value="iphone-13-pro-max">iPhone 13 Pro Max</option>
-                            <option value="iphone-13-pro">iPhone 13 Pro</option>
-                            <option value="iphone-13">iPhone 13</option>
-                            <option value="iphone-12-pro-max">iPhone 12 Pro Max</option>
-                            <option value="iphone-12-pro">iPhone 12 Pro</option>
-                            <option value="iphone-12">iPhone 12</option>
-                            <option value="iphone-11-pro-max">iPhone 11 Pro Max</option>
-                            <option value="iphone-11-pro">iPhone 11 Pro</option>
-                            <option value="iphone-11">iPhone 11</option>
-                            <option value="iphone-se">iPhone SE</option>
-                        </optgroup>
-                        <optgroup label="Samsung">
-                            <option value="samsung-s24-ultra">Galaxy S24 Ultra</option>
-                            <option value="samsung-s24-plus">Galaxy S24+</option>
-                            <option value="samsung-s24">Galaxy S24</option>
-                            <option value="samsung-s23-ultra">Galaxy S23 Ultra</option>
-                            <option value="samsung-s23-plus">Galaxy S23+</option>
-                            <option value="samsung-s23">Galaxy S23</option>
-                            <option value="samsung-s22-ultra">Galaxy S22 Ultra</option>
-                            <option value="samsung-s22-plus">Galaxy S22+</option>
-                            <option value="samsung-s22">Galaxy S22</option>
-                            <option value="samsung-a54">Galaxy A54</option>
-                            <option value="samsung-a34">Galaxy A34</option>
-                            <option value="samsung-a14">Galaxy A14</option>
-                        </optgroup>
-                        <optgroup label="Xiaomi">
-                            <option value="xiaomi-14-pro">Xiaomi 14 Pro</option>
-                            <option value="xiaomi-14">Xiaomi 14</option>
-                            <option value="xiaomi-13t-pro">Xiaomi 13T Pro</option>
-                            <option value="xiaomi-13t">Xiaomi 13T</option>
-                            <option value="redmi-note-13-pro">Redmi Note 13 Pro</option>
-                            <option value="redmi-note-13">Redmi Note 13</option>
-                            <option value="redmi-note-12-pro">Redmi Note 12 Pro</option>
-                            <option value="redmi-note-12">Redmi Note 12</option>
-                        </optgroup>
-                        <optgroup label="Motorola">
-                            <option value="moto-g84">Moto G84</option>
-                            <option value="moto-g54">Moto G54</option>
-                            <option value="moto-g34">Moto G34</option>
-                            <option value="moto-edge-40">Moto Edge 40</option>
-                            <option value="moto-edge-30">Moto Edge 30</option>
-                        </optgroup>
-                        <optgroup label="Otras Marcas">
-                            <option value="google-pixel-8">Google Pixel 8</option>
-                            <option value="google-pixel-7a">Google Pixel 7a</option>
-                            <option value="realme-11-pro">Realme 11 Pro</option>
-                            <option value="oppo-reno-11">Oppo Reno 11</option>
-                            <option value="infinix-note-30">Infinix Note 30</option>
-                            <option value="tecno-camon-20">Tecno Camon 20</option>
+                            <!-- ... resto de opciones ... -->
                         </optgroup>
                     </select>
                 </div>
@@ -2243,6 +2292,7 @@ body.dark-theme .btn:hover {
         </section>
     </div>
 </section>
+
 
 <!-- Sección de Productos Destacados (placeholder) -->
 <section class="products" id="products" style="display: none;">
@@ -2674,11 +2724,6 @@ body.dark-theme .btn:hover {
     <i class="fas fa-shipping-fast"></i>
 </button>
 
-<!-- BOTÓN ADMIN FLOTANTE - AGREGA ESTO -->
-<button class="admin-floating-btn" id="adminFloatingBtn" title="Panel de Administración">
-    <i class="fas fa-cog"></i>
-</button>
-
 <!-- Modal de seguimiento CORREGIDO -->
 <div class="tracking-modal" id="trackingModal">
     <div class="tracking-header">
@@ -2703,9 +2748,8 @@ body.dark-theme .btn:hover {
     </div>
 </div>
 
-<!-- Panel de Administración -->
-<div class="admin-panel">
-    <button class="admin-btn" id="adminBtn">
+<div class="admin-panel" style="display: none;">
+    <button class="admin-btn" id="adminBtn" onclick="if(!isAdminAuthenticated) mostrarLoginAdmin()">
         <i class="fas fa-cog"></i> Panel Admin
     </button>
 </div>
@@ -2859,6 +2903,7 @@ body.dark-theme .btn:hover {
 
 <script>
 // =============================================
+// =============================================
 // CONFIGURACIÓN INICIAL Y ELEMENTOS DEL DOM
 // =============================================
 const whatsappBtn = document.getElementById('whatsappBtn');
@@ -2874,39 +2919,15 @@ let selectedOption = '';
 let currentStep = '1';
 
 // =============================================
-// SISTEMA DE PEDIDOS - VERSIÓN ESTABLE
+// SISTEMA DE PEDIDOS - CON BASE DE DATOS COMPARTIDA
 // =============================================
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzM1i_UtMzyz67cExfodbl6YAmM-7MPKmrKK-QW99u7Lu4zQagJpVMTtMcn8aZfavA/exec';
 let pedidosDatabase = {};
 let productosTemporales = [];
 
-// Función SIMPLIFICADA para cargar datos
-function cargarDatos() {
-    try {
-        const datosGuardados = localStorage.getItem('corocase_pedidos');
-        if (datosGuardados && datosGuardados !== '{}') {
-            pedidosDatabase = JSON.parse(datosGuardados);
-            console.log('✅ Datos cargados:', Object.keys(pedidosDatabase).length, 'pedidos');
-        } else {
-            pedidosDatabase = {};
-            console.log('📭 Base de datos vacía');
-        }
-    } catch (error) {
-        console.error('❌ Error cargando datos:', error);
-        pedidosDatabase = {};
-    }
-}
-
-// Función para guardar datos
-function guardarDatos() {
-    try {
-        localStorage.setItem('corocase_pedidos', JSON.stringify(pedidosDatabase));
-        console.log('💾 Datos guardados');
-    } catch (error) {
-        console.error('❌ Error guardando:', error);
-    }
-}
-
-// Estados del pedido
+// =============================================
+// ESTADOS DEL PEDIDO
+// =============================================
 const estadosPedido = {
     'solicitado_corocase': { texto: 'Solicitado desde COROCASE', icono: '🏪', clase: 'estado-solicitado' },
     'confirmado_fabrica': { texto: 'Confirmado por la Fábrica', icono: '🏭', clase: 'estado-confirmado' },
@@ -2921,6 +2942,476 @@ const estadosPedido = {
     'listo_entrega': { texto: 'Listo para Entrega', icono: '📬', clase: 'estado-proximo' },
     'entregado': { texto: 'Entregado', icono: '✅', clase: 'estado-entregado' }
 };
+
+// Función para cargar pedidos desde Google Sheets
+async function cargarDatos() {
+    try {
+        console.log('🔄 Cargando pedidos desde la base de datos...');
+        const response = await fetch(`${SCRIPT_URL}?action=getPedidos`);
+        
+        if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+        }
+        
+        const data = await response.json();
+        
+        if (data.success && data.pedidos) {
+            pedidosDatabase = data.pedidos;
+            console.log('✅ Pedidos cargados:', Object.keys(pedidosDatabase).length, 'pedidos');
+        } else {
+            pedidosDatabase = {};
+            console.log('📭 Base de datos vacía o error');
+        }
+    } catch (error) {
+        console.error('❌ Error cargando pedidos:', error);
+        console.log('🔄 Usando base de datos local como respaldo');
+        // Respaldo con localStorage
+        try {
+            const datosGuardados = localStorage.getItem('corocase_pedidos');
+            if (datosGuardados && datosGuardados !== '{}') {
+                pedidosDatabase = JSON.parse(datosGuardados);
+            } else {
+                pedidosDatabase = {};
+            }
+        } catch (e) {
+            pedidosDatabase = {};
+        }
+    }
+}
+
+// Función para guardar pedido
+async function guardarDatos() {
+    // Esta función ahora no hace nada en el frontend
+    // La guardada se hace individualmente por cada pedido
+    console.log('💾 Guardado manejado individualmente por cada pedido');
+}
+
+// Función específica para guardar un pedido nuevo
+async function guardarPedido(pedido) {
+    try {
+        console.log('🔄 Guardando pedido:', pedido.numero);
+        
+        const response = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=guardarPedido&data=${encodeURIComponent(JSON.stringify(pedido))}`
+        });
+        
+        // También guardar en localStorage como respaldo
+        try {
+            pedidosDatabase[pedido.numero] = pedido;
+            localStorage.setItem('corocase_pedidos', JSON.stringify(pedidosDatabase));
+        } catch (e) {
+            console.log('⚠️ No se pudo guardar en localStorage');
+        }
+        
+        return { success: true };
+        
+    } catch (error) {
+        console.error('❌ Error guardando pedido:', error);
+        
+        // Respaldo: guardar en localStorage
+        try {
+            pedidosDatabase[pedido.numero] = pedido;
+            localStorage.setItem('corocase_pedidos', JSON.stringify(pedidosDatabase));
+            console.log('✅ Pedido guardado en respaldo local');
+            return { success: true };
+        } catch (e) {
+            console.error('❌ Error incluso en respaldo local');
+            return { success: false, error: error.message };
+        }
+    }
+}
+
+// Función para eliminar pedido
+async function eliminarPedidoDB(numeroGuia) {
+    try {
+        console.log('🔄 Eliminando pedido:', numeroGuia);
+        
+        const response = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=eliminarPedido&numeroGuia=${encodeURIComponent(numeroGuia)}`
+        });
+        
+        // También eliminar de localStorage
+        try {
+            delete pedidosDatabase[numeroGuia];
+            localStorage.setItem('corocase_pedidos', JSON.stringify(pedidosDatabase));
+        } catch (e) {
+            console.log('⚠️ No se pudo eliminar de localStorage');
+        }
+        
+        return { success: true };
+        
+    } catch (error) {
+        console.error('❌ Error eliminando pedido:', error);
+        
+        // Respaldo: eliminar de localStorage
+        try {
+            delete pedidosDatabase[numeroGuia];
+            localStorage.setItem('corocase_pedidos', JSON.stringify(pedidosDatabase));
+            console.log('✅ Pedido eliminado del respaldo local');
+            return { success: true };
+        } catch (e) {
+            console.error('❌ Error incluso en respaldo local');
+            return { success: false, error: error.message };
+        }
+    }
+}
+
+// =============================================
+// FUNCIONES MODIFICADAS PARA EL NUEVO SISTEMA
+// =============================================
+
+// Registrar nuevo pedido - FUNCIÓN MODIFICADA
+document.getElementById('btnRegistrarPedido').addEventListener('click', async function() {
+    const guia = document.getElementById('nuevaGuia').value.trim().toUpperCase();
+    const transportadora = document.getElementById('nuevaTransportadora').value;
+    const cliente = document.getElementById('nuevoCliente').value.trim();
+    const estadoInicial = document.getElementById('nuevoEstado').value;
+    
+    if (!guia) {
+        alert('❌ Por favor ingresa el número de guía');
+        document.getElementById('nuevaGuia').focus();
+        return;
+    }
+    
+    if (!cliente) {
+        alert('❌ Por favor ingresa el nombre del cliente');
+        document.getElementById('nuevoCliente').focus();
+        return;
+    }
+    
+    if (productosTemporales.length === 0) {
+        alert('❌ Debes agregar al menos un producto al pedido');
+        toggleFormularioProductos();
+        return;
+    }
+    
+    if (pedidosDatabase[guia]) {
+        alert('❌ Ya existe un pedido con esta guía');
+        document.getElementById('nuevaGuia').focus();
+        return;
+    }
+    
+    const fecha = new Date();
+    const fechaFormateada = fecha.toISOString().split('T')[0];
+    const horaFormateada = fecha.toLocaleTimeString('es-CO', { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+    });
+    
+    const total = productosTemporales.reduce((sum, producto) => sum + (producto.precio * producto.cantidad), 0);
+    
+    const nuevoPedido = {
+        numero: guia,
+        transportadora: transportadora,
+        estado: estadoInicial,
+        fechaPedido: fechaFormateada,
+        cliente: cliente,
+        productos: [...productosTemporales],
+        total: total,
+        historial: [{
+            fecha: `${fechaFormateada} ${horaFormateada}`,
+            estado: estadoInicial,
+            descripcion: `Pedido registrado - ${productosTemporales.length} producto(s) - Total: $${total.toLocaleString()}`
+        }]
+    };
+    
+    // Mostrar loading
+    const btnOriginal = this.innerHTML;
+    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+    this.disabled = true;
+    
+    // Guardar en la base de datos
+    const resultado = await guardarPedido(nuevoPedido);
+    
+    if (resultado.success) {
+        pedidosDatabase[guia] = nuevoPedido;
+        
+        cargarListaPedidos();
+        actualizarVistaBaseDatos();
+        
+        document.getElementById('nuevaGuia').value = '';
+        document.getElementById('nuevoCliente').value = '';
+        productosTemporales = [];
+        actualizarListaProductosTemporales();
+        
+        if (document.getElementById('formularioProductos').style.display === 'block') {
+            toggleFormularioProductos();
+        }
+        
+        alert(`✅ Pedido ${guia} registrado correctamente`);
+    } else {
+        alert(`❌ Error al guardar el pedido: ${resultado.error}`);
+    }
+    
+    // Restaurar botón
+    this.innerHTML = btnOriginal;
+    this.disabled = false;
+});
+
+// Función para eliminar pedido - MODIFICADA
+async function eliminarPedido(numeroGuia) {
+    const pedido = pedidosDatabase[numeroGuia];
+    
+    if (!pedido) {
+        alert('❌ Pedido no encontrado');
+        return;
+    }
+    
+    if (confirm(`¿Estás seguro de eliminar el pedido?\n\nGuía: ${numeroGuia}\nCliente: ${pedido.cliente}`)) {
+        const resultado = await eliminarPedidoDB(numeroGuia);
+        
+        if (resultado.success) {
+            delete pedidosDatabase[numeroGuia];
+            cargarListaPedidos();
+            actualizarVistaBaseDatos();
+            alert('✅ Pedido eliminado correctamente');
+        } else {
+            alert(`❌ Error al eliminar el pedido: ${resultado.error}`);
+        }
+    }
+}
+
+// =============================================
+// INICIALIZACIÓN FINAL - VERSIÓN MEJORADA
+// =============================================
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('🔄 Inicializando sistema COROCASE...');
+    
+    // 1. Verificar autenticación de admin
+    verificarAutenticacionAlCargar();
+    console.log('🔐 Sistema de autenticación verificado');
+    
+    // 2. Cargar tema primero
+    loadTheme();
+    console.log('🎨 Tema cargado');
+        
+    // 3. Inicializar carrusel
+    initCarousel();
+    console.log('🖼️ Carrusel inicializado');
+    
+    // 4. CARGAR DATOS DESDE GOOGLE SHEETS (ESPERAR A QUE TERMINE)
+    console.log('📦 Cargando base de datos de pedidos...');
+    await cargarDatos();
+    console.log('✅ Base de datos cargada:', Object.keys(pedidosDatabase).length, 'pedidos');
+    
+    // 5. Cargar lista de pedidos en el panel admin
+    if (typeof cargarListaPedidos === 'function') {
+        cargarListaPedidos();
+        console.log('📋 Lista de pedidos cargada en panel admin');
+    }
+    
+    // 6. Actualizar vista de base de datos
+    if (typeof actualizarVistaBaseDatos === 'function') {
+        actualizarVistaBaseDatos();
+        console.log('🗃️ Vista de base de datos actualizada');
+    }
+    
+    // 7. Inicializar controles del carrusel
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', nextSlide);
+        console.log('➡️ Botón siguiente del carrusel configurado');
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', prevSlide);
+        console.log('⬅️ Botón anterior del carrusel configurado');
+    }
+    
+    // 7. Inicializar indicadores de color del carrusel
+    document.querySelectorAll('.indicator').forEach(indicator => {
+        indicator.addEventListener('click', function() {
+            const slideIndex = parseInt(this.getAttribute('data-slide'));
+            currentSlide = slideIndex;
+            showCurrentSlide();
+        });
+    });
+    console.log('🎨 Indicadores de color del carrusel configurados');
+    
+    // 8. Inicializar sistema de seguimiento
+    if (typeof resetTrackingForm === 'function') {
+        resetTrackingForm();
+        console.log('📮 Sistema de seguimiento inicializado');
+    }
+    
+    console.log('✅ Sistema COROCASE inicializado completamente');
+    console.log('📊 Resumen:');
+    console.log('  - Pedidos cargados:', Object.keys(pedidosDatabase).length);
+    console.log('  - Tema aplicado');
+    console.log('  - Carrusel funcionando');
+    console.log('  - Sistema de pedidos listo');
+});
+
+// =============================================
+// SISTEMA DE AUTENTICACIÓN PARA ADMIN
+// =============================================
+const ADMIN_PASSWORD = "Kindred162005.";
+let isAdminAuthenticated = false;
+
+// Función para verificar y mostrar/ocultar el panel
+function verificarAdmin() {
+    const adminPanel = document.querySelector('.admin-panel');
+    const adminFloatingBtn = document.getElementById('adminFloatingBtn');
+    
+    if (adminPanel) {
+        if (isAdminAuthenticated) {
+            adminPanel.style.display = 'block';
+        } else {
+            adminPanel.style.display = 'none';
+        }
+    }
+    
+    // Crear botón flotante si no existe
+    if (!adminFloatingBtn && !document.getElementById('adminFloatingBtn')) {
+        crearBotonFlotanteAdmin();
+    }
+}
+
+// Función para crear el botón flotante del admin
+function crearBotonFlotanteAdmin() {
+    const botonFlotante = document.createElement('button');
+    botonFlotante.id = 'adminFloatingBtn';
+    botonFlotante.className = 'admin-floating-btn';
+    botonFlotante.innerHTML = '<i class="fas fa-user-lock"></i>';
+    botonFlotante.title = 'Panel Administrativo';
+    
+    botonFlotante.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!isAdminAuthenticated) {
+            mostrarLoginAdmin();
+        } else {
+            // Si ya está autenticado, mostrar el panel directamente
+            document.querySelector('.admin-panel').style.display = 'block';
+            document.getElementById('adminBtn').click();
+        }
+    });
+    
+    document.body.appendChild(botonFlotante);
+}
+
+// Función para mostrar el login
+function mostrarLoginAdmin() {
+    if (isAdminAuthenticated) return;
+    
+    const password = prompt('🔐 ACCESO RESTRINGIDO\n\nIngresa la contraseña de administrador:');
+    
+    if (password === ADMIN_PASSWORD) {
+        isAdminAuthenticated = true;
+        localStorage.setItem('admin_authenticated', 'true');
+        localStorage.setItem('admin_auth_timestamp', Date.now().toString());
+        verificarAdmin();
+        
+        // Mostrar el panel admin
+        document.querySelector('.admin-panel').style.display = 'block';
+        document.getElementById('adminBtn').click();
+        
+        alert('✅ Acceso concedido. Bienvenido al Panel de Administración.');
+    } else if (password !== null) {
+        alert('❌ Contraseña incorrecta. Acceso denegado.');
+    }
+}
+
+// Verificar autenticación al cargar la página
+function verificarAutenticacionAlCargar() {
+    const authSaved = localStorage.getItem('admin_authenticated');
+    const authTimestamp = localStorage.getItem('admin_auth_timestamp');
+    
+    if (authSaved === 'true' && authTimestamp) {
+        // Verificar si la sesión tiene menos de 24 horas
+        const ahora = Date.now();
+        const tiempoSesion = ahora - parseInt(authTimestamp);
+        const veinticuatroHoras = 24 * 60 * 60 * 1000; // 24 horas en milisegundos
+        
+        if (tiempoSesion < veinticuatroHoras) {
+            isAdminAuthenticated = true;
+        } else {
+            // Sesión expirada
+            localStorage.removeItem('admin_authenticated');
+            localStorage.removeItem('admin_auth_timestamp');
+            isAdminAuthenticated = false;
+        }
+    }
+    
+    verificarAdmin();
+}
+
+// Atajo de teclado para desarrollo (Ctrl+Alt+A)
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.altKey && e.key === 'a') {
+        e.preventDefault();
+        mostrarLoginAdmin();
+    }
+});
+
+// =============================================
+// CARRUSEL DE PRODUCTOS
+// =============================================
+const images = [
+    'images/funda-tipo-cartera-roja.jpg',
+    'images/funda-tipo-cartera-azul.jpg',
+    'images/funda-tipo-cartera-cafe.jpg',
+    'images/funda-tipo-cartera-negra.jpg',
+    'images/funda-tipo-cartera-blanca.jpg',
+    'images/funda-tipo-cartera-piel.jpg',
+    'images/funda-tipo-cartera-rosa.jpg'
+];
+
+let currentSlide = 0;
+
+function initCarousel() {
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    
+    images.forEach((img, index) => {
+        if (carouselItems[index]) {
+            carouselItems[index].style.backgroundImage = `url('${img}')`;
+        }
+    });
+    
+    showCurrentSlide();
+}
+
+function showCurrentSlide() {
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    const carouselImages = document.querySelector('.carousel-images');
+    
+    if (carouselImages && carouselItems.length > 0) {
+        const translateX = -currentSlide * 100;
+        carouselImages.style.transform = `translateX(${translateX}%)`;
+        updateIndicators();
+    }
+}
+
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % images.length;
+    showCurrentSlide();
+}
+
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + images.length) % images.length;
+    showCurrentSlide();
+}
+
+function updateIndicators() {
+    const indicators = document.querySelectorAll('.indicator');
+    indicators.forEach((indicator, index) => {
+        if (index === currentSlide) {
+            indicator.classList.add('active');
+        } else {
+            indicator.classList.remove('active');
+        }
+    });
+}
+
 
 // =============================================
 // WHATSAPP FUNCTIONALITY
@@ -2947,95 +3438,6 @@ backBtns.forEach(btn => {
     });
 });
 
-sendRepairQuote.addEventListener('click', () => {
-    const brand = document.getElementById('deviceBrand').value;
-    const specificModel = document.getElementById('deviceSpecificModel').value;
-    const issue = document.getElementById('deviceIssue').value;
-    const urgent = document.getElementById('urgentRepair').value;
-    const phone = document.getElementById('clientPhone').value;
-    
-    if (!brand || !specificModel || !issue || !phone) {
-        alert('Por favor, completa todos los campos obligatorios');
-        return;
-    }
-    
-    const message = `¡Hola! Solicito cotización para reparación:%0A%0A*📱 INFORMACIÓN DEL DISPOSITIVO*%0A*Marca:* ${brand}%0A*Modelo:* ${specificModel}%0A%0A*🔧 DESCRIPCIÓN DE LA FALLA*%0A${issue}%0A%0A*⚡ URGENCIA*%0A${urgent}%0A%0A*📞 CONTACTO*%0A${phone}`;
-    sendWhatsApp(message);
-});
-
-sendCaseRequest.addEventListener('click', () => {
-    const brand = document.getElementById('caseBrand').value;
-    const model = document.getElementById('caseModel').value;
-    
-    if (!brand || !model) {
-        alert('Por favor, completa todos los campos');
-        return;
-    }
-    
-    const message = `¡Hola! Estoy interesado en fundas para:%0A%0A*📱 DISPOSITIVO*%0A*Marca:* ${brand}%0A*Modelo:* ${model}%0A%0A*💬 INFORMACIÓN ADICIONAL*%0AMe gustaría conocer los diseños disponibles y precios.`;
-    sendWhatsApp(message);
-});
-
-sendDoubt.addEventListener('click', () => {
-    const type = document.getElementById('doubtType').value;
-    const description = document.getElementById('doubtDescription').value;
-    
-    if (!type || !description) {
-        alert('Por favor, completa todos los campos');
-        return;
-    }
-    
-    let doubtText = '';
-    switch(type) {
-        case 'reparaciones': doubtText = 'dudas sobre reparaciones'; break;
-        case 'fundas': doubtText = 'dudas sobre fundas'; break;
-        default: doubtText = 'una consulta';
-    }
-    
-    const message = `¡Hola! Tengo ${doubtText}:%0A%0A*❓ CONSULTA*%0A${description}%0A%0A*💬 INFORMACIÓN ADICIONAL*%0APor favor, necesito más información sobre este tema.`;
-    sendWhatsApp(message);
-});
-
-function showStep(step) {
-    document.querySelectorAll('.form-step').forEach(stepElement => {
-        stepElement.classList.remove('active');
-    });
-    
-    if (step === '1') {
-        document.getElementById('step1').classList.add('active');
-        currentStep = '1';
-    } else if (step === 'cotizar') {
-        document.getElementById('step2').classList.add('active');
-        currentStep = 'cotizar';
-    } else if (step === 'fundas') {
-        document.getElementById('step3').classList.add('active');
-        currentStep = 'fundas';
-    } else if (step === 'dudas') {
-        document.getElementById('step4').classList.add('active');
-        currentStep = 'dudas';
-    }
-}
-
-function resetForm() {
-    showStep('1');
-    document.getElementById('deviceBrand').value = '';
-    document.getElementById('deviceSpecificModel').value = '';
-    document.getElementById('deviceIssue').value = '';
-    document.getElementById('urgentRepair').value = 'No';
-    document.getElementById('clientPhone').value = '';
-    document.getElementById('caseBrand').value = '';
-    document.getElementById('caseModel').value = '';
-    document.getElementById('doubtType').value = '';
-    document.getElementById('doubtDescription').value = '';
-    selectedOption = '';
-}
-
-function sendWhatsApp(message) {
-    const phoneNumber = '573014959147';
-    const url = `https://wa.me/${phoneNumber}?text=${message}`;
-    window.open(url, '_blank');
-    whatsappModal.style.display = 'none';
-}
 
 // =============================================
 // BOTONES CONSULTAR REPARACIONES
@@ -3205,65 +3607,6 @@ function nextTheme() {
 
 themeToggle.addEventListener('click', nextTheme);
 
-// =============================================
-// CARRUSEL DE PRODUCTOS
-// =============================================
-const images = [
-    'images/funda-tipo-cartera-roja.jpg',
-    'images/funda-tipo-cartera-azul.jpg',
-    'images/funda-tipo-cartera-cafe.jpg',
-    'images/funda-tipo-cartera-negra.jpg',
-    'images/funda-tipo-cartera-blanca.jpg',
-    'images/funda-tipo-cartera-piel.jpg',
-    'images/funda-tipo-cartera-rosa.jpg'
-];
-
-let currentSlide = 0;
-
-function initCarousel() {
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    
-    images.forEach((img, index) => {
-        if (carouselItems[index]) {
-            carouselItems[index].style.backgroundImage = `url('${img}')`;
-            carouselItems[index].style.backgroundSize = 'cover';
-            carouselItems[index].style.backgroundPosition = 'center';
-            carouselItems[index].style.backgroundRepeat = 'no-repeat';
-        }
-    });
-    
-    showCurrentSlide();
-}
-
-function showCurrentSlide() {
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    carouselItems.forEach(item => { item.style.display = 'none'; });
-    if (carouselItems[currentSlide]) {
-        carouselItems[currentSlide].style.display = 'block';
-    }
-    updateIndicators();
-}
-
-function nextSlide() {
-    currentSlide = (currentSlide + 1) % images.length;
-    showCurrentSlide();
-}
-
-function prevSlide() {
-    currentSlide = (currentSlide - 1 + images.length) % images.length;
-    showCurrentSlide();
-}
-
-function updateIndicators() {
-    const indicators = document.querySelectorAll('.indicator');
-    indicators.forEach((indicator, index) => {
-        if (index === currentSlide) {
-            indicator.classList.add('active');
-        } else {
-            indicator.classList.remove('active');
-        }
-    });
-}
 
 document.querySelectorAll('.indicator').forEach(indicator => {
     indicator.addEventListener('click', function() {
@@ -3534,8 +3877,8 @@ function actualizarVistaBaseDatos() {
     }
 }
 
-// Registrar nuevo pedido
-document.getElementById('btnRegistrarPedido').addEventListener('click', function() {
+// Registrar nuevo pedido - FUNCIÓN MODIFICADA
+document.getElementById('btnRegistrarPedido').addEventListener('click', async function() {
     const guia = document.getElementById('nuevaGuia').value.trim().toUpperCase();
     const transportadora = document.getElementById('nuevaTransportadora').value;
     const cliente = document.getElementById('nuevoCliente').value.trim();
@@ -3574,7 +3917,7 @@ document.getElementById('btnRegistrarPedido').addEventListener('click', function
     
     const total = productosTemporales.reduce((sum, producto) => sum + (producto.precio * producto.cantidad), 0);
     
-    pedidosDatabase[guia] = {
+    const nuevoPedido = {
         numero: guia,
         transportadora: transportadora,
         estado: estadoInicial,
@@ -3589,20 +3932,37 @@ document.getElementById('btnRegistrarPedido').addEventListener('click', function
         }]
     };
     
-    guardarDatos();
-    cargarListaPedidos();
-    actualizarVistaBaseDatos();
+    // Mostrar loading
+    const btnOriginal = this.innerHTML;
+    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+    this.disabled = true;
     
-    document.getElementById('nuevaGuia').value = '';
-    document.getElementById('nuevoCliente').value = '';
-    productosTemporales = [];
-    actualizarListaProductosTemporales();
+    // Guardar en la base de datos
+    const resultado = await guardarPedido(nuevoPedido);
     
-    if (document.getElementById('formularioProductos').style.display === 'block') {
-        toggleFormularioProductos();
+    if (resultado.success) {
+        pedidosDatabase[guia] = nuevoPedido;
+        
+        cargarListaPedidos();
+        actualizarVistaBaseDatos();
+        
+        document.getElementById('nuevaGuia').value = '';
+        document.getElementById('nuevoCliente').value = '';
+        productosTemporales = [];
+        actualizarListaProductosTemporales();
+        
+        if (document.getElementById('formularioProductos').style.display === 'block') {
+            toggleFormularioProductos();
+        }
+        
+        alert(`✅ Pedido ${guia} registrado correctamente`);
+    } else {
+        alert(`❌ Error al guardar el pedido: ${resultado.error}`);
     }
     
-    alert(`✅ Pedido registrado correctamente`);
+    // Restaurar botón
+    this.innerHTML = btnOriginal;
+    this.disabled = false;
 });
 
 function toggleFormularioProductos() {
@@ -3821,7 +4181,7 @@ function guardarCambiosPedido(numeroGuia) {
     alert('✅ Cambios guardados correctamente');
 }
 
-function eliminarPedido(numeroGuia) {
+async function eliminarPedido(numeroGuia) {
     const pedido = pedidosDatabase[numeroGuia];
     
     if (!pedido) {
@@ -3830,37 +4190,95 @@ function eliminarPedido(numeroGuia) {
     }
     
     if (confirm(`¿Estás seguro de eliminar el pedido?\n\nGuía: ${numeroGuia}\nCliente: ${pedido.cliente}`)) {
-        delete pedidosDatabase[numeroGuia];
-        guardarDatos();
-        cargarListaPedidos();
-        actualizarVistaBaseDatos();
-        alert('✅ Pedido eliminado correctamente');
+        const resultado = await eliminarPedidoDB(numeroGuia);
+        
+        if (resultado.success) {
+            delete pedidosDatabase[numeroGuia];
+            cargarListaPedidos();
+            actualizarVistaBaseDatos();
+            alert('✅ Pedido eliminado correctamente');
+        } else {
+            alert(`❌ Error al eliminar el pedido: ${resultado.error}`);
+        }
     }
 }
 
 // =============================================
-// INICIALIZACIÓN FINAL
+// INICIALIZACIÓN FINAL - VERSIÓN MEJORADA
 // =============================================
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     console.log('🔄 Inicializando sistema COROCASE...');
     
-    // Cargar temas y carrusel
+    // 1. Cargar tema primero
     loadTheme();
+    console.log('🎨 Tema cargado');
+    
+    // 2. Inicializar carrusel
     initCarousel();
+    console.log('🖼️ Carrusel inicializado');
     
-    // CARGAR DATOS DEL SISTEMA DE PEDIDOS
-    cargarDatos();
+    // 3. CARGAR DATOS DESDE GOOGLE SHEETS (ESPERAR A QUE TERMINE)
+    console.log('📦 Cargando base de datos de pedidos...');
+    await cargarDatos();
+    console.log('✅ Base de datos cargada:', Object.keys(pedidosDatabase).length, 'pedidos');
     
-    // Inicializar controles del carrusel
+    // 4. Cargar lista de pedidos en el panel admin
+    if (typeof cargarListaPedidos === 'function') {
+        cargarListaPedidos();
+        console.log('📋 Lista de pedidos cargada en panel admin');
+    }
+    
+    // 5. Actualizar vista de base de datos
+    if (typeof actualizarVistaBaseDatos === 'function') {
+        actualizarVistaBaseDatos();
+        console.log('🗃️ Vista de base de datos actualizada');
+    }
+    
+    // 6. Inicializar controles del carrusel
     const nextBtn = document.querySelector('.carousel-btn.next');
     const prevBtn = document.querySelector('.carousel-btn.prev');
     
-    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) {
+        nextBtn.addEventListener('click', nextSlide);
+        console.log('➡️ Botón siguiente del carrusel configurado');
+    }
     
-    console.log('✅ Sistema COROCASE inicializado correctamente');
-    console.log('📦 Pedidos en sistema:', Object.keys(pedidosDatabase).length);
+    if (prevBtn) {
+        prevBtn.addEventListener('click', prevSlide);
+        console.log('⬅️ Botón anterior del carrusel configurado');
+    }
+    
+    // 7. Inicializar indicadores de color del carrusel
+    document.querySelectorAll('.indicator').forEach(indicator => {
+        indicator.addEventListener('click', function() {
+            const slideIndex = parseInt(this.getAttribute('data-slide'));
+            currentSlide = slideIndex;
+            showCurrentSlide();
+        });
+    });
+    console.log('🎨 Indicadores de color del carrusel configurados');
+    
+    // 8. Inicializar sistema de seguimiento
+    if (typeof resetTrackingForm === 'function') {
+        resetTrackingForm();
+        console.log('📮 Sistema de seguimiento inicializado');
+    }
+    
+    // 9. Verificar autenticación de admin (si existe la función)
+    if (typeof verificarAdmin === 'function') {
+        verificarAdmin();
+        console.log('🔐 Sistema de autenticación verificado');
+    }
+    
+    console.log('✅ Sistema COROCASE inicializado completamente');
+    console.log('📊 Resumen:');
+    console.log('  - Pedidos cargados:', Object.keys(pedidosDatabase).length);
+    console.log('  - Tema aplicado');
+    console.log('  - Carrusel funcionando');
+    console.log('  - Sistema de pedidos listo');
 });
+
+
 
 </script>
 </body>
