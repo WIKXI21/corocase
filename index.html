@@ -3107,7 +3107,7 @@ async function eliminarPedidoDB(numeroGuia) {
 // =============================================
 // FUNCIONES MODIFICADAS PARA EL NUEVO SISTEMA
 // =============================================
-// Registrar nuevo pedido - FUNCIÓN CORREGIDA
+// Registrar nuevo pedido - FUNCIÓN COMPLETAMENTE CORREGIDA
 document.getElementById('btnRegistrarPedido').addEventListener('click', async function() {
     const guia = document.getElementById('nuevaGuia').value.trim().toUpperCase();
     const transportadora = document.getElementById('nuevaTransportadora').value;
@@ -3129,9 +3129,9 @@ document.getElementById('btnRegistrarPedido').addEventListener('click', async fu
     // Validación de formato de guía
     if (!validarFormatoGuia(guia, transportadora)) {
         alert(`❌ Formato de guía incorrecto para ${transportadora}\n\n` +
-            `• Mail Americas: MH123456789CO (12 caracteres)\n` +
-        `• Pasarex: PA123456789CO (12 caracteres)\n` +
-            `• Cainao: CO123456789CO (13 caracteres)`);
+              `• Mail Americas: MH123456789CO (12 caracteres)\n` +
+              `• Pasarex: PA123456789CO (12 caracteres)\n` +
+              `• Cainao: CO123456789CO (13 caracteres)`);
         document.getElementById('nuevaGuia').focus();
         return;
     }
@@ -3142,10 +3142,10 @@ document.getElementById('btnRegistrarPedido').addEventListener('click', async fu
         return;
     }
     
-    // Crear ID único para verificar duplicados
+    // Crear ID único
     const pedidoId = `${guia}_${cliente.replace(/\s+/g, '_')}`;
     
-    // Verificar si ya existe EXACTAMENTE el mismo pedido (misma guía + mismo cliente)
+    // Verificar si ya existe EXACTAMENTE el mismo pedido
     if (pedidosDatabase[pedidoId]) {
         alert('❌ Ya existe un pedido idéntico (misma guía y mismo cliente). Por favor, verifica los datos.');
         document.getElementById('nuevaGuia').focus();
@@ -3154,7 +3154,7 @@ document.getElementById('btnRegistrarPedido').addEventListener('click', async fu
     
     // Verificar si existe la misma guía con DIFERENTE cliente
     const guiasSimilares = Object.values(pedidosDatabase).filter(pedido => 
-        pedido.numero === guia
+        pedido.numero === guia && pedido.cliente !== cliente
     );
     
     if (guiasSimilares.length > 0) {
@@ -3200,7 +3200,7 @@ document.getElementById('btnRegistrarPedido').addEventListener('click', async fu
     const resultado = await guardarPedido(nuevoPedido);
     
     if (resultado.success) {
-        // Usar ID único como clave
+        // ✅ CORREGIDO: Usar ID único como clave
         pedidosDatabase[pedidoId] = nuevoPedido;
         
         cargarListaPedidos();
@@ -4159,7 +4159,7 @@ function editarPedido(pedidoId) {
     modalEdicion.innerHTML = `
         <div class="admin-content" style="max-width: 500px;">
             <div class="admin-header">
-            <h3 style="margin: 0;"><i class="fas fa-edit"></i> Editar Pedido ${pedido.numero}</h3>
+            <h3 style="margin: 0;"><i class="fas fa-edit"></i> Editar Pedido ${pedido.numero} - ${pedido.cliente}</h3>
                 <button class="close-admin" onclick="this.closest('.admin-modal').remove()">&times;</button>
             </div>
             
@@ -4225,7 +4225,7 @@ function editarPedido(pedidoId) {
 
 function guardarCambiosPedido(pedidoId) {
     const pedido = pedidosDatabase[pedidoId];
-        
+    
     const nuevoEstado = document.getElementById('editarEstado').value;
     const descripcion = document.getElementById('editarDescripcion').value.trim();
     const nuevoCliente = document.getElementById('editarCliente').value.trim();
@@ -4236,8 +4236,23 @@ function guardarCambiosPedido(pedidoId) {
         return;
     }
     
-    pedido.cliente = nuevoCliente;
-    pedido.transportadora = nuevaTransportadora;
+    // ✅ CORREGIDO: Si cambia el cliente, crear nuevo ID
+    const nuevoPedidoId = `${pedido.numero}_${nuevoCliente.replace(/\s+/g, '_')}`;
+    
+    // Si cambió el cliente, mover el pedido a nueva clave
+    if (nuevoPedidoId !== pedidoId) {
+        // Eliminar el pedido antiguo
+        delete pedidosDatabase[pedidoId];
+        // Actualizar datos del pedido
+        pedido.cliente = nuevoCliente;
+        pedido.transportadora = nuevaTransportadora;
+        // Guardar con nueva clave
+        pedidosDatabase[nuevoPedidoId] = pedido;
+    } else {
+        // Solo actualizar datos si no cambió el cliente
+        pedido.cliente = nuevoCliente;
+        pedido.transportadora = nuevaTransportadora;
+    }
     
     if (nuevoEstado !== pedido.estado || descripcion) {
         const fecha = new Date();
