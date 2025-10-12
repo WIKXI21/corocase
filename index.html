@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COROCASE - Fundas Premium y Reparaciones</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+<style>
         * {
             margin: 0;          padding: 0;
             box-sizing: border-box;
@@ -1057,7 +1057,7 @@ body.dark-theme .btn:hover {
 }
 
 /* ============================================= */
-/* ESTILOS CORREGIDOS PARA EL CARRUSEL */
+/* CARRUSEL CORREGIDO - ESTILOS UNIFICADOS */
 /* ============================================= */
 
 .catalogo-container {
@@ -1089,50 +1089,50 @@ body.dark-theme .btn:hover {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 25px; /* Reducido padding */
+    padding: 25px;
     box-shadow: 0 8px 32px rgba(0, 255, 255, 0.1);
-    max-width: 500px; /* Reducido de 600px */
+    max-width: 500px;
     margin: 0 auto;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* ============================================= */
-/* CORRECCIONES DEFINITIVAS PARA EL CARRUSEL */
-/* ============================================= */
-
+/* CONTENEDOR PRINCIPAL DEL CARRUSEL */
 .carousel-container {
     position: relative;
     margin-bottom: 25px;
+    width: 100%;
+    height: 245px;
+    overflow: hidden;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.3);
 }
 
+/* CARRUSEL - CONTENEDOR DE IMÁGENES */
 .carousel {
     position: relative;
     width: 100%;
-    overflow: hidden;
+    height: 100%;
 }
 
+/* CONTENEDOR DE SLIDES - ESTO ES CLAVE */
 .carousel-images {
-    display: flex !important;
-    transition: transform 0.5s ease-in-out !important;
-    width: 700% !important; /* 7 imágenes × 100% */
-    height: 245px !important;
+    display: flex;
+    width: 700%; /* 7 imágenes × 100% */
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
 }
 
+/* SLIDES INDIVIDUALES */
 .carousel-item {
-    width: 14.2857% !important; /* 100% ÷ 7 imágenes */
-    flex-shrink: 0 !important;
-    background-size: contain !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    background-color: rgba(0, 0, 0, 0.05) !important;
+    width: 14.2857%; /* 100% ÷ 7 imágenes */
+    flex-shrink: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
 }
 
-/* Forzar eliminación de transforms problemáticos */
-.carousel-images {
-    transform: translateX(0) !important;
-}
-
-/* Botones del carrusel */
+/* BOTONES DE NAVEGACIÓN */
 .carousel-btn {
     position: absolute;
     top: 50%;
@@ -1165,6 +1165,46 @@ body.dark-theme .btn:hover {
     right: 10px;
 }
 
+/* INDICADORES DE COLOR */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.indicator {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: white;
+    min-width: 55px;
+}
+
+.indicator.roja { background: #FF4444; }
+.indicator.azul { background: #4444FF; }
+.indicator.cafe { background: #8B4513; }
+.indicator.negra { background: #000000; }
+.indicator.blanca { background: #FFFFFF; color: #000; border: 1px solid #ccc; }
+.indicator.piel { background: #F5DEB3; color: #000; }
+.indicator.rosa { background: #FF69B4; }
+
+.indicator.active {
+    transform: scale(1.1);
+    box-shadow: 0 0 8px currentColor;
+}
+
+.indicator:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* INFORMACIÓN DEL PRODUCTO */
 .product-info {
     text-align: center;
 }
@@ -1223,48 +1263,6 @@ body.dark-theme .btn:hover {
 .price-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
-}
-
-/* ============================================= */
-/* INDICADORES DE COLOR DEL CARRUSEL */
-/* ============================================= */
-
-.carousel-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 15px;
-    flex-wrap: wrap;
-}
-
-.indicator {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 0.75rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    color: white;
-    min-width: 55px;
-}
-
-.indicator.roja { background: #FF4444; }
-.indicator.azul { background: #4444FF; }
-.indicator.cafe { background: #8B4513; }
-.indicator.negra { background: #000000; }
-.indicator.blanca { background: #FFFFFF; color: #000; border: 1px solid #ccc; }
-.indicator.piel { background: #F5DEB3; color: #000; }
-.indicator.rosa { background: #FF69B4; }
-
-.indicator.active {
-    transform: scale(1.1);
-    box-shadow: 0 0 8px currentColor;
-}
-
-.indicator:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
 }
 
 /* ============================================= */
@@ -1955,36 +1953,6 @@ body.dark-theme .btn:hover {
 
 .admin-tab-content::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
-}
-
-/* ============================================= */
-/* CORRECCIONES PARA EL CARRUSEL */
-/* ============================================= */
-
-.carousel {
-    position: relative;
-    width: 100%;
-}
-
-.carousel-images {
-    width: 70%;
-    height: 245px;
-    border-radius: 15px;
-    background: rgba(0, 0, 0, 0.3);
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-}
-
-.carousel-item {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    flex-shrink: 0;
-    transition: transform 0.5s ease;
 }
 
 /* ============================================= */
