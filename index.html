@@ -2983,31 +2983,30 @@ function validarFormatoGuia(guia, transportadora) {
     
     switch(transportadora) {
         case 'Mail Americas':
-            // Formato: MH123456789CO (12 caracteres)
-            return /^MH[A-Z0-9]{9}CO$/.test(guiaLimpia) && guiaLimpia.length === 12;
+            // ✅ Solo debe empezar con MH (sin longitud fija)
+            return /^MH/.test(guiaLimpia);
             
         case 'Pasarex':
-            // Formato: PA123456789CO (12 caracteres)  
-            return /^PA[A-Z0-9]{9}CO$/.test(guiaLimpia) && guiaLimpia.length === 13;
+            // ✅ PA + 11 caracteres = 13 caracteres total
+            return /^PA[A-Z0-9]{11}$/.test(guiaLimpia) && guiaLimpia.length === 13;
             
         case 'Cainao':
-            // Formato: CO123456789CO (13 caracteres)
-            return /^CO[A-Z0-9]{10}CO$/.test(guiaLimpia) && guiaLimpia.length === 12;
+            // ✅ CO + 10 caracteres = 12 caracteres total  
+            return /^CO[A-Z0-9]{10}$/.test(guiaLimpia) && guiaLimpia.length === 12;
             
         default:
             return false;
     }
 }
 
-// Función para generar ejemplo de guía según transportadora
 function generarEjemploGuia(transportadora) {
     switch(transportadora) {
         case 'Mail Americas':
-            return 'MH123456789CO';
+            return 'MH123456789'; // Sin formato fijo, solo empieza con MH
         case 'Pasarex':
-            return 'PA123456789CO';
+            return 'PA12345678901'; // 13 caracteres
         case 'Cainao':
-            return 'CO123456789CO';
+            return 'CO1234567890'; // 12 caracteres
         default:
             return 'EJEMPLO123';
     }
@@ -3127,15 +3126,16 @@ document.getElementById('btnRegistrarPedido').addEventListener('click', async fu
     }
     
     // Validación de formato de guía
-    if (!validarFormatoGuia(guia, transportadora)) {
-        alert(`❌ Formato de guía incorrecto para ${transportadora}\n\n` +
-              `• Mail Americas: MH123456789CO (12 caracteres)\n` +
-              `• Pasarex: PA123456789CO (12 caracteres)\n` +
-              `• Cainao: CO123456789CO (13 caracteres)`);
-        document.getElementById('nuevaGuia').focus();
-        return;
-    }
-    
+// En la validación de formato, cambia el mensaje de error:
+if (!validarFormatoGuia(guia, transportadora)) {
+    alert(`❌ Formato de guía incorrecto para ${transportadora}\n\n` +
+        `• Mail Americas: Debe empezar con MH (ej: MH123456)\n` +
+        `• Pasarex: PA12345678901 (13 caracteres)\n` +
+        `• Cainao: CO1234567890 (12 caracteres)`);
+    document.getElementById('nuevaGuia').focus();
+    return;
+}   
+ 
     if (productosTemporales.length === 0) {
         alert('❌ Debes agregar al menos un producto al pedido');
         toggleFormularioProductos();
