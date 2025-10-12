@@ -1057,7 +1057,7 @@ body.dark-theme .btn:hover {
 }
 
 /* ============================================= */
-/* CARRUSEL CORREGIDO - TAMAÑO DE IMÁGENES AJUSTADO */
+/* CARRUSEL CORREGIDO - ALTURA OPTIMIZADA */
 /* ============================================= */
 
 .catalogo-container {
@@ -1096,16 +1096,16 @@ body.dark-theme .btn:hover {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* CONTENEDOR PRINCIPAL DEL CARRUSEL */
+/* CONTENEDOR PRINCIPAL DEL CARRUSEL - ALTURA AUMENTADA */
 .carousel-container {
     position: relative;
     margin-bottom: 25px;
     width: 100%;
-    height: 200px; /* Reducido de 245px */
+    height: 280px; /* Aumentado para mejor visualización */
     overflow: hidden;
     border-radius: 15px;
     background: rgba(0, 0, 0, 0.3);
-    border: 2px solid rgba(0, 255, 255, 0.3);
+    border: 2px solid rgba(0, 255, 255, 0.2);
 }
 
 /* CARRUSEL - CONTENEDOR DE IMÁGENES */
@@ -1115,7 +1115,7 @@ body.dark-theme .btn:hover {
     height: 100%;
 }
 
-/* CONTENEDOR DE SLIDES - ESTO ES CLAVE */
+/* CONTENEDOR DE SLIDES */
 .carousel-images {
     display: flex;
     width: 700%; /* 7 imágenes × 100% */
@@ -1123,15 +1123,15 @@ body.dark-theme .btn:hover {
     transition: transform 0.5s ease-in-out;
 }
 
-/* SLIDES INDIVIDUALES - TAMAÑO CORREGIDO */
+/* SLIDES INDIVIDUALES - MEJOR VISUALIZACIÓN */
 .carousel-item {
     width: 14.2857%; /* 100% ÷ 7 imágenes */
     flex-shrink: 0;
-    background-size: cover; /* Cambiado de contain a cover */
+    background-size: contain; /* VOLVEMOS A CONTAIN para ver imagen completa */
     background-repeat: no-repeat;
     background-position: center;
-    background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.1); /* Fondo sutil */
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* BOTONES DE NAVEGACIÓN */
@@ -1142,53 +1142,55 @@ body.dark-theme .btn:hover {
     background: rgba(0, 255, 255, 0.9);
     color: #000;
     border: none;
-    width: 40px; /* Reducido */
-    height: 40px; /* Reducido */
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 20px; /* Reducido */
+    font-size: 22px;
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
     font-weight: bold;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .carousel-btn:hover {
     background: rgba(0, 255, 255, 1);
     transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
 }
 
 .carousel-btn.prev {
-    left: 8px; /* Ajustado */
+    left: 12px;
 }
 
 .carousel-btn.next {
-    right: 8px; /* Ajustado */
+    right: 12px;
 }
 
-/* INDICADORES DE COLOR - MEJOR VISIBILIDAD */
+/* INDICADORES DE COLOR */
 .carousel-indicators {
     display: flex;
     justify-content: center;
-    gap: 6px; /* Reducido */
-    margin-top: 12px; /* Reducido */
+    gap: 8px;
+    margin-top: 15px;
     flex-wrap: wrap;
 }
 
 .indicator {
-    padding: 5px 10px; /* Reducido */
+    padding: 6px 12px;
     border: none;
-    border-radius: 12px; /* Reducido */
+    border-radius: 15px;
     cursor: pointer;
-    font-size: 0.7rem; /* Reducido */
+    font-size: 0.75rem;
     font-weight: 600;
     transition: all 0.3s ease;
     color: white;
-    min-width: 50px; /* Reducido */
+    min-width: 55px;
     border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .indicator.roja { background: #FF4444; }
@@ -1200,13 +1202,13 @@ body.dark-theme .btn:hover {
 .indicator.rosa { background: #FF69B4; }
 
 .indicator.active {
-    transform: scale(1.08); /* Reducido */
-    box-shadow: 0 0 6px currentColor; /* Reducido */
+    transform: scale(1.1);
+    box-shadow: 0 0 8px currentColor;
     border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .indicator:hover {
-    transform: scale(1.05); /* Reducido */
+    transform: scale(1.05);
     opacity: 0.9;
 }
 
@@ -1216,26 +1218,25 @@ body.dark-theme .btn:hover {
 }
 
 .model-selector {
-    margin: 15px 0; /* Reducido */
+    margin: 20px 0;
 }
 
 .model-selector label {
     display: block;
     color: #00FFFF;
-    margin-bottom: 8px; /* Reducido */
+    margin-bottom: 10px;
     font-weight: 600;
-    font-size: 0.95rem; /* Reducido */
 }
 
 .model-selector select {
     width: 100%;
-    max-width: 280px; /* Reducido */
-    padding: 10px 12px; /* Reducido */
+    max-width: 300px;
+    padding: 12px 15px;
     border: 2px solid rgba(0, 255, 255, 0.3);
-    border-radius: 8px; /* Reducido */
+    border-radius: 10px;
     background: rgba(0, 0, 0, 0.7);
     color: white;
-    font-size: 14px; /* Reducido */
+    font-size: 16px;
     margin: 0 auto;
     display: block;
 }
@@ -1243,82 +1244,82 @@ body.dark-theme .btn:hover {
 .model-selector select option {
     background: rgba(0, 0, 0, 0.9);
     color: white;
-    padding: 8px; /* Reducido */
+    padding: 10px;
 }
 
 .description {
-    margin: 15px 0; /* Reducido */
-    line-height: 1.5; /* Reducido */
+    margin: 20px 0;
+    line-height: 1.6;
     color: #e0e0e0;
-    font-size: 1rem; /* Reducido */
+    font-size: 1.1rem;
 }
 
 .price-btn {
     background: linear-gradient(135deg, #00FFFF, #0099CC);
     color: #000;
     border: none;
-    padding: 12px 30px; /* Reducido */
-    border-radius: 25px; /* Reducido */
-    font-size: 1.1rem; /* Reducido */
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 12px; /* Reducido */
+    margin-top: 15px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
 }
 
 .price-btn:hover {
-    transform: translateY(-2px); /* Reducido */
+    transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
 }
 
 /* RESPONSIVE PARA CARRUSEL */
 @media (max-width: 768px) {
     .carousel-container {
-        height: 180px; /* Más reducido en móviles */
+        height: 250px; /* Mantenemos buena altura en tablets */
     }
     
     .carousel-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 18px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
     }
     
     .carousel-btn.prev {
-        left: 5px;
+        left: 8px;
     }
     
     .carousel-btn.next {
-        right: 5px;
-    }
-    
-    .indicator {
-        padding: 4px 8px;
-        font-size: 0.65rem;
-        min-width: 45px;
+        right: 8px;
     }
 }
 
 @media (max-width: 480px) {
     .carousel-container {
-        height: 160px; /* Aún más reducido en móviles pequeños */
+        height: 220px; /* Altura adecuada para móviles */
     }
     
     .carousel-indicators {
-        gap: 4px;
+        gap: 6px;
     }
     
     .indicator {
-        padding: 3px 6px;
-        font-size: 0.6rem;
-        min-width: 40px;
+        padding: 5px 10px;
+        font-size: 0.7rem;
+        min-width: 50px;
     }
     
     .product-card {
-        padding: 20px; /* Reducido padding en móviles */
+        padding: 20px;
     }
 }
 
+/* ALTERNATIVA: Si las imágenes siguen viéndose recortadas, prueba esto */
+.carousel-item-alt {
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
 
 /* ============================================= */
 /* BOTÓN DE SEGUIMIENTO - VERSIÓN CORREGIDA */
