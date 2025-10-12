@@ -3107,8 +3107,7 @@ async function eliminarPedidoDB(numeroGuia) {
 // =============================================
 // FUNCIONES MODIFICADAS PARA EL NUEVO SISTEMA
 // =============================================
-
-// Registrar nuevo pedido - FUNCIÓN MODIFICADA
+// Registrar nuevo pedido - FUNCIÓN CORREGIDA
 document.getElementById('btnRegistrarPedido').addEventListener('click', async function() {
     const guia = document.getElementById('nuevaGuia').value.trim().toUpperCase();
     const transportadora = document.getElementById('nuevaTransportadora').value;
@@ -3127,16 +3126,45 @@ document.getElementById('btnRegistrarPedido').addEventListener('click', async fu
         return;
     }
     
+    // Validación de formato de guía
+    if (!validarFormatoGuia(guia, transportadora)) {
+        alert(`❌ Formato de guía incorrecto para ${transportadora}\n\n` +
+            `• Mail Americas: MH123456789CO (12 caracteres)\n` +
+        `• Pasarex: PA123456789CO (12 caracteres)\n` +
+            `• Cainao: CO123456789CO (13 caracteres)`);
+        document.getElementById('nuevaGuia').focus();
+        return;
+    }
+    
     if (productosTemporales.length === 0) {
         alert('❌ Debes agregar al menos un producto al pedido');
         toggleFormularioProductos();
         return;
     }
     
-    if (pedidosDatabase[guia]) {
-        alert('❌ Ya existe un pedido con esta guía');
+    // Crear ID único para verificar duplicados
+    const pedidoId = `${guia}_${cliente.replace(/\s+/g, '_')}`;
+    
+    // Verificar si ya existe EXACTAMENTE el mismo pedido (misma guía + mismo cliente)
+    if (pedidosDatabase[pedidoId]) {
+        alert('❌ Ya existe un pedido idéntico (misma guía y mismo cliente). Por favor, verifica los datos.');
         document.getElementById('nuevaGuia').focus();
         return;
+    }
+    
+    // Verificar si existe la misma guía con DIFERENTE cliente
+    const guiasSimilares = Object.values(pedidosDatabase).filter(pedido => 
+        pedido.numero === guia
+    );
+    
+    if (guiasSimilares.length > 0) {
+        const clientesExistentes = guiasSimilares.map(p => p.cliente).join(', ');
+        const confirmar = confirm(`⚠️ ATENCIÓN: La guía ${guia} ya existe para otro(s) cliente(s):\n\n${clientesExistentes}\n\n¿Deseas registrar el pedido para ${cliente}?`);
+        
+        if (!confirmar) {
+            document.getElementById('nuevaGuia').focus();
+            return;
+        }
     }
     
     const fecha = new Date();
@@ -3168,11 +3196,12 @@ document.getElementById('btnRegistrarPedido').addEventListener('click', async fu
     this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
     this.disabled = true;
     
-    // Guardar en la base de datos
+    // Guardar en la base de datos usando el ID único
     const resultado = await guardarPedido(nuevoPedido);
     
     if (resultado.success) {
-        pedidosDatabase[guia] = nuevoPedido;
+        // Usar ID único como clave
+        pedidosDatabase[pedidoId] = nuevoPedido;
         
         cargarListaPedidos();
         actualizarVistaBaseDatos();
@@ -3186,7 +3215,7 @@ document.getElementById('btnRegistrarPedido').addEventListener('click', async fu
             toggleFormularioProductos();
         }
         
-        alert(`✅ Pedido ${guia} registrado correctamente`);
+        alert(`✅ Pedido ${guia} registrado correctamente para ${cliente}`);
     } else {
         alert(`❌ Error al guardar el pedido: ${resultado.error}`);
     }
@@ -3195,29 +3224,6 @@ document.getElementById('btnRegistrarPedido').addEventListener('click', async fu
     this.innerHTML = btnOriginal;
     this.disabled = false;
 });
-
-// Función para eliminar pedido - MODIFICADA
-async function eliminarPedido(numeroGuia) {
-    const pedido = pedidosDatabase[numeroGuia];
-    
-    if (!pedido) {
-        alert('❌ Pedido no encontrado');
-        return;
-    }
-    
-    if (confirm(`¿Estás seguro de eliminar el pedido?\n\nGuía: ${numeroGuia}\nCliente: ${pedido.cliente}`)) {
-        const resultado = await eliminarPedidoDB(numeroGuia);
-        
-        if (resultado.success) {
-            delete pedidosDatabase[numeroGuia];
-            cargarListaPedidos();
-            actualizarVistaBaseDatos();
-            alert('✅ Pedido eliminado correctamente');
-        } else {
-            alert(`❌ Error al eliminar el pedido: ${resultado.error}`);
-        }
-    }
-}
 
 // =============================================
 // INICIALIZACIÓN FINAL - VERSIÓN MEJORADA
@@ -3750,7 +3756,6 @@ trackingNumber.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') buscarSeguimiento();
 });
 
-
 function buscarSeguimiento() {
     const numeroGuia = trackingNumber.value.trim().toUpperCase();
     
@@ -4049,109 +4054,6 @@ function actualizarVistaBaseDatos() {
     }
 }
 
-// Registrar nuevo pedido - FUNCIÓN MODIFICADA
-document.getElementById('btnRegistrarPedido').addEventListener('click', async function() {
-    const guia = document.getElementById('nuevaGuia').value.trim().toUpperCase();
-    const transportadora = document.getElementById('nuevaTransportadora').value;
-    const cliente = document.getElementById('nuevoCliente').value.trim();
-    const estadoInicial = document.getElementById('nuevoEstado').value;
-    
-    if (!guia) {
-        alert('❌ Por favor ingresa el número de guía');
-        document.getElementById('nuevaGuia').focus();
-        return;
-    }
-    
-    if (!cliente) {
-        alert('❌ Por favor ingresa el nombre del cliente');
-        document.getElementById('nuevoCliente').focus();
-        return;
-    }
-    
-    if (productosTemporales.length === 0) {
-        alert('❌ Debes agregar al menos un producto al pedido');
-        toggleFormularioProductos();
-        return;
-    }
-    
-// Verificar si ya existe un pedido con la misma guía Y mismo cliente
-const pedidoExistente = Object.values(pedidosDatabase).find(pedido => 
-    pedido.numero === guia && pedido.cliente === cliente
-);
-
-if (pedidoExistente) {
-    alert('❌ Ya existe un pedido con esta guía para el mismo cliente. Por favor, verifica los datos.');
-    document.getElementById('nuevaGuia').focus();
-    return;
-}
-
-// Si existe la guía pero con cliente diferente, permitirlo pero mostrar advertencia
-const guiaExistente = pedidosDatabase[guia];
-if (guiaExistente) {
-    const confirmar = confirm(`⚠️ ATENCIÓN: Ya existe un pedido con la guía ${guia} pero para otro cliente.\n\n• Pedido existente: ${guiaExistente.cliente}\n• Nuevo pedido: ${cliente}\n\n¿Deseas continuar?`);
-    if (!confirmar) {
-        document.getElementById('nuevaGuia').focus();
-        return;
-    }
-}
-
-    const fecha = new Date();
-    const fechaFormateada = fecha.toISOString().split('T')[0];
-    const horaFormateada = fecha.toLocaleTimeString('es-CO', { 
-        hour: '2-digit', 
-        minute: '2-digit' 
-    });
-    
-    const total = productosTemporales.reduce((sum, producto) => sum + (producto.precio * producto.cantidad), 0);
-    
-    const nuevoPedido = {
-        numero: guia,
-        transportadora: transportadora,
-        estado: estadoInicial,
-        fechaPedido: fechaFormateada,
-        cliente: cliente,
-        productos: [...productosTemporales],
-        total: total,
-        historial: [{
-            fecha: `${fechaFormateada} ${horaFormateada}`,
-            estado: estadoInicial,
-            descripcion: `Pedido registrado - ${productosTemporales.length} producto(s) - Total: $${total.toLocaleString()}`
-        }]
-    };
-    
-    // Mostrar loading
-    const btnOriginal = this.innerHTML;
-    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
-    this.disabled = true;
-    
-    // Guardar en la base de datos
-    const resultado = await guardarPedido(nuevoPedido);
-    
-    if (resultado.success) {
-        pedidosDatabase[guia] = nuevoPedido;
-        
-        cargarListaPedidos();
-        actualizarVistaBaseDatos();
-        
-        document.getElementById('nuevaGuia').value = '';
-        document.getElementById('nuevoCliente').value = '';
-        productosTemporales = [];
-        actualizarListaProductosTemporales();
-        
-        if (document.getElementById('formularioProductos').style.display === 'block') {
-            toggleFormularioProductos();
-        }
-        
-        alert(`✅ Pedido ${guia} registrado correctamente`);
-    } else {
-        alert(`❌ Error al guardar el pedido: ${resultado.error}`);
-    }
-    
-    // Restaurar botón
-    this.innerHTML = btnOriginal;
-    this.disabled = false;
-});
-
 function toggleFormularioProductos() {
     const formulario = document.getElementById('formularioProductos');
     const btnAgregarProducto = document.getElementById('btnAgregarProducto');
@@ -4257,7 +4159,7 @@ function editarPedido(pedidoId) {
     modalEdicion.innerHTML = `
         <div class="admin-content" style="max-width: 500px;">
             <div class="admin-header">
-                <h3 style="margin: 0;"><i class="fas fa-edit"></i> Editar Pedido ${numeroGuia}</h3>
+            <h3 style="margin: 0;"><i class="fas fa-edit"></i> Editar Pedido ${pedido.numero}</h3>
                 <button class="close-admin" onclick="this.closest('.admin-modal').remove()">&times;</button>
             </div>
             
@@ -4310,7 +4212,7 @@ function editarPedido(pedidoId) {
                     <button onclick="this.closest('.admin-modal').remove()" class="btn-secondary" style="flex: 1;">
                         <i class="fas fa-times"></i> Cancelar
                     </button>
-                    <button onclick="guardarCambiosPedido('${numeroGuia}')" class="btn-primary" style="flex: 1;">
+                    <button onclick="guardarCambiosPedido('${pedidoId}')" class="btn-primary" style="flex: 1;">
                         <i class="fas fa-save"></i> Guardar Cambios
                     </button>
                 </div>
@@ -4321,9 +4223,9 @@ function editarPedido(pedidoId) {
     document.body.appendChild(modalEdicion);
 }
 
-function guardarCambiosPedido(numeroGuia) {
-    const pedido = pedidosDatabase[numeroGuia];
-    
+function guardarCambiosPedido(pedidoId) {
+    const pedido = pedidosDatabase[pedidoId];
+        
     const nuevoEstado = document.getElementById('editarEstado').value;
     const descripcion = document.getElementById('editarDescripcion').value.trim();
     const nuevoCliente = document.getElementById('editarCliente').value.trim();
@@ -4466,16 +4368,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     console.log('  - Sistema de pedidos listo');
 });
 
-// Función de diagnóstico - añade esto temporalmente
-function diagnosticarPanel() {
-    console.log('🔍 DIAGNÓSTICO DEL PANEL:');
-    console.log('- isAdminAuthenticated:', isAdminAuthenticated);
-    console.log('- pedidosDatabase:', Object.keys(pedidosDatabase));
-    console.log('- cargarListaPedidos existe:', typeof cargarListaPedidos);
-    console.log('- Panel visible:', document.querySelector('.admin-panel')?.style.display);
-}
-
-// Llama a esta función después de autenticarte para ver qué pasa
 
 </script>
 </body>
