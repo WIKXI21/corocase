@@ -1057,7 +1057,7 @@ body.dark-theme .btn:hover {
 }
 
 /* ============================================= */
-/* CARRUSEL CORREGIDO - ALTURA OPTIMIZADA */
+/* CARRUSEL CORREGIDO - PROPORCIONES OPTIMIZADAS */
 /* ============================================= */
 
 .catalogo-container {
@@ -1085,27 +1085,30 @@ body.dark-theme .btn:hover {
     font-size: 2rem;
 }
 
+/* PRODUCT CARD MÁS COMPACTO */
 .product-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 25px;
+    padding: 20px; /* Reducido padding */
     box-shadow: 0 8px 32px rgba(0, 255, 255, 0.1);
-    max-width: 500px;
+    max-width: 450px; /* Reducido ancho máximo */
     margin: 0 auto;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* CONTENEDOR PRINCIPAL DEL CARRUSEL - ALTURA AUMENTADA */
+/* CONTENEDOR PRINCIPAL DEL CARRUSEL - MÁS ALTO Y MENOS ANCHO */
 .carousel-container {
     position: relative;
-    margin-bottom: 25px;
-    width: 100%;
-    height: 280px; /* Aumentado para mejor visualización */
+    margin-bottom: 20px;
+    width: 90%; /* Reducido ancho */
+    height: 320px; /* Aumentado altura significativamente */
     overflow: hidden;
     border-radius: 15px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 2px solid rgba(0, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* CARRUSEL - CONTENEDOR DE IMÁGENES */
@@ -1123,15 +1126,15 @@ body.dark-theme .btn:hover {
     transition: transform 0.5s ease-in-out;
 }
 
-/* SLIDES INDIVIDUALES - MEJOR VISUALIZACIÓN */
+/* SLIDES INDIVIDUALES - IMAGEN COMPLETA VISIBLE */
 .carousel-item {
     width: 14.2857%; /* 100% ÷ 7 imágenes */
     flex-shrink: 0;
-    background-size: contain; /* VOLVEMOS A CONTAIN para ver imagen completa */
+    background-size: 70% auto; /* TAMAÑO REDUCIDO - clave aquí */
     background-repeat: no-repeat;
     background-position: center;
-    background-color: rgba(0, 0, 0, 0.1); /* Fondo sutil */
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: rgba(0, 0, 0, 0.2); /* Fondo más oscuro para contraste */
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* BOTONES DE NAVEGACIÓN */
@@ -1142,55 +1145,55 @@ body.dark-theme .btn:hover {
     background: rgba(0, 255, 255, 0.9);
     color: #000;
     border: none;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 20px;
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
     font-weight: bold;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .carousel-btn:hover {
     background: rgba(0, 255, 255, 1);
     transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.9);
 }
 
 .carousel-btn.prev {
-    left: 12px;
+    left: 10px;
 }
 
 .carousel-btn.next {
-    right: 12px;
+    right: 10px;
 }
 
-/* INDICADORES DE COLOR */
+/* INDICADORES DE COLOR - MÁS COMPACTOS */
 .carousel-indicators {
     display: flex;
     justify-content: center;
-    gap: 8px;
-    margin-top: 15px;
+    gap: 6px;
+    margin-top: 12px;
     flex-wrap: wrap;
 }
 
 .indicator {
-    padding: 6px 12px;
+    padding: 5px 10px;
     border: none;
-    border-radius: 15px;
+    border-radius: 12px;
     cursor: pointer;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     transition: all 0.3s ease;
     color: white;
-    min-width: 55px;
+    min-width: 48px;
     border: 1px solid transparent;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .indicator.roja { background: #FF4444; }
@@ -1202,8 +1205,8 @@ body.dark-theme .btn:hover {
 .indicator.rosa { background: #FF69B4; }
 
 .indicator.active {
-    transform: scale(1.1);
-    box-shadow: 0 0 8px currentColor;
+    transform: scale(1.08);
+    box-shadow: 0 0 6px currentColor;
     border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
@@ -1212,31 +1215,32 @@ body.dark-theme .btn:hover {
     opacity: 0.9;
 }
 
-/* INFORMACIÓN DEL PRODUCTO */
+/* INFORMACIÓN DEL PRODUCTO - MÁS COMPACTA */
 .product-info {
     text-align: center;
 }
 
 .model-selector {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .model-selector label {
     display: block;
     color: #00FFFF;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-weight: 600;
+    font-size: 0.9rem;
 }
 
 .model-selector select {
     width: 100%;
-    max-width: 300px;
-    padding: 12px 15px;
+    max-width: 280px;
+    padding: 10px 12px;
     border: 2px solid rgba(0, 255, 255, 0.3);
-    border-radius: 10px;
+    border-radius: 8px;
     background: rgba(0, 0, 0, 0.7);
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     margin: 0 auto;
     display: block;
 }
@@ -1244,45 +1248,50 @@ body.dark-theme .btn:hover {
 .model-selector select option {
     background: rgba(0, 0, 0, 0.9);
     color: white;
-    padding: 10px;
+    padding: 8px;
 }
 
 .description {
-    margin: 20px 0;
-    line-height: 1.6;
+    margin: 15px 0;
+    line-height: 1.5;
     color: #e0e0e0;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
 }
 
 .price-btn {
     background: linear-gradient(135deg, #00FFFF, #0099CC);
     color: #000;
     border: none;
-    padding: 15px 40px;
-    border-radius: 30px;
-    font-size: 1.2rem;
+    padding: 12px 35px;
+    border-radius: 25px;
+    font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 12px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
 }
 
 .price-btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
 }
 
 /* RESPONSIVE PARA CARRUSEL */
 @media (max-width: 768px) {
     .carousel-container {
-        height: 250px; /* Mantenemos buena altura en tablets */
+        height: 280px; /* Mantenemos buena altura */
+        width: 85%; /* Un poco más ancho en tablets */
+    }
+    
+    .carousel-item {
+        background-size: 65% auto; /* Imagen un poco más grande en tablets */
     }
     
     .carousel-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
     }
     
     .carousel-btn.prev {
@@ -1292,34 +1301,52 @@ body.dark-theme .btn:hover {
     .carousel-btn.next {
         right: 8px;
     }
+    
+    .product-card {
+        max-width: 400px;
+        padding: 18px;
+    }
 }
 
 @media (max-width: 480px) {
     .carousel-container {
-        height: 220px; /* Altura adecuada para móviles */
+        height: 250px; /* Buena altura para móviles */
+        width: 90%; /* Ancho consistente */
+    }
+    
+    .carousel-item {
+        background-size: 75% auto; /* Imagen más grande en móviles pequeños */
     }
     
     .carousel-indicators {
-        gap: 6px;
+        gap: 4px;
     }
     
     .indicator {
-        padding: 5px 10px;
-        font-size: 0.7rem;
-        min-width: 50px;
+        padding: 4px 8px;
+        font-size: 0.65rem;
+        min-width: 45px;
     }
     
     .product-card {
-        padding: 20px;
+        max-width: 350px;
+        padding: 15px;
     }
 }
 
-/* ALTERNATIVA: Si las imágenes siguen viéndose recortadas, prueba esto */
-.carousel-item-alt {
-    background-size: contain !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
+/* ALTERNATIVAS RÁPIDAS SI SIGUE VIÉNDOSE MAL */
+.carousel-item-small {
+    background-size: 60% auto !important; /* Más pequeño */
 }
+
+.carousel-item-medium {
+    background-size: 80% auto !important; /* Tamaño medio */
+}
+
+.carousel-item-large {
+    background-size: 90% auto !important; /* Casi completo */
+}
+
 
 /* ============================================= */
 /* BOTÓN DE SEGUIMIENTO - VERSIÓN CORREGIDA */
