@@ -4092,7 +4092,7 @@ function cargarCarruselesParaFrontend() {
     }
 }
 
-// Mostrar carrusel específico en el frontend
+// Mostrar carrusel específico en el frontend - VERSIÓN CORREGIDA
 function mostrarCarruselEnFrontend(index) {
     const carrusel = carruselesActivos[index];
     if (!carrusel) return;
@@ -4108,37 +4108,47 @@ function mostrarCarruselEnFrontend(index) {
     // Actualizar el carrusel en el DOM
     carruselContainer.innerHTML = `
         <!-- Header del Carrusel -->
-        <div class="catalogo-header" style="text-align: center; margin-bottom: 40px;">
-            <h2 style="color: #00FFFF; font-size: 2.5rem; margin-bottom: 15px;">
+        <div class="catalogo-header" style="text-align: center; margin-bottom: 30px;">
+            <h2 style="color: #00FFFF; font-size: 2rem; margin-bottom: 10px;">
                 ${carrusel.nombre}
             </h2>
             ${carrusel.descripcion ? `
-                <p style="color: #e0e0e0; font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+                <p style="color: #e0e0e0; font-size: 1.1rem; max-width: 600px; margin: 0 auto 15px;">
                     ${carrusel.descripcion}
                 </p>
             ` : ''}
             ${carrusel.precio ? `
-                <div style="margin-top: 15px;">
-                    <span style="background: linear-gradient(135deg, #00FFFF, #0099CC); color: #1a1a1a; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 1.3rem;">
+                <div style="margin-top: 10px;">
+                    <span style="background: linear-gradient(135deg, #00FFFF, #0099CC); color: #1a1a1a; padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 1.1rem;">
                         $${carrusel.precio.toLocaleString()}
                     </span>
                 </div>
             ` : ''}
         </div>
 
-        <!-- Carrusel de Imágenes -->
-        <div class="carousel-container" style="position: relative; max-width: 1000px; margin: 0 auto 40px;">
-            <div class="carousel-images" style="display: flex; transition: transform 0.5s ease-in-out; height: 400px;">
+        <!-- Carrusel de Imágenes - TAMAÑO CORREGIDO -->
+        <div class="carousel-container" style="
+            position: relative; 
+            max-width: 600px; 
+            margin: 0 auto 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        ">
+            <div class="carousel-images" style="
+                display: flex; 
+                transition: transform 0.5s ease-in-out; 
+                height: 400px;
+            ">
                 ${carrusel.imagenes.map((imagen, imgIndex) => `
                     <div class="carousel-item" style="
                         width: 100%; 
                         flex-shrink: 0;
                         background-image: url('${imagen}');
-                        background-size: cover;
+                        background-size: contain;
                         background-position: center;
                         background-repeat: no-repeat;
-                        border-radius: 15px;
-                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                        background-color: #1a1a1a;
                     "></div>
                 `).join('')}
             </div>
@@ -4147,59 +4157,66 @@ function mostrarCarruselEnFrontend(index) {
             <button class="carousel-btn prev" onclick="carruselAnterior()" style="
                 position: absolute;
                 top: 50%;
-                left: 20px;
+                left: 15px;
                 transform: translateY(-50%);
-                background: rgba(0, 255, 255, 0.8);
+                background: rgba(0, 255, 255, 0.9);
                 border: none;
-                width: 50px;
-                height: 50px;
+                width: 40px;
+                height: 40px;
                 border-radius: 50%;
                 cursor: pointer;
-                font-size: 1.2rem;
+                font-size: 1rem;
                 color: #1a1a1a;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 transition: all 0.3s ease;
+                z-index: 10;
             ">&#10094;</button>
             
             <button class="carousel-btn next" onclick="carruselSiguiente()" style="
                 position: absolute;
                 top: 50%;
-                right: 20px;
+                right: 15px;
                 transform: translateY(-50%);
-                background: rgba(0, 255, 255, 0.8);
+                background: rgba(0, 255, 255, 0.9);
                 border: none;
-                width: 50px;
-                height: 50px;
+                width: 40px;
+                height: 40px;
                 border-radius: 50%;
                 cursor: pointer;
-                font-size: 1.2rem;
+                font-size: 1rem;
                 color: #1a1a1a;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 transition: all 0.3s ease;
+                z-index: 10;
             ">&#10095;</button>
             
             <!-- Indicadores -->
             <div class="carousel-indicators" style="
+                position: absolute;
+                bottom: 15px;
+                left: 0;
+                right: 0;
                 display: flex;
                 justify-content: center;
-                gap: 10px;
-                margin-top: 20px;
+                gap: 8px;
+                z-index: 10;
             ">
                 ${carrusel.imagenes.map((_, indicatorIndex) => `
                     <span class="indicator ${indicatorIndex === 0 ? 'active' : ''}" 
                         data-slide="${indicatorIndex}"
                         onclick="mostrarSlideCarrusel(${indicatorIndex})"
                         style="
-                            width: 12px;
-                            height: 12px;
+                            width: 10px;
+                            height: 10px;
                             border-radius: 50%;
-                            background: ${indicatorIndex === 0 ? '#00FFFF' : '#444'};
+                            background: ${indicatorIndex === 0 ? '#00FFFF' : 'rgba(255, 255, 255, 0.5)'};
                             cursor: pointer;
                             transition: all 0.3s ease;
+                            border: 1px solid #00FFFF;
                     "></span>
                 `).join('')}
             </div>
@@ -4208,33 +4225,34 @@ function mostrarCarruselEnFrontend(index) {
         <!-- Información del Producto -->
         <div class="producto-info" style="
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px auto;
-            max-width: 800px;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px auto;
+            max-width: 600px;
             border: 1px solid #00FFFF;
         ">
-            <h3 style="color: #00FFFF; margin-bottom: 20px; text-align: center;">
+            <h3 style="color: #00FFFF; margin-bottom: 15px; text-align: center; font-size: 1.3rem;">
                 <i class="fas fa-info-circle"></i> Especificaciones
             </h3>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
                 <!-- Dispositivos Compatibles -->
                 <div class="spec-section">
-                    <h4 style="color: #00FFFF; margin-bottom: 15px;">
+                    <h4 style="color: #00FFFF; margin-bottom: 12px; font-size: 1.1rem;">
                         <i class="fas fa-mobile-alt"></i> Compatible con:
                     </h4>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;">
                         ${carrusel.dispositivos.map(dispositivoId => {
                             const dispositivo = dispositivosCompatibility.find(d => d.id === dispositivoId);
                             return dispositivo ? `
                                 <span style="
                                     background: rgba(0, 255, 255, 0.2);
                                     color: #00FFFF;
-                                    padding: 5px 12px;
-                                    border-radius: 15px;
-                                    font-size: 0.9rem;
+                                    padding: 4px 10px;
+                                    border-radius: 12px;
+                                    font-size: 0.85rem;
                                     border: 1px solid #00FFFF;
+                                    white-space: nowrap;
                                 ">${dispositivo.nombre}</span>
                             ` : '';
                         }).join('')}
@@ -4243,10 +4261,10 @@ function mostrarCarruselEnFrontend(index) {
                 
                 <!-- Características -->
                 <div class="spec-section">
-                    <h4 style="color: #00FFFF; margin-bottom: 15px;">
+                    <h4 style="color: #00FFFF; margin-bottom: 12px; font-size: 1.1rem;">
                         <i class="fas fa-star"></i> Características:
                     </h4>
-                    <ul style="color: #e0e0e0; margin: 0; padding-left: 20px;">
+                    <ul style="color: #e0e0e0; margin: 0; padding-left: 20px; font-size: 0.95rem;">
                         <li>Material premium de alta calidad</li>
                         <li>Protección contra golpes y caídas</li>
                         <li>Diseño ergonómico y elegante</li>
@@ -4257,51 +4275,53 @@ function mostrarCarruselEnFrontend(index) {
         </div>
 
         <!-- Botones de Acción -->
-        <div class="producto-actions" style="text-align: center; margin-top: 30px;">
+        <div class="producto-actions" style="text-align: center; margin-top: 25px;">
             <button onclick="solicitarProducto('${carrusel.id}')" style="
                 background: linear-gradient(135deg, #00FFFF 0%, #0099CC 100%);
                 color: #1a1a1a;
                 border: none;
-                padding: 15px 30px;
-                border-radius: 10px;
-                font-size: 1.1rem;
+                padding: 12px 25px;
+                border-radius: 8px;
+                font-size: 1rem;
                 font-weight: bold;
                 cursor: pointer;
-                margin: 0 10px;
+                margin: 0 8px 10px;
                 transition: all 0.3s ease;
                 display: inline-flex;
                 align-items: center;
-                gap: 10px;
-            ">
-                <i class="fas fa-shopping-cart"></i> Solicitar este Producto
+                gap: 8px;
+            " onmouseover="this.style.transform='translateY(-2px)'" 
+            onmouseout="this.style.transform='translateY(0)'">
+                <i class="fas fa-shopping-cart"></i> Solicitar Producto
             </button>
             
             <button onclick="consultarDisponibilidad('${carrusel.id}')" style="
                 background: rgba(255, 107, 53, 0.9);
                 color: white;
                 border: none;
-                padding: 15px 30px;
-                border-radius: 10px;
-                font-size: 1.1rem;
+                padding: 12px 25px;
+                border-radius: 8px;
+                font-size: 1rem;
                 font-weight: bold;
                 cursor: pointer;
-                margin: 0 10px;
+                margin: 0 8px 10px;
                 transition: all 0.3s ease;
                 display: inline-flex;
                 align-items: center;
-                gap: 10px;
-            ">
+                gap: 8px;
+            " onmouseover="this.style.transform='translateY(-2px)'" 
+            onmouseout="this.style.transform='translateY(0)'">
                 <i class="fas fa-question-circle"></i> Consultar Disponibilidad
             </button>
         </div>
 
         <!-- Navegación entre Carruseles -->
         ${carruselesActivos.length > 1 ? `
-            <div class="carrusel-navigation" style="text-align: center; margin-top: 40px;">
-                <h4 style="color: #00FFFF; margin-bottom: 20px;">
+            <div class="carrusel-navigation" style="text-align: center; margin-top: 30px;">
+                <h4 style="color: #00FFFF; margin-bottom: 15px; font-size: 1.2rem;">
                     <i class="fas fa-images"></i> Más Productos
                 </h4>
-                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
                     ${carruselesActivos.map((carrusel, navIndex) => `
                         <button onclick="mostrarCarruselIndex(${navIndex})" 
                                 class="${navIndex === index ? 'active' : ''}"
@@ -4309,12 +4329,15 @@ function mostrarCarruselEnFrontend(index) {
                                     background: ${navIndex === index ? '#00FFFF' : 'rgba(255, 255, 255, 0.1)'};
                                     color: ${navIndex === index ? '#1a1a1a' : '#e0e0e0'};
                                     border: 1px solid #00FFFF;
-                                    padding: 10px 20px;
+                                    padding: 8px 16px;
                                     border-radius: 20px;
                                     cursor: pointer;
                                     transition: all 0.3s ease;
                                     font-weight: ${navIndex === index ? 'bold' : 'normal'};
-                        ">
+                                    font-size: 0.9rem;
+                                    white-space: nowrap;
+                        " onmouseover="this.style.transform='translateY(-1px)'" 
+                        onmouseout="this.style.transform='translateY(0)'">
                             ${carrusel.nombre}
                         </button>
                     `).join('')}
@@ -4329,6 +4352,7 @@ function mostrarCarruselEnFrontend(index) {
     // Actualizar índice actual
     carruselActualIndex = index;
 }
+
 
 // Mostrar carrusel por defecto (cuando no hay carruseles activos)
 function mostrarCarruselPorDefecto() {
