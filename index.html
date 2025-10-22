@@ -3381,6 +3381,10 @@ body.dark-theme .logo span:last-child {
             <button class="admin-tab" data-tab="configuracion">
                 <i class="fas fa-cog"></i> Configuración
             </button>
+            <div class="admin-tab" data-tab="carruseles">
+    <i class="fas fa-images"></i>
+    <span>Carruseles</span>
+</div>
         </div>
     </div>
 
@@ -3412,6 +3416,118 @@ body.dark-theme .logo span:last-child {
                 <!-- Los pedidos recientes se cargarán aquí -->
             </div>
         </div>
+
+        <div id="carruseles-content" class="admin-tab-content">
+    <div class="admin-section">
+        <div class="section-header">
+            <h3><i class="fas fa-images"></i> Gestor de Carruseles</h3>
+            <button id="btnNuevoCarrusel" class="btn-primary">
+                <i class="fas fa-plus"></i> Nuevo Carrusel
+            </button>
+        </div>
+
+        <!-- Lista de Carruseles -->
+        <div class="carruseles-grid" id="carruselesGrid" style="
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        ">
+            <!-- Los carruseles se cargarán aquí -->
+        </div>
+
+        <!-- Modal para crear/editar carrusel -->
+        <div id="carruselModal" class="modal" style="display: none;">
+            <div class="modal-content" style="max-width: 800px;">
+                <div class="modal-header">
+                    <h4 id="carruselModalTitle"><i class="fas fa-images"></i> Nuevo Carrusel</h4>
+                    <span class="close-modal">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="carruselForm">
+                        <div class="form-group">
+                            <label for="carruselNombre">Nombre del Producto *</label>
+                            <input type="text" id="carruselNombre" required 
+                                placeholder="Ej: Funda Tipo Cartera Premium">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="carruselDescripcion">Descripción</label>
+                            <textarea id="carruselDescripcion" rows="3" 
+                                    placeholder="Descripción del producto..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="carruselPrecio">Precio</label>
+                            <input type="number" id="carruselPrecio" 
+                                placeholder="Ej: 89000">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Dispositivos Compatibles</label>
+                            <div class="dispositivos-grid" style="
+                                display: grid;
+                                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                                gap: 10px;
+                                margin-top: 10px;
+                            ">
+                                <!-- Los dispositivos se generarán dinámicamente -->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Subir Imágenes para el Carrusel *</label>
+                            <div class="upload-area" id="uploadArea" style="
+                                border: 2px dashed #00FFFF;
+                                border-radius: 10px;
+                                padding: 30px;
+                                text-align: center;
+                                margin-top: 10px;
+                                background: rgba(0, 255, 255, 0.05);
+                                cursor: pointer;
+                            ">
+                                <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #00FFFF; margin-bottom: 15px;"></i>
+                                <p style="color: #00FFFF; font-weight: bold; margin-bottom: 10px;">
+                                    Arrastra imágenes aquí o haz click para seleccionar
+                                </p>
+                                <p style="color: #888; font-size: 0.9em;">
+                                    Formatos: JPG, PNG, WEBP (Máx. 5MB por imagen)
+                                </p>
+                                <input type="file" id="carruselImagenes" multiple 
+                                    accept="image/*" style="display: none;">
+                            </div>
+                            <div id="imagenesPrevisualizacion" style="
+                                display: grid;
+                                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                                gap: 10px;
+                                margin-top: 15px;
+                            ">
+                                <!-- Previsualización de imágenes -->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="carruselEstado">Estado</label>
+                            <select id="carruselEstado">
+                                <option value="activo">Activo</option>
+                                <option value="inactivo">Inactivo</option>
+                            </select>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" id="btnCancelarCarrusel" class="btn-secondary">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i> Guardar Carrusel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
         <!-- Gestión de Pedidos -->
 <div class="admin-tab-content" id="pedidos-content">
@@ -3476,7 +3592,6 @@ body.dark-theme .logo span:last-child {
     </div>
 </div>
 
-<!-- Modal para crear/editar pedidos -->
 <!-- REEMPLAZA el modal de pedido con: -->
 <div class="pedido-modal" id="pedidoModal">
     <div class="pedido-modal-content advanced">
@@ -3932,90 +4047,429 @@ const images = [
 let currentSlide = 0;
 let carouselInterval;
 
+// =============================================
+// CARRUSEL DINÁMICO - INTEGRADO CON PANEL ADMIN
+// =============================================
+
+let carruselesActivos = [];
+let carruselActualIndex = 0;
+let carruselInterval;
+
+// Inicializar carrusel dinámico
 function initCarousel() {
-    console.log('🔄 Inicializando carrusel con imágenes locales...');
+    console.log('🔄 Inicializando carrusel dinámico...');
     
-    const carouselImages = document.querySelector('.carousel-images');
-    const carouselItems = document.querySelectorAll('.carousel-item');
+    // Cargar carruseles desde los datos del panel admin
+    cargarCarruselesParaFrontend();
     
     // Limpiar intervalo existente
-    if (carouselInterval) {
-        clearInterval(carouselInterval);
+    if (carruselInterval) {
+        clearInterval(carruselInterval);
     }
-    
-    // Verificar si las imágenes existen
-    images.forEach((imgSrc, index) => {
-        const img = new Image();
-        img.onload = function() {
-            console.log(`✅ Imagen cargada: ${imgSrc}`);
-        };
-        img.onerror = function() {
-            console.log(`❌ No se pudo cargar: ${imgSrc}`);
-            // Usar placeholder si la imagen no existe
-            images[index] = `https://via.placeholder.com/400x300/666666/FFFFFF?text=Imagen+${index+1}`;
-        };
-        img.src = imgSrc;
-    });
-    
-    // Configurar el contenedor principal
-    if (carouselImages) {
-        carouselImages.style.display = 'flex';
-        carouselImages.style.transition = 'transform 0.5s ease-in-out';
-        carouselImages.style.width = `${images.length * 100}%`;
-        carouselImages.style.height = '100%';
-    }
-    
-    // Configurar cada slide individual
-    carouselItems.forEach((item, index) => {
-        item.style.width = `${100 / images.length}%`;
-        item.style.flexShrink = '0';
-        item.style.backgroundSize = 'cover';
-        item.style.backgroundRepeat = 'no-repeat';
-        item.style.backgroundPosition = 'center';
-        item.style.backgroundColor = '#f0f0f0'; // Color de fondo temporal
-        
-        if (images[index]) {
-            item.style.backgroundImage = `url('${images[index]}')`;
-        }
-    });
-    
-    showCurrentSlide();
-    
-    // Iniciar cambio automático cada 5 segundos
-    carouselInterval = setInterval(nextSlide, 5000);
-    
-    console.log('✅ Carrusel inicializado con', images.length, 'imágenes');
 }
 
-function showCurrentSlide() {
-    const carouselImages = document.querySelector('.carousel-images');
+// Cargar carruseles para el frontend
+function cargarCarruselesParaFrontend() {
+    console.log('📦 Cargando carruseles para catálogo...');
+    
+    // Filtrar solo carruseles activos
+    carruselesActivos = carruselesData.filter(carrusel => carrusel.estado === 'activo');
+    
+    console.log(`✅ ${carruselesActivos.length} carruseles activos cargados`);
+    
+    if (carruselesActivos.length > 0) {
+        // Mostrar el primer carrusel
+        mostrarCarruselEnFrontend(0);
+        
+        // Iniciar rotación automática cada 8 segundos
+        carruselInterval = setInterval(() => {
+            siguienteCarrusel();
+        }, 8000);
+        
+    } else {
+        // Mostrar carrusel por defecto si no hay carruseles activos
+        mostrarCarruselPorDefecto();
+    }
+}
+
+// Mostrar carrusel específico en el frontend
+function mostrarCarruselEnFrontend(index) {
+    const carrusel = carruselesActivos[index];
+    if (!carrusel) return;
+    
+    console.log('🎨 Mostrando carrusel:', carrusel.nombre);
+    
+    const carruselContainer = document.querySelector('.catalogo-container');
+    if (!carruselContainer) {
+        console.warn('⚠️ Contenedor de catálogo no encontrado');
+        return;
+    }
+    
+    // Actualizar el carrusel en el DOM
+    carruselContainer.innerHTML = `
+        <!-- Header del Carrusel -->
+        <div class="catalogo-header" style="text-align: center; margin-bottom: 40px;">
+            <h2 style="color: #00FFFF; font-size: 2.5rem; margin-bottom: 15px;">
+                ${carrusel.nombre}
+            </h2>
+            ${carrusel.descripcion ? `
+                <p style="color: #e0e0e0; font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+                    ${carrusel.descripcion}
+                </p>
+            ` : ''}
+            ${carrusel.precio ? `
+                <div style="margin-top: 15px;">
+                    <span style="background: linear-gradient(135deg, #00FFFF, #0099CC); color: #1a1a1a; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 1.3rem;">
+                        $${carrusel.precio.toLocaleString()}
+                    </span>
+                </div>
+            ` : ''}
+        </div>
+
+        <!-- Carrusel de Imágenes -->
+        <div class="carousel-container" style="position: relative; max-width: 1000px; margin: 0 auto 40px;">
+            <div class="carousel-images" style="display: flex; transition: transform 0.5s ease-in-out; height: 400px;">
+                ${carrusel.imagenes.map((imagen, imgIndex) => `
+                    <div class="carousel-item" style="
+                        width: 100%; 
+                        flex-shrink: 0;
+                        background-image: url('${imagen}');
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        border-radius: 15px;
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                    "></div>
+                `).join('')}
+            </div>
+            
+            <!-- Botones de Navegación -->
+            <button class="carousel-btn prev" onclick="carruselAnterior()" style="
+                position: absolute;
+                top: 50%;
+                left: 20px;
+                transform: translateY(-50%);
+                background: rgba(0, 255, 255, 0.8);
+                border: none;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 1.2rem;
+                color: #1a1a1a;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            ">&#10094;</button>
+            
+            <button class="carousel-btn next" onclick="carruselSiguiente()" style="
+                position: absolute;
+                top: 50%;
+                right: 20px;
+                transform: translateY(-50%);
+                background: rgba(0, 255, 255, 0.8);
+                border: none;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 1.2rem;
+                color: #1a1a1a;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            ">&#10095;</button>
+            
+            <!-- Indicadores -->
+            <div class="carousel-indicators" style="
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 20px;
+            ">
+                ${carrusel.imagenes.map((_, indicatorIndex) => `
+                    <span class="indicator ${indicatorIndex === 0 ? 'active' : ''}" 
+                        data-slide="${indicatorIndex}"
+                        onclick="mostrarSlideCarrusel(${indicatorIndex})"
+                        style="
+                            width: 12px;
+                            height: 12px;
+                            border-radius: 50%;
+                            background: ${indicatorIndex === 0 ? '#00FFFF' : '#444'};
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                    "></span>
+                `).join('')}
+            </div>
+        </div>
+
+        <!-- Información del Producto -->
+        <div class="producto-info" style="
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 800px;
+            border: 1px solid #00FFFF;
+        ">
+            <h3 style="color: #00FFFF; margin-bottom: 20px; text-align: center;">
+                <i class="fas fa-info-circle"></i> Especificaciones
+            </h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <!-- Dispositivos Compatibles -->
+                <div class="spec-section">
+                    <h4 style="color: #00FFFF; margin-bottom: 15px;">
+                        <i class="fas fa-mobile-alt"></i> Compatible con:
+                    </h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        ${carrusel.dispositivos.map(dispositivoId => {
+                            const dispositivo = dispositivosCompatibility.find(d => d.id === dispositivoId);
+                            return dispositivo ? `
+                                <span style="
+                                    background: rgba(0, 255, 255, 0.2);
+                                    color: #00FFFF;
+                                    padding: 5px 12px;
+                                    border-radius: 15px;
+                                    font-size: 0.9rem;
+                                    border: 1px solid #00FFFF;
+                                ">${dispositivo.nombre}</span>
+                            ` : '';
+                        }).join('')}
+                    </div>
+                </div>
+                
+                <!-- Características -->
+                <div class="spec-section">
+                    <h4 style="color: #00FFFF; margin-bottom: 15px;">
+                        <i class="fas fa-star"></i> Características:
+                    </h4>
+                    <ul style="color: #e0e0e0; margin: 0; padding-left: 20px;">
+                        <li>Material premium de alta calidad</li>
+                        <li>Protección contra golpes y caídas</li>
+                        <li>Diseño ergonómico y elegante</li>
+                        <li>Compatibilidad total con funciones del dispositivo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="producto-actions" style="text-align: center; margin-top: 30px;">
+            <button onclick="solicitarProducto('${carrusel.id}')" style="
+                background: linear-gradient(135deg, #00FFFF 0%, #0099CC 100%);
+                color: #1a1a1a;
+                border: none;
+                padding: 15px 30px;
+                border-radius: 10px;
+                font-size: 1.1rem;
+                font-weight: bold;
+                cursor: pointer;
+                margin: 0 10px;
+                transition: all 0.3s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+            ">
+                <i class="fas fa-shopping-cart"></i> Solicitar este Producto
+            </button>
+            
+            <button onclick="consultarDisponibilidad('${carrusel.id}')" style="
+                background: rgba(255, 107, 53, 0.9);
+                color: white;
+                border: none;
+                padding: 15px 30px;
+                border-radius: 10px;
+                font-size: 1.1rem;
+                font-weight: bold;
+                cursor: pointer;
+                margin: 0 10px;
+                transition: all 0.3s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+            ">
+                <i class="fas fa-question-circle"></i> Consultar Disponibilidad
+            </button>
+        </div>
+
+        <!-- Navegación entre Carruseles -->
+        ${carruselesActivos.length > 1 ? `
+            <div class="carrusel-navigation" style="text-align: center; margin-top: 40px;">
+                <h4 style="color: #00FFFF; margin-bottom: 20px;">
+                    <i class="fas fa-images"></i> Más Productos
+                </h4>
+                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                    ${carruselesActivos.map((carrusel, navIndex) => `
+                        <button onclick="mostrarCarruselIndex(${navIndex})" 
+                                class="${navIndex === index ? 'active' : ''}"
+                                style="
+                                    background: ${navIndex === index ? '#00FFFF' : 'rgba(255, 255, 255, 0.1)'};
+                                    color: ${navIndex === index ? '#1a1a1a' : '#e0e0e0'};
+                                    border: 1px solid #00FFFF;
+                                    padding: 10px 20px;
+                                    border-radius: 20px;
+                                    cursor: pointer;
+                                    transition: all 0.3s ease;
+                                    font-weight: ${navIndex === index ? 'bold' : 'normal'};
+                        ">
+                            ${carrusel.nombre}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        ` : ''}
+    `;
+    
+    // Inicializar el carrusel de imágenes
+    inicializarCarruselImagenes();
+    
+    // Actualizar índice actual
+    carruselActualIndex = index;
+}
+
+// Mostrar carrusel por defecto (cuando no hay carruseles activos)
+function mostrarCarruselPorDefecto() {
+    console.log('🔄 Mostrando carrusel por defecto...');
+    
+    const carruselContainer = document.querySelector('.catalogo-container');
+    if (!carruselContainer) return;
+    
+    carruselContainer.innerHTML = `
+        <div style="text-align: center; padding: 60px 20px;">
+            <i class="fas fa-images" style="font-size: 4rem; color: #00FFFF; margin-bottom: 20px;"></i>
+            <h2 style="color: #00FFFF; margin-bottom: 15px;">Catálogo de Productos</h2>
+            <p style="color: #e0e0e0; font-size: 1.1rem;">
+                Próximamente tendremos nuevos productos disponibles.<br>
+                Mientras tanto, contáctanos para conocer nuestro catálogo completo.
+            </p>
+            <button onclick="abrirWhatsApp()" style="
+                background: linear-gradient(135deg, #00FFFF 0%, #0099CC 100%);
+                color: #1a1a1a;
+                border: none;
+                padding: 15px 30px;
+                border-radius: 10px;
+                font-size: 1.1rem;
+                font-weight: bold;
+                cursor: pointer;
+                margin-top: 20px;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+            ">
+                <i class="fab fa-whatsapp"></i> Consultar Catálogo
+            </button>
+        </div>
+    `;
+}
+
+// Función para solicitar producto
+function solicitarProducto(carruselId) {
+    const carrusel = carruselesActivos.find(c => c.id === carruselId);
+    if (!carrusel) return;
+    
+    const mensaje = `¡Hola! Estoy interesado en el producto:\n\n` +
+                   `📦 *${carrusel.nombre}*\n` +
+                `${carrusel.descripcion ? `📝 ${carrusel.descripcion}\n` : ''}` +
+                `${carrusel.precio ? `💰 Precio: $${carrusel.precio.toLocaleString()}\n` : ''}` +
+                `\nMe gustaría solicitar más información o realizar un pedido.`;
+    
+    enviarWhatsApp(mensaje);
+}
+
+// Función para consultar disponibilidad
+function consultarDisponibilidad(carruselId) {
+    const carrusel = carruselesActivos.find(c => c.id === carruselId);
+    if (!carrusel) return;
+    
+    const mensaje = `¡Hola! Quiero consultar la disponibilidad de:\n\n` +
+                   `📦 *${carrusel.nombre}*\n` +
+                `\n¿Tienen stock disponible? ¿Qué colores o variantes tienen?`;
+    
+    enviarWhatsApp(mensaje);
+}
+
+// Función para abrir WhatsApp
+function abrirWhatsApp() {
+    const mensaje = `¡Hola! Me gustaría consultar el catálogo completo de productos COROCASE.`;
+    enviarWhatsApp(mensaje);
+}
+
+// =============================================
+// FUNCIONES DE NAVEGACIÓN DEL CARRUSEL
+// =============================================
+
+let slideActual = 0;
+
+// Inicializar carrusel de imágenes
+function inicializarCarruselImagenes() {
+    slideActual = 0;
+    mostrarSlideCarrusel(0);
+}
+
+// Mostrar slide específico
+function mostrarSlideCarrusel(n) {
+    const carruselImages = document.querySelector('.carousel-images');
     const indicators = document.querySelectorAll('.indicator');
     
-    if (carouselImages) {
-        const translateX = -currentSlide * (100 / images.length);
-        carouselImages.style.transform = `translateX(${translateX}%)`;
-    }
+    if (!carruselImages || indicators.length === 0) return;
+    
+    slideActual = n;
+    
+    // Mover el carrusel
+    const translateX = -n * 100;
+    carruselImages.style.transform = `translateX(${translateX}%)`;
     
     // Actualizar indicadores
     indicators.forEach((indicator, index) => {
-        indicator.classList.toggle('active', index === currentSlide);
+        indicator.style.background = index === n ? '#00FFFF' : '#444';
     });
 }
 
-function nextSlide() {
-    currentSlide = (currentSlide + 1) % images.length;
-    showCurrentSlide();
+// Slide siguiente
+function carruselSiguiente() {
+    const carrusel = carruselesActivos[carruselActualIndex];
+    if (!carrusel) return;
+    
+    slideActual = (slideActual + 1) % carrusel.imagenes.length;
+    mostrarSlideCarrusel(slideActual);
+    resetearIntervaloCarrusel();
 }
 
-function prevSlide() {
-    currentSlide = (currentSlide - 1 + images.length) % images.length;
-    showCurrentSlide();
+// Slide anterior
+function carruselAnterior() {
+    const carrusel = carruselesActivos[carruselActualIndex];
+    if (!carrusel) return;
+    
+    slideActual = (slideActual - 1 + carrusel.imagenes.length) % carrusel.imagenes.length;
+    mostrarSlideCarrusel(slideActual);
+    resetearIntervaloCarrusel();
 }
 
-function resetCarouselInterval() {
-    if (carouselInterval) {
-        clearInterval(carouselInterval);
-        carouselInterval = setInterval(nextSlide, 5000);
+// Mostrar carrusel por índice
+function mostrarCarruselIndex(index) {
+    if (index >= 0 && index < carruselesActivos.length) {
+        mostrarCarruselEnFrontend(index);
+    }
+}
+
+// Siguiente carrusel (rotación automática)
+function siguienteCarrusel() {
+    if (carruselesActivos.length > 1) {
+        carruselActualIndex = (carruselActualIndex + 1) % carruselesActivos.length;
+        mostrarCarruselEnFrontend(carruselActualIndex);
+    }
+}
+
+// Resetear intervalo del carrusel
+function resetearIntervaloCarrusel() {
+    if (carruselInterval) {
+        clearInterval(carruselInterval);
+        carruselInterval = setInterval(() => {
+            siguienteCarrusel();
+        }, 8000);
     }
 }
 
@@ -5080,6 +5534,462 @@ function inicializarGestionPedidos() {
     });
 }
 
+
+// =============================================
+// GESTOR DE CARRUSELES - PANEL ADMIN
+// =============================================
+
+// Variables globales para carruseles
+let carruselesData = [];
+let dispositivosCompatibility = [];
+
+// Inicializar gestor de carruseles
+function inicializarGestorCarruseles() {
+    console.log('🔄 Inicializando gestor de carruseles...');
+    
+    // Cache de elementos
+    adminElements.btnNuevoCarrusel = document.getElementById('btnNuevoCarrusel');
+    adminElements.carruselModal = document.getElementById('carruselModal');
+    adminElements.carruselForm = document.getElementById('carruselForm');
+    adminElements.btnCancelarCarrusel = document.getElementById('btnCancelarCarrusel');
+    adminElements.carruselesGrid = document.getElementById('carruselesGrid');
+    adminElements.uploadArea = document.getElementById('uploadArea');
+    adminElements.carruselImagenes = document.getElementById('carruselImagenes');
+    adminElements.imagenesPrevisualizacion = document.getElementById('imagenesPrevisualizacion');
+    
+    // Event listeners
+    adminElements.btnNuevoCarrusel?.addEventListener('click', mostrarModalNuevoCarrusel);
+    adminElements.btnCancelarCarrusel?.addEventListener('click', cerrarModalCarrusel);
+    adminElements.carruselForm?.addEventListener('submit', guardarCarrusel);
+    adminElements.uploadArea?.addEventListener('click', () => adminElements.carruselImagenes.click());
+    adminElements.carruselImagenes?.addEventListener('change', manejarSeleccionImagenes);
+    
+    // Drag & drop para imágenes
+    adminElements.uploadArea?.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        adminElements.uploadArea.style.background = 'rgba(0, 255, 255, 0.1)';
+        adminElements.uploadArea.style.borderColor = '#00FF00';
+    });
+    
+    adminElements.uploadArea?.addEventListener('dragleave', () => {
+        adminElements.uploadArea.style.background = 'rgba(0, 255, 255, 0.05)';
+        adminElements.uploadArea.style.borderColor = '#00FFFF';
+    });
+    
+    adminElements.uploadArea?.addEventListener('drop', (e) => {
+        e.preventDefault();
+        adminElements.uploadArea.style.background = 'rgba(0, 255, 255, 0.05)';
+        adminElements.uploadArea.style.borderColor = '#00FFFF';
+        
+        if (e.dataTransfer.files.length > 0) {
+            adminElements.carruselImagenes.files = e.dataTransfer.files;
+            manejarSeleccionImagenes();
+        }
+    });
+    
+    // Cerrar modal al hacer click fuera
+    adminElements.carruselModal?.addEventListener('click', (e) => {
+        if (e.target === adminElements.carruselModal) {
+            cerrarModalCarrusel();
+        }
+    });
+    
+    // Inicializar datos
+    cargarDispositivosCompatibility();
+    cargarCarruseles();
+    
+    console.log('✅ Gestor de carruseles inicializado');
+}
+
+// Cargar dispositivos compatibles
+function cargarDispositivosCompatibility() {
+    // Lista de dispositivos populares para checkboxes
+    dispositivosCompatibility = [
+        { id: 'iphone-15', nombre: 'iPhone 15', marca: 'Apple' },
+        { id: 'iphone-15-pro', nombre: 'iPhone 15 Pro', marca: 'Apple' },
+        { id: 'iphone-14', nombre: 'iPhone 14', marca: 'Apple' },
+        { id: 'iphone-13', nombre: 'iPhone 13', marca: 'Apple' },
+        { id: 'samsung-s23', nombre: 'Samsung Galaxy S23', marca: 'Samsung' },
+        { id: 'samsung-s22', nombre: 'Samsung Galaxy S22', marca: 'Samsung' },
+        { id: 'samsung-z-fold5', nombre: 'Samsung Z Fold 5', marca: 'Samsung' },
+        { id: 'xiaomi-13', nombre: 'Xiaomi 13', marca: 'Xiaomi' },
+        { id: 'pixel-8', nombre: 'Google Pixel 8', marca: 'Google' },
+        { id: 'ipad-pro', nombre: 'iPad Pro', marca: 'Apple' },
+        { id: 'ipad-air', nombre: 'iPad Air', marca: 'Apple' }
+    ];
+}
+
+// Cargar carruseles existentes
+async function cargarCarruseles() {
+    try {
+        console.log('🔄 Cargando carruseles...');
+        // Por ahora usamos datos de ejemplo
+        // En producción, esto vendría de tu backend
+        
+        carruselesData = [
+            {
+                id: 'carrusel-1',
+                nombre: 'Funda Tipo Cartera Elegante',
+                descripcion: 'Funda de cuero genuino con diseño de cartera',
+                precio: 89000,
+                imagenes: [
+                    'images/funda-tipo-cartera-roja.jpg',
+                    'images/funda-tipo-cartera-azul.jpg',
+                    'images/funda-tipo-cartera-cafe.jpg'
+                ],
+                dispositivos: ['iphone-15', 'iphone-14', 'samsung-s23'],
+                estado: 'activo',
+                fechaCreacion: new Date().toISOString()
+            },
+            {
+                id: 'carrusel-2',
+                nombre: 'Funda Protectora Anti-impactos',
+                descripcion: 'Protección militar contra caídas y golpes',
+                precio: 65000,
+                imagenes: [
+                    'images/funda-protectora-negra.jpg',
+                    'images/funda-protectora-azul.jpg'
+                ],
+                dispositivos: ['iphone-15-pro', 'samsung-s23', 'xiaomi-13'],
+                estado: 'activo',
+                fechaCreacion: new Date().toISOString()
+            }
+        ];
+        
+        mostrarCarruselesEnGrid();
+        
+    } catch (error) {
+        console.error('❌ Error cargando carruseles:', error);
+    }
+}
+
+// Mostrar carruseles en grid
+function mostrarCarruselesEnGrid() {
+    if (!adminElements.carruselesGrid || !carruselesData.length) {
+        adminElements.carruselesGrid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #888;">
+                <i class="fas fa-images" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                <h3 style="color: #00FFFF;">No hay carruseles creados</h3>
+                <p>Crea tu primer carrusel para mostrar productos</p>
+            </div>
+        `;
+        return;
+    }
+
+    adminElements.carruselesGrid.innerHTML = carruselesData.map(carrusel => `
+        <div class="carrusel-card" data-carrusel-id="${carrusel.id}" style="
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        ">
+            <!-- Mini Carrusel -->
+            <div class="carrusel-mini" style="
+                height: 150px;
+                border-radius: 8px;
+                overflow: hidden;
+                margin-bottom: 15px;
+                background: #1a1a1a;
+                position: relative;
+            ">
+                ${carrusel.imagenes.length > 0 ? `
+                    <img src="${carrusel.imagenes[0]}" alt="${carrusel.nombre}" 
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    ${carrusel.imagenes.length > 1 ? `
+                        <div style="
+                            position: absolute;
+                            bottom: 10px;
+                            right: 10px;
+                            background: rgba(0, 0, 0, 0.7);
+                            color: white;
+                            padding: 2px 8px;
+                            border-radius: 10px;
+                            font-size: 0.8rem;
+                        ">
+                            +${carrusel.imagenes.length - 1}
+                        </div>
+                    ` : ''}
+                ` : `
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100%;
+                        color: #666;
+                    ">
+                        <i class="fas fa-image" style="font-size: 2rem;"></i>
+                    </div>
+                `}
+            </div>
+            
+            <!-- Información del Carrusel -->
+            <div class="carrusel-info">
+                <h4 style="color: #00FFFF; margin: 0 0 8px 0; font-size: 1.1rem;">
+                    ${carrusel.nombre}
+                </h4>
+                <p style="color: #e0e0e0; margin: 0 0 10px 0; font-size: 0.9rem; line-height: 1.4;">
+                    ${carrusel.descripcion || 'Sin descripción'}
+                </p>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <span style="color: #FFD700; font-weight: bold;">
+                        $${carrusel.precio?.toLocaleString() || '0'}
+                    </span>
+                    <span class="estado-carrusel estado-${carrusel.estado}" style="
+                        padding: 4px 8px;
+                        border-radius: 12px;
+                        font-size: 0.8rem;
+                        font-weight: bold;
+                        background: ${carrusel.estado === 'activo' ? 'rgba(0, 255, 0, 0.2)' : 'rgba(255, 0, 0, 0.2)'};
+                        color: ${carrusel.estado === 'activo' ? '#00FF00' : '#FF6B6B'};
+                        border: 1px solid ${carrusel.estado === 'activo' ? '#00FF00' : '#FF6B6B'};
+                    ">
+                        ${carrusel.estado}
+                    </span>
+                </div>
+                
+                <div style="color: #888; font-size: 0.8rem; margin-bottom: 15px;">
+                    <i class="fas fa-mobile-alt"></i> 
+                    ${carrusel.dispositivos.length} dispositivos
+                </div>
+            </div>
+            
+            <!-- Acciones -->
+            <div class="carrusel-actions" style="
+                display: flex;
+                gap: 10px;
+            ">
+                <button class="btn-action btn-editar" onclick="editarCarrusel('${carrusel.id}')" style="flex: 1;">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn-action btn-eliminar" onclick="eliminarCarrusel('${carrusel.id}')" style="flex: 1;">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Mostrar modal para nuevo carrusel
+function mostrarModalNuevoCarrusel() {
+    document.getElementById('carruselModalTitle').innerHTML = '<i class="fas fa-plus"></i> Nuevo Carrusel';
+    adminElements.carruselForm.reset();
+    adminElements.imagenesPrevisualizacion.innerHTML = '';
+    delete adminElements.carruselForm.dataset.editingId;
+    
+    // Generar checkboxes de dispositivos
+    generarCheckboxesDispositivos();
+    
+    adminElements.carruselModal.style.display = 'flex';
+}
+
+// Generar checkboxes para dispositivos
+function generarCheckboxesDispositivos() {
+    const container = document.querySelector('.dispositivos-grid');
+    if (!container) return;
+    
+    container.innerHTML = dispositivosCompatibility.map(dispositivo => `
+        <label style="
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        ">
+            <input type="checkbox" name="dispositivos" value="${dispositivo.id}" 
+                style="margin: 0;">
+            <span style="color: #e0e0e0; font-size: 0.9rem;">${dispositivo.nombre}</span>
+        </label>
+    `).join('');
+}
+
+// Manejar selección de imágenes
+function manejarSeleccionImagenes() {
+    const files = adminElements.carruselImagenes.files;
+    const preview = adminElements.imagenesPrevisualizacion;
+    
+    preview.innerHTML = '';
+    
+    if (files.length === 0) {
+        preview.innerHTML = '<p style="color: #888; text-align: center;">No hay imágenes seleccionadas</p>';
+        return;
+    }
+    
+    Array.from(files).forEach((file, index) => {
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const imgContainer = document.createElement('div');
+                imgContainer.style.position = 'relative';
+                imgContainer.innerHTML = `
+                    <img src="${e.target.result}" alt="Preview ${index + 1}" 
+                        style="width: 100%; height: 80px; object-fit: cover; border-radius: 6px;">
+                    <button type="button" onclick="removerImagenPreview(${index})" 
+                            style="position: absolute; top: 5px; right: 5px; background: rgba(255, 0, 0, 0.8); color: white; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 0.7rem; cursor: pointer;">
+                        ×
+                    </button>
+                `;
+                preview.appendChild(imgContainer);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+// Remover imagen de previsualización
+function removerImagenPreview(index) {
+    // Crear nuevo FileList sin la imagen eliminada
+    const dt = new DataTransfer();
+    const files = adminElements.carruselImagenes.files;
+    
+    Array.from(files).forEach((file, i) => {
+        if (i !== index) {
+            dt.items.add(file);
+        }
+    });
+    
+    adminElements.carruselImagenes.files = dt.files;
+    manejarSeleccionImagenes();
+}
+
+// Cerrar modal de carrusel
+function cerrarModalCarrusel() {
+    adminElements.carruselModal.style.display = 'none';
+}
+
+// Guardar carrusel
+async function guardarCarrusel(e) {
+    e.preventDefault();
+    
+    const nombre = document.getElementById('carruselNombre').value.trim();
+    const descripcion = document.getElementById('carruselDescripcion').value.trim();
+    const precio = document.getElementById('carruselPrecio').value;
+    const estado = document.getElementById('carruselEstado').value;
+    
+    // Validaciones
+    if (!nombre) {
+        mostrarError('El nombre del producto es requerido');
+        return;
+    }
+    
+    if (adminElements.carruselImagenes.files.length === 0 && !adminElements.carruselForm.dataset.editingId) {
+        mostrarError('Debes subir al menos una imagen para el carrusel');
+        return;
+    }
+    
+    // Obtener dispositivos seleccionados
+    const dispositivosSeleccionados = Array.from(document.querySelectorAll('input[name="dispositivos"]:checked'))
+        .map(checkbox => checkbox.value);
+    
+    try {
+        const loadingNotification = mostrarCarga('Guardando carrusel...');
+        
+        // Aquí procesarías las imágenes y guardarías en tu backend
+        // Por ahora simulamos el guardado
+        
+        const carruselData = {
+            id: adminElements.carruselForm.dataset.editingId || 'carrusel-' + Date.now(),
+            nombre: nombre,
+            descripcion: descripcion,
+            precio: precio ? parseInt(precio) : null,
+            dispositivos: dispositivosSeleccionados,
+            estado: estado,
+            fechaCreacion: new Date().toISOString(),
+            // En producción, aquí procesarías y guardarías las imágenes
+            imagenes: ['images/placeholder-product.jpg'] // Placeholder por ahora
+        };
+        
+        // Simular guardado
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        if (adminElements.carruselForm.dataset.editingId) {
+            // Actualizar existente
+            const index = carruselesData.findIndex(c => c.id === adminElements.carruselForm.dataset.editingId);
+            if (index !== -1) {
+                carruselesData[index] = { ...carruselesData[index], ...carruselData };
+            }
+        } else {
+            // Nuevo carrusel
+            carruselesData.push(carruselData);
+        }
+        
+        ocultarCarga(loadingNotification);
+        mostrarConfirmacion('Carrusel Guardado', 'El carrusel se ha guardado correctamente');
+        
+        cerrarModalCarrusel();
+        mostrarCarruselesEnGrid();
+        
+    } catch (error) {
+        console.error('❌ Error guardando carrusel:', error);
+        mostrarError('Error al guardar el carrusel: ' + error.message);
+    }
+}
+
+// Editar carrusel
+function editarCarrusel(carruselId) {
+    const carrusel = carruselesData.find(c => c.id === carruselId);
+    if (!carrusel) {
+        mostrarError('Carrusel no encontrado');
+        return;
+    }
+    
+    document.getElementById('carruselModalTitle').innerHTML = `<i class="fas fa-edit"></i> Editar Carrusel: ${carrusel.nombre}`;
+    document.getElementById('carruselNombre').value = carrusel.nombre;
+    document.getElementById('carruselDescripcion').value = carrusel.descripcion || '';
+    document.getElementById('carruselPrecio').value = carrusel.precio || '';
+    document.getElementById('carruselEstado').value = carrusel.estado;
+    
+    // Marcar dispositivos seleccionados
+    setTimeout(() => {
+        document.querySelectorAll('input[name="dispositivos"]').forEach(checkbox => {
+            checkbox.checked = carrusel.dispositivos.includes(checkbox.value);
+        });
+    }, 100);
+    
+    // Mostrar imágenes existentes (placeholder por ahora)
+    adminElements.imagenesPrevisualizacion.innerHTML = `
+        <p style="color: #888; text-align: center;">Imágenes guardadas en el sistema</p>
+    `;
+    
+    adminElements.carruselForm.dataset.editingId = carruselId;
+    adminElements.carruselModal.style.display = 'flex';
+}
+
+// Eliminar carrusel
+async function eliminarCarrusel(carruselId) {
+    const carrusel = carruselesData.find(c => c.id === carruselId);
+    if (!carrusel) {
+        mostrarError('Carrusel no encontrado');
+        return;
+    }
+    
+    if (!confirm(`¿Estás seguro de que quieres eliminar el carrusel "${carrusel.nombre}"?`)) {
+        return;
+    }
+    
+    try {
+        const loadingNotification = mostrarCarga('Eliminando carrusel...');
+        
+        // Simular eliminación
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        carruselesData = carruselesData.filter(c => c.id !== carruselId);
+        
+        ocultarCarga(loadingNotification);
+        mostrarConfirmacion('Carrusel Eliminado', 'El carrusel ha sido eliminado correctamente');
+        
+        mostrarCarruselesEnGrid();
+        
+    } catch (error) {
+        console.error('❌ Error eliminando carrusel:', error);
+        mostrarError('Error al eliminar el carrusel: ' + error.message);
+    }
+}
+
 // =============================================
 // SISTEMA DE LOGIN Y NAVEGACIÓN
 // =============================================
@@ -5847,6 +6757,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // 4. Inicializar panel admin
     inicializarPanelAdmin();
     console.log('👨‍💼 Panel de administración inicializado');
+
+    inicializarGestorCarruseles();
+
+    initCarousel();
+    console.log('🖼️ Carrusel dinámico inicializado');
 
 
     // 5. AGREGAR ESTA LÍNEA NUEVA:
