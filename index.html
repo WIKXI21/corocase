@@ -2590,29 +2590,32 @@
         // =============================================
         // CARRUSELES
         // =============================================
-        function initCarousels() {
-            // Configuración de imágenes para cada carrusel
-            const carousels = {
-                'carousel-cartera': [
-                    'https://via.placeholder.com/400x300/FF4444/FFFFFF?text=Funda+Roja',
-                    'https://via.placeholder.com/400x300/4444FF/FFFFFF?text=Funda+Azul',
-                    'https://via.placeholder.com/400x300/8B4513/FFFFFF?text=Funda+Café',
-                    'https://via.placeholder.com/400x300/000000/FFFFFF?text=Funda+Negra',
-                    'https://via.placeholder.com/400x300/FFFFFF/000000?text=Funda+Blanca',
-                    'https://via.placeholder.com/400x300/F5DEB3/000000?text=Funda+Piel',
-                    'https://via.placeholder.com/400x300/FF69B4/FFFFFF?text=Funda+Rosa'
-                ],
-                'carousel-blindada': [
-                    'https://via.placeholder.com/400x300/FF4444/FFFFFF?text=Blindada+Roja',
-                    'https://via.placeholder.com/400x300/4444FF/FFFFFF?text=Blindada+Azul',
-                    'https://via.placeholder.com/400x300/8B4513/FFFFFF?text=Blindada+Café',
-                    'https://via.placeholder.com/400x300/000000/FFFFFF?text=Blindada+Negra',
-                    'https://via.placeholder.com/400x300/FFFFFF/000000?text=Blindada+Blanca',
-                    'https://via.placeholder.com/400x300/F5DEB3/000000?text=Blindada+Piel',
-                    'https://via.placeholder.com/400x300/FF69B4/FFFFFF?text=Blindada+Rosa'
-                ]
-            };
-
+// =============================================
+// CARRUSELES
+// =============================================
+function initCarousels() {
+    // Configuración de imágenes para cada carrusel
+    const carousels = {
+        'carousel-cartera': [
+            'images/funda-tipo-cartera-rojo.jpg',      // 0 - Roja
+            'images/funda-tipo-cartera-azul.jpg',      // 1 - Azul
+            'images/funda-tipo-cartera-cafe.jpg',      // 2 - Café
+            'images/funda-tipo-cartera-negro.jpg',     // 3 - Negra
+            'images/funda-tipo-cartera-blanco.jpg',    // 4 - Blanca
+            'images/funda-tipo-cartera-piel.jpg',      // 5 - Piel
+            'images/funda-tipo-cartera-rosa.jpg'       // 6 - Rosa
+        ],
+        'carousel-blindada': [
+            'images/funda-tipo-blindada-rojo.jpg',     // 0 - Roja
+            'images/funda-tipo-blindada-azul.jpg',     // 1 - Azul
+            'images/funda-tipo-blindada-cafe.jpg',     // 2 - Café
+            'images/funda-tipo-blindada-negro.jpg',    // 3 - Negra
+            'images/funda-tipo-blindada-blanco.jpg',   // 4 - Blanca
+            'images/funda-tipo-blindada-piel.jpg',     // 5 - Piel
+            'images/funda-tipo-blindada-rosa.jpg'      // 6 - Rosa
+        ]
+    };
+    
             Object.keys(carousels).forEach(id => {
                 setupCarousel(id, carousels[id]);
             });
